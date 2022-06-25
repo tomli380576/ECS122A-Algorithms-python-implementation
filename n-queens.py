@@ -38,5 +38,5 @@ def NQueens_wrapper(board: np.ndarray, row: int) -> int:
 
 if __name__ == '__main__':
     N = 8
-    result = NQueens_wrapper(np.zeros(shape=(N, N), dtype='int64'), row=0)
+    result = NQueens_wrapper(np.zeros(shape=(N, N), dtype='int'), row=0)
     print(f'There are {result} possible solutions for a {N}x{N} board.')

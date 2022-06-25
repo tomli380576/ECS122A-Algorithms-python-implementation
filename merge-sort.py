@@ -1,11 +1,12 @@
-import typing as T
+from typing import Callable, Any
 
 
 def sortAscending(x, y): return x < y
 def sortDescending(x, y): return x > y
 
 
-def merge2SortedArrays(arr1, arr2, predicate) -> list:
+def merge2SortedArrays(arr1: list, arr2: list,
+                        predicate: Callable[[Any, Any], bool]) -> list:
     ptr1, ptr2 = 0, 0
     out = []
     while ptr1 != len(arr1) and ptr2 != len(arr2):
@@ -21,11 +22,9 @@ def merge2SortedArrays(arr1, arr2, predicate) -> list:
     return out
 
 
-def mergeSort(arr: list, predicate: T.Callable[[T.Any, T.Any], bool]) -> list:
-    if len(arr) == 0:
-        return []
-    if len(arr) == 1:
-        return [arr[0]]
+def mergeSort(arr: list, predicate: Callable[[Any, Any], bool]) -> list:
+    if len(arr) == 0 or len(arr) == 1:
+        return arr
     if len(arr) == 2:
         if predicate(arr[0], arr[1]):
             return arr
@@ -42,4 +41,4 @@ if __name__ == '__main__':
     sample_arr = [3, 1, 4, 1, 5, 9, 2, 6, 5,
                   3, 5, 8, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6]
     print(f'Original: {sample_arr}')
-    print(f'Sorted:   {mergeSort(sample_arr, sortDescending)}')
+    print(f'Sorted:   {mergeSort(sample_arr, sortAscending)}')
