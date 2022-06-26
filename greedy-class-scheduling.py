@@ -1,7 +1,7 @@
 START_TIMES = {'A': 1, 'B': 2, 'C': 6, 'D': 3}
 FINISH_TIMES = {'A': 5, 'B': 4, 'C': 8, 'D': 9}
 
-def sortDictByValue(x: dict[str, int]):
+def sortDictByValue(x: dict[str, int]) -> dict:
     '''
     Sorts a dictionary by value\n
     Don't worry about the list comprehension here
