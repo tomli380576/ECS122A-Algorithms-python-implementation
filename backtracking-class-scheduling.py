@@ -4,6 +4,9 @@ from typing import Union
 START_TIMES = {'A': 1, 'B': 2, 'C': 6, 'D': 3}
 FINISH_TIMES = {'A': 5, 'B': 4, 'C': 8, 'D': 9}
 
+START_TIMES2 = {'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5}
+FINISH_TIMES2 = {'A': 3, 'B': 4, 'C': 5, 'D': 6, 'E': 7}
+
 
 def sortDictByValue(x: dict[str, int]):
     '''
@@ -23,7 +26,8 @@ def RecursiveScheduling_returnCount(start_times: dict[str, int],
 
     best = 0  # represents the number of classes scheduled
     for curr_class in remaining_classes:
-        if start_times[curr_class] > prev_class_finish_time:
+        # change >= to > depending on the problem
+        if start_times[curr_class] >= prev_class_finish_time:
 
             # make choice
             take = RecursiveScheduling_returnCount(
@@ -49,7 +53,7 @@ def RecursiveScheduling_returnList(start_times: dict[str, int],
 
     best_schedule = []
     for curr_class in remaining_classes:
-        if start_times[curr_class] > prev_class_finish_time:
+        if start_times[curr_class] >= prev_class_finish_time:
 
             # make choice
             take = RecursiveScheduling_returnList(
@@ -73,12 +77,12 @@ def RecursiveScheduling_returnList(start_times: dict[str, int],
 
 
 if __name__ == '__main__':
-    ALL_CLASSES = set(FINISH_TIMES.keys())
+    ALL_CLASSES = set(FINISH_TIMES2.keys())
     # Since we are using a set, the order might be messed up
     # Sort the schedule by starting time if necessary
     best_schedule = RecursiveScheduling_returnList(
-        START_TIMES, FINISH_TIMES, -math.inf, ALL_CLASSES) 
-    best_schedule.sort(key=START_TIMES.get)  # type: ignore
+        START_TIMES2, FINISH_TIMES2, -math.inf, ALL_CLASSES)
+    best_schedule.sort(key=START_TIMES2.get)  # type: ignore
     best_count = RecursiveScheduling_returnCount(
-        START_TIMES, FINISH_TIMES, -math.inf, ALL_CLASSES) 
+        START_TIMES2, FINISH_TIMES2, -math.inf, ALL_CLASSES)
     print(f'The best schedule is: {best_schedule}, length: {best_count}')

@@ -61,9 +61,9 @@ if __name__ == '__main__':
 
     print('=> With Stack, Depth First:')
     whateverFirstSearch(SAMPLE_UNDIRECTED_GRAPH, '3', stack)
+
     print('=> With Queue, Breadth First:')
     whateverFirstSearch(SAMPLE_UNDIRECTED_GRAPH, '3', queue)
+
     print('=> With Priority Queue, Best First:')
     whateverFirstSearch(SAMPLE_UNDIRECTED_GRAPH, '3', priority_queue)
-
-    pass
