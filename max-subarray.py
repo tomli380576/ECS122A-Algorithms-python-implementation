@@ -23,9 +23,10 @@ def maxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
             best_right_sum = curr_sum
 
     # the type:ignores are just there so the linter doesn't complain about adding a float to an int
-    return max(best_left_sum + best_right_sum,  # type: ignore
-               best_left_sum,  # type: ignore
-               best_right_sum)  # type: ignore
+    return max(
+        best_left_sum + best_right_sum,  # type: ignore
+        best_left_sum,  # type: ignore
+        best_right_sum)  # type: ignore
 
 
 def maxSubarray(arr: list[int], low: int, high: int) -> int:
@@ -37,7 +38,7 @@ def maxSubarray(arr: list[int], low: int, high: int) -> int:
     middle = (high + low) // 2
 
     result_left = maxSubarray(arr, low, middle)
-    result_right = maxSubarray(arr, middle+1, high)
+    result_right = maxSubarray(arr, middle + 1, high)
     result_mid = maxMiddleSum(arr, low, middle, high)
     return max(result_left, result_mid, result_right)
 
@@ -45,4 +46,5 @@ def maxSubarray(arr: list[int], low: int, high: int) -> int:
 if __name__ == '__main__':
     testarr = [-2, -3, 4, -1, -2, 1, 5, -3]
     print(
-        f'Max subarray sum for {testarr} is {maxSubarray(testarr, 0, len(testarr) - 1)}')
+        f'Max subarray sum for {testarr} is {maxSubarray(testarr, 0, len(testarr) - 1)}'
+    )

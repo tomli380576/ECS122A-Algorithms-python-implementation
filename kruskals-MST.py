@@ -44,8 +44,8 @@ def KruskalsMST(G):
 
     for edge in sorted_edges:
         u, v = edge
-        set_with_u_idx, set_with_v_idx = find(
-            u, v, all_sets=sets)  # returns index
+        set_with_u_idx, set_with_v_idx = find(u, v,
+                                              all_sets=sets)  # returns index
         if set_with_u_idx != set_with_v_idx:  # if find(u, v)
             # Simulates union(u, v)
             # merge in to set v first, then remove set u
@@ -59,4 +59,5 @@ def KruskalsMST(G):
 
 if __name__ == '__main__':
     print(
-        f'Edges selected by Kruskal\'s MST: {KruskalsMST(SAMPLE_WEIGHTED_UNDIRECTED_GRAPH)}')
+        f'Edges selected by Kruskal\'s MST: {KruskalsMST(SAMPLE_WEIGHTED_UNDIRECTED_GRAPH)}'
+    )

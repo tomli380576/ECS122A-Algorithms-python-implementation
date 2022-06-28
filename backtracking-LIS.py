@@ -1,5 +1,6 @@
 import math
 
+
 def LIS(arr: list[int], curr_seq: list) -> int:
     if len(arr) == 0:
         return len(curr_seq)
@@ -16,6 +17,9 @@ def LIS(arr: list[int], curr_seq: list) -> int:
                 curr_seq = curr_seq[:len(curr_seq)]
     return best
 
+
 if __name__ == '__main__':
-    sample_set = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6]
+    sample_set = [
+        3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6
+    ]
     print(f'Longest Subsequence length: {LIS(sample_set, [-math.inf])}')

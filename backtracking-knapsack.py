@@ -16,13 +16,13 @@ def knapsack(capacity, item_index):
 
     best = -math.inf
     for item in range(item_index, NUM_ITEMS - 1):
-        take = knapsack(
-            capacity - ITEM_WEIGHTS[item], item + 1) + ITEM_VALUES[item]
+        take = knapsack(capacity - ITEM_WEIGHTS[item],
+                        item + 1) + ITEM_VALUES[item]
         skip = knapsack(capacity, item + 1)
         best = max(take, skip)
     return best
 
 
 if __name__ == '__main__':
-    assert(len(ITEM_VALUES) == len(ITEM_WEIGHTS))
+    assert (len(ITEM_VALUES) == len(ITEM_WEIGHTS))
     print(f'The max profit is: {knapsack(50, 0)}')

@@ -12,12 +12,12 @@ FINISH_TIMES = [5, 4, 8, 9]
 def DP_schedule(start_times: list[int], finish_times: list[int]) -> int:
     # ! Need to sort by start times here
     # ! SAMPLEs are already sorted
-    assert(len(start_times) == len(finish_times))
+    assert (len(start_times) == len(finish_times))
     sorted_start, sorted_finish = list(
         zip(*sorted(list(zip(start_times, finish_times)), key=lambda x: x[0])))
 
-    dpTable = np.zeros(shape=(len(sorted_start) + 1,
-                       len(sorted_start) + 1), dtype='int')
+    dpTable = np.zeros(shape=(len(sorted_start) + 1, len(sorted_start) + 1),
+                       dtype='int')
     dpTable[len(sorted_start), len(sorted_finish)] = 0
 
     prev_finish_time = -math.inf

@@ -3,11 +3,12 @@ import numpy as np
 EMPTY = 0
 OCCUPIED = 1
 
+
 def wontBeAttacked(board: np.ndarray, curr_row: int, position: int) -> bool:
     for row in range(board.shape[0]):
         for col in range(board.shape[1]):
             if board[row, col] == OCCUPIED:
-               # diagonal
+                # diagonal
                 if abs(position - col) == abs(curr_row - row):
                     return False
                 # vertical or horizontal

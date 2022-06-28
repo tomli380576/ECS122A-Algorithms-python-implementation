@@ -14,7 +14,9 @@ FINISH_TIME = {}
 
 
 def DFS_search(G: dict):
-    time = [0]  # force pass by reference, technically bad cuz it's a global mutable
+    time = [
+        0
+    ]  # force pass by reference, technically bad cuz it's a global mutable
     for vertex in G.keys():
         VISIT_STATUS[vertex] = 'undiscovered'
 
@@ -25,7 +27,7 @@ def DFS_search(G: dict):
 
 def DFS_visit(G, start_vertex, time):
     print(f'Discovered vertex {start_vertex} at time = {time[0]}')
-    
+
     VISIT_STATUS[start_vertex] = 'discovered'
     time[0] += 1
 

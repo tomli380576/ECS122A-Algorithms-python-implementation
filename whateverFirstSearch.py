@@ -45,7 +45,8 @@ def WhateverFirstSearch_All(G, data_structure: Bag):
         if VISIT_STATUS[vertex] == STATUS.NOT_DISCOVERED:
             WFS_Visit(G, vertex, data_structure)
 
-# Helper for WhateverFirstSearch_All, 
+
+# Helper for WhateverFirstSearch_All,
 # no initializing here unlike WhateverFirstSearch_Connected()
 def WFS_Visit(G, start_vertex: str, data_structure: Bag):
     data_structure.put(start_vertex)

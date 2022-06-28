@@ -26,7 +26,7 @@ def cutRod_DP(max_rod_len) -> int:
     # for each missing entry
     for rod_len in range(2, max_rod_len + 1):
         best = 0
-        for choice in range(1, rod_len+1):
+        for choice in range(1, rod_len + 1):
             price_if_make_cut = CutRod_dpTable[rod_len - choice]\
                                 + PRICES[choice-1]
             if price_if_make_cut > best:

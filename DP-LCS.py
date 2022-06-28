@@ -12,19 +12,17 @@ def LCS_DP_Length(X: str, Y: str) -> int:
     for x_idx in reversed(range(len(X))):
         for y_idx in reversed(range(len(Y))):
             if X[x_idx] == Y[y_idx]:
-                dpTable[x_idx, y_idx] = dpTable[x_idx+1, y_idx+1] + 1
+                dpTable[x_idx, y_idx] = dpTable[x_idx + 1, y_idx + 1] + 1
             else:
-                dpTable[x_idx, y_idx] = max(
-                    dpTable[x_idx+1, y_idx],
-                    dpTable[x_idx, y_idx+1]
-                )
+                dpTable[x_idx, y_idx] = max(dpTable[x_idx + 1, y_idx],
+                                            dpTable[x_idx, y_idx + 1])
     return dpTable[0, 0]
 
 
 def LCS_DP_Sequnce(X: str, Y: str) -> str:
     # do not use dtype = 'str' here, numpy string and python native strings are different
-    dpTable = np.zeros(shape=(len(X) + 1, len(Y) + 1), dtype='object') 
-    
+    dpTable = np.zeros(shape=(len(X) + 1, len(Y) + 1), dtype='object')
+
     # Fill in the base cases
     for i in range(len(Y)):
         dpTable[len(X), i] = ''  # if x_idx == len(X)
@@ -35,13 +33,14 @@ def LCS_DP_Sequnce(X: str, Y: str) -> str:
     for x_idx in reversed(range(len(X))):
         for y_idx in reversed(range(len(Y))):
             if X[x_idx] == Y[y_idx]:
-                dpTable[x_idx, y_idx] = X[x_idx] + dpTable[x_idx+1, y_idx+1]
+                dpTable[x_idx,
+                        y_idx] = X[x_idx] + dpTable[x_idx + 1, y_idx + 1]
             else:
-                skip_x = len(dpTable[x_idx+1, y_idx])
-                skip_y = len(dpTable[x_idx, y_idx+1])
+                skip_x = len(dpTable[x_idx + 1, y_idx])
+                skip_y = len(dpTable[x_idx, y_idx + 1])
                 if skip_x > skip_y:
                     # LCS_seq(X, Y, x_idx + 1, y_idx) call
-                    dpTable[x_idx, y_idx] = dpTable[x_idx+1, y_idx] 
+                    dpTable[x_idx, y_idx] = dpTable[x_idx + 1, y_idx]
                 else:
                     # LCS_seq(X, Y, x_idx, y_idx + 1) call
                     dpTable[x_idx, y_idx] = dpTable[x_idx, y_idx + 1]

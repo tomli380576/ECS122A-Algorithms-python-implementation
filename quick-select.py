@@ -4,7 +4,8 @@ import numpy as np
 
 def BruteForceSelect(arr: list[int], k) -> int:
     return sorted(arr)[k]
-    
+
+
 def partition(nums: list, left: int, right: int) -> int:
     # swap the last element with pivot
     pivot, num_lt_pivot = nums[right], left
@@ -17,6 +18,7 @@ def partition(nums: list, left: int, right: int) -> int:
 
     nums[num_lt_pivot], nums[right] = nums[right], nums[num_lt_pivot]
     return num_lt_pivot
+
 
 def QuickSelect(arr: list) -> int:
     # TODO

@@ -3,17 +3,18 @@ def LCS_length(X: str, Y: str, x_idx: int, y_idx: int) -> int:
     if x_idx == len(X) or y_idx == len(Y):
         return 0
     if X[x_idx] == Y[y_idx]:
-        return LCS_length(X, Y, x_idx+1, y_idx+1) + 1
+        return LCS_length(X, Y, x_idx + 1, y_idx + 1) + 1
     else:
-        return max(LCS_length(X, Y, x_idx+1, y_idx),
-                   LCS_length(X, Y, x_idx, y_idx+1))
+        return max(LCS_length(X, Y, x_idx + 1, y_idx),
+                   LCS_length(X, Y, x_idx, y_idx + 1))
+
 
 # returns sequence
 def LCS_seq(X: str, Y: str, x_idx: int, y_idx: int) -> str:
     if x_idx == len(X) or y_idx == len(Y):
         return ''
     if X[x_idx] == Y[y_idx]:
-        return X[x_idx] + LCS_seq(X, Y, x_idx+1, y_idx+1)
+        return X[x_idx] + LCS_seq(X, Y, x_idx + 1, y_idx + 1)
     else:
         # skip the currnt character in x by x_idx + 1
         skip_x = LCS_seq(X, Y, x_idx + 1, y_idx)
@@ -27,4 +28,6 @@ def LCS_seq(X: str, Y: str, x_idx: int, y_idx: int) -> str:
 if __name__ == '__main__':
     X = 'ABC'
     Y = 'ABC'
-    print(f'The LCS between \'{X}\' and \'{Y}\' is \'{LCS_seq(X, Y, 0, 0)}\' with length {LCS_length(X, Y, x_idx=0, y_idx=0)}')
+    print(
+        f'The LCS between \'{X}\' and \'{Y}\' is \'{LCS_seq(X, Y, 0, 0)}\' with length {LCS_length(X, Y, x_idx=0, y_idx=0)}'
+    )
