@@ -15,6 +15,6 @@ def hanoi(num_disks, src: list[int], dest: list[int], temp: list[int]):
 
 
 if __name__ == '__main__':
-    n_disks = 20
-    g_src = list(range(n_disks, 0, -1))
+    n_disks = 4
+    g_src = list(range(1, n_disks + 1))
     hanoi(n_disks, g_src, g_dest, g_temp)

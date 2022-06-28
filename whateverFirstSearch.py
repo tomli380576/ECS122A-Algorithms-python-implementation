@@ -9,7 +9,7 @@ class STATUS(Enum):
     FINISHED = 3
 
 
-# Generic data type that abstracts: put(), get()
+# Generic data type that has: put(), get(), empty()
 Bag = Union[LifoQueue, Queue, PriorityQueue]
 
 VISIT_STATUS: dict[str, STATUS] = {}
@@ -38,6 +38,7 @@ SAMPLE_UNDIRECTED_GRAPH2: dict[str, list[str]] = {
 }
 
 
+# Handles disconnected graphs
 def WhateverFirstSearch_All(G, data_structure: Bag):
     for vertex in G:
         VISIT_STATUS[vertex] = STATUS.NOT_DISCOVERED
@@ -46,9 +47,10 @@ def WhateverFirstSearch_All(G, data_structure: Bag):
             WFS_Visit(G, vertex, data_structure)
 
 
-# Helper for WhateverFirstSearch_All,
-# no initializing here unlike WhateverFirstSearch_Connected()
+# Helper for WhateverFirstSearch_All
 def WFS_Visit(G, start_vertex: str, data_structure: Bag):
+    # no initializing here unlike WhateverFirstSearch_Connected()
+    # b/c WhateverFirstSearch_All did it already
     data_structure.put(start_vertex)
     while not data_structure.empty():
         # Get whatever the 'first' vertex is, depending on the data structure

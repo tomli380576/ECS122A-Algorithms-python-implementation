@@ -1,5 +1,4 @@
 import math
-
 import numpy as np
 
 START_TIMES2 = [1, 2, 3, 4, 5]

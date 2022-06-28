@@ -24,7 +24,6 @@ def isSafeEdge(curr_tree: list[tuple], edge: tuple):
         return True
     x, y = zip(*curr_tree)
     u, v = edge[1]
-    print(x, y, (u, v))
 
     # let uv be the edge
     # if neither u or v is in the tree, then it's not connected
@@ -41,6 +40,8 @@ def PrimsMST(G: np.ndarray):
         # (weight, edge)
         priority_queue.put((G[edge], edge))
 
+    # Take global min
+    # if the graph is connected, it definitely has global min
     curr_tree = [priority_queue.get()[1]]
     while not priority_queue.empty():
         min_edge = priority_queue.get()
@@ -51,5 +52,6 @@ def PrimsMST(G: np.ndarray):
 
 
 if __name__ == '__main__':
-    # print(PrimsMST(SAMPLE_WEIGHTED_UNDIRECTED_GRAPH))
-    print(PrimsMST(SAMPLE_WEIGHTED_UNDIRECTED_GRAPH))
+    print(
+        f'Edges selected by Prim\'s MST: {PrimsMST(SAMPLE_WEIGHTED_UNDIRECTED_GRAPH)}'
+    )

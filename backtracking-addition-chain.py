@@ -33,5 +33,5 @@ def AdditionChain(n: int,
 
 if __name__ == '__main__':
     w = []
-    AdditionChain(12, [1], result_arr=w)
+    AdditionChain(9, [1], result_arr=w)
     print(w)
