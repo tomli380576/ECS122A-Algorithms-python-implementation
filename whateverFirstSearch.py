@@ -38,7 +38,30 @@ SAMPLE_UNDIRECTED_GRAPH2: dict[str, list[str]] = {
 }
 
 
-def whateverFirstSearch(G, start_vertex: str, data_structure: Bag):
+def WhateverFirstSearch_All(G, data_structure: Bag):
+    for vertex in G:
+        VISIT_STATUS[vertex] = STATUS.NOT_DISCOVERED
+    for vertex in G:
+        if VISIT_STATUS[vertex] == STATUS.NOT_DISCOVERED:
+            WFS_Visit(G, vertex, data_structure)
+
+# Helper for WhateverFirstSearch_All, 
+# no initializing here unlike WhateverFirstSearch_Connected()
+def WFS_Visit(G, start_vertex: str, data_structure: Bag):
+    data_structure.put(start_vertex)
+    while not data_structure.empty():
+        # Get whatever the 'first' vertex is, depending on the data structure
+        vertex = data_structure.get()
+        if VISIT_STATUS[vertex] == STATUS.NOT_DISCOVERED:
+            print(f'Newly Discovered {vertex}')
+            VISIT_STATUS[vertex] = STATUS.DISCOVERED
+            for adjacent_vertex in G[vertex]:
+                data_structure.put(adjacent_vertex)
+
+
+# This function by itself assumes all vertices in G can be reached from start_vertex
+# Needs a wrapper such as WhateverFirstSearch_All() for disconnected graphs
+def WhateverFirstSearch_Connected(G, start_vertex: str, data_structure: Bag):
     # Initialize visit status
     for vertex in G:
         VISIT_STATUS[vertex] = STATUS.NOT_DISCOVERED
@@ -60,10 +83,10 @@ if __name__ == '__main__':
     priority_queue = PriorityQueue()
 
     print('=> With Stack, Depth First:')
-    whateverFirstSearch(SAMPLE_UNDIRECTED_GRAPH, '3', stack)
+    WhateverFirstSearch_All(SAMPLE_UNDIRECTED_GRAPH, stack)
 
     print('=> With Queue, Breadth First:')
-    whateverFirstSearch(SAMPLE_UNDIRECTED_GRAPH, '3', queue)
+    WhateverFirstSearch_All(SAMPLE_UNDIRECTED_GRAPH, queue)
 
     print('=> With Priority Queue, Best First:')
-    whateverFirstSearch(SAMPLE_UNDIRECTED_GRAPH, '3', priority_queue)
+    WhateverFirstSearch_All(SAMPLE_UNDIRECTED_GRAPH, priority_queue)

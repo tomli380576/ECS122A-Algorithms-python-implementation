@@ -1,8 +1,8 @@
+from argparse import ArgumentError
 import math
 
 
-# this is the max crossing sum function
-def maxSubarrayFixedMidpoint(arr: list[int], low: int, mid: int, high: int) -> int:
+def maxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
 
     best_left_sum = -math.inf
     curr_sum = 0
@@ -27,8 +27,10 @@ def maxSubarrayFixedMidpoint(arr: list[int], low: int, mid: int, high: int) -> i
                best_left_sum,  # type: ignore
                best_right_sum)  # type: ignore
 
-# both low and high are inclusive, so they are valid indexes
+
 def maxSubarray(arr: list[int], low: int, high: int) -> int:
+    if len(arr) == 0:
+        raise ArgumentError(argument=None, message='\'arr\' cannot be empty')
     if low == high:
         return arr[0]
 
@@ -36,9 +38,11 @@ def maxSubarray(arr: list[int], low: int, high: int) -> int:
 
     result_left = maxSubarray(arr, low, middle)
     result_right = maxSubarray(arr, middle+1, high)
-    result_mid = maxSubarrayFixedMidpoint(arr, low, middle, high)
+    result_mid = maxMiddleSum(arr, low, middle, high)
     return max(result_left, result_mid, result_right)
+
 
 if __name__ == '__main__':
     testarr = [-2, -3, 4, -1, -2, 1, 5, -3]
-    print(f'Max subarray sum for {testarr} is {maxSubarray(testarr, 0, len(testarr) - 1)}')
+    print(
+        f'Max subarray sum for {testarr} is {maxSubarray(testarr, 0, len(testarr) - 1)}')
