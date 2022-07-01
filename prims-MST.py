@@ -24,8 +24,8 @@ def isSafeEdge(curr_tree: list[tuple], edge: tuple):
     x, y = zip(*curr_tree)
     u, v = edge[1]
 
-    is_cycle: bool = u not in x + y and v not in x + y
-    is_isolated: bool = u in x + y and v in x + y
+    is_isolated: bool = u not in x + y and v not in x + y
+    is_cycle: bool = u in x + y and v in x + y
     # let uv be the edge
     # if neither u or v is in the tree, then it's not connected
     # if both are in, then it's a cycle

@@ -53,4 +53,4 @@ def BFS_WithToken(G: dict, start_vertex: str):
 
 
 if __name__ == '__main__':
-    BFS_WithToken(UNDIRECTED_3, 'S')
+    BFS_WithToken(UNDIRECTED_3, 'A')
