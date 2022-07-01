@@ -20,7 +20,8 @@ def partition(nums: list, left: int, right: int) -> int:
     return num_lt_pivot
 
 
-def QuickSelect(arr: list) -> int:
+def BaseQuickSelect(arr: list, k) -> int:
     # TODO
-
-    pass
+    if len(arr) < k:
+        ...
+    ...

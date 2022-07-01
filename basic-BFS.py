@@ -1,5 +1,4 @@
-from queue import PriorityQueue, Queue, LifoQueue
-from typing import Union
+from queue import Queue
 from enum import Enum
 
 
@@ -50,5 +49,30 @@ def BreadthFirstSearch(G: dict, start_vertex: str):
                 queue.put(adjacent_vertex)
 
 
+def BFS_WithToken(G: dict, start_vertex: str):
+    TOKEN = '\033[96m*Special Token*\033[0m'
+
+    for vertex in G:
+        VISIT_STATUS[vertex] = STATUS.NOT_DISCOVERED
+
+    queue = Queue()
+    queue.put(start_vertex)
+    queue.put(TOKEN)
+    while not queue.empty():
+        first_vertex_in_queue = queue.get()
+        if first_vertex_in_queue == TOKEN:
+            print(TOKEN)
+            if queue.empty():  # If token was the last thing in queue
+                break
+            else:
+                queue.put(TOKEN)
+        else:
+            if VISIT_STATUS[first_vertex_in_queue] == STATUS.NOT_DISCOVERED:
+                print(f'Discovered: {first_vertex_in_queue}')
+                VISIT_STATUS[first_vertex_in_queue] = STATUS.DISCOVERED
+                for adjacent_vertex in G[first_vertex_in_queue]:
+                    queue.put(adjacent_vertex)
+
+
 if __name__ == '__main__':
-    BreadthFirstSearch(SAMPLE_UNDIRECTED_GRAPH2, 'A')
+    BFS_WithToken(SAMPLE_UNDIRECTED_GRAPH2, 'A')

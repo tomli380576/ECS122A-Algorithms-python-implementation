@@ -22,7 +22,7 @@ def quicksort(nums: list,
               left: int,
               right: int,
               showIntermediateSteps=False) -> list:
-    if len(nums) == 1:  # Terminating Condition for recursion. VERY IMPORTANT!
+    if len(nums) == 1: 
         return nums
     if left < right:
         # sort the single pivot first
