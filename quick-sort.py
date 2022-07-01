@@ -1,5 +1,3 @@
-import random
-
 CYAN = '\033[96m'
 END_COLOR = '\033[0m'  # for command line colors
 
@@ -22,7 +20,7 @@ def quicksort(nums: list,
               left: int,
               right: int,
               showIntermediateSteps=False) -> list:
-    if len(nums) == 1: 
+    if len(nums) == 1:
         return nums
     if left < right:
         # sort the single pivot first

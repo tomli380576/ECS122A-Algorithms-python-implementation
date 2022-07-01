@@ -6,7 +6,7 @@ def BruteForceSelect(arr: list[int], k) -> int:
     return sorted(arr)[k]
 
 
-def partition(nums: list, left: int, right: int) -> int:
+def partition(nums: list[int], left: int, right: int) -> int:
     # swap the last element with pivot
     pivot, num_lt_pivot = nums[right], left
 

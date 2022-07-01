@@ -32,7 +32,7 @@ def find(u, v, all_sets: list[set]):
         return set_with_u, set_with_v
 
 
-def KruskalsMST(G):
+def KruskalsMST(G: np.ndarray):
     # Edges are stored as (y, x), sort by the weight G[y, x]
     sorted_edges = sorted(getEdges(G), key=lambda edge: G[edge])
     curr_tree: list[tuple] = []
@@ -44,8 +44,8 @@ def KruskalsMST(G):
 
     for edge in sorted_edges:
         u, v = edge
-        set_with_u_idx, set_with_v_idx = find(u, v,
-                                              all_sets=vertex_sets)  # returns index
+        set_with_u_idx, set_with_v_idx = find(
+            u, v, all_sets=vertex_sets)  # returns index
         if set_with_u_idx != set_with_v_idx:  # if find(u, v)
             # Simulates union(u, v)
             # merge in to set v first, then remove set u

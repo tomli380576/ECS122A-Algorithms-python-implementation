@@ -1,5 +1,6 @@
 from queue import Queue
 from enum import Enum
+from example_unweighted_graphs import UNDIRECTED_3
 
 
 class STATUS(Enum):
@@ -9,29 +10,6 @@ class STATUS(Enum):
 
 
 VISIT_STATUS: dict[str, STATUS] = {}
-SAMPLE_DIRECTED_GRAPH: dict[str, list[str]] = {
-    '5': ['3', '7'],
-    '3': ['2', '4'],
-    '7': ['8'],
-    '2': [],
-    '4': ['8'],
-    '8': []
-}
-SAMPLE_UNDIRECTED_GRAPH: dict[str, list[str]] = {
-    '5': ['3', '7'],
-    '3': ['2', '4', '5'],
-    '7': ['8', '5'],
-    '2': ['3'],
-    '4': ['8', '3'],
-    '8': ['4', '7']
-}
-SAMPLE_UNDIRECTED_GRAPH2: dict[str, list[str]] = {
-    'A': ['B', 'C', 'E'],
-    'C': ['A', 'B', 'D', 'E'],
-    'B': ['A', 'C', 'D'],
-    'E': ['A', 'C'],
-    'D': ['B', 'C']
-}
 
 
 def BreadthFirstSearch(G: dict, start_vertex: str):
@@ -75,4 +53,4 @@ def BFS_WithToken(G: dict, start_vertex: str):
 
 
 if __name__ == '__main__':
-    BFS_WithToken(SAMPLE_UNDIRECTED_GRAPH2, 'A')
+    BFS_WithToken(UNDIRECTED_3, 'S')
