@@ -19,17 +19,18 @@ def InitializeSSSP(G: dict[str, list[str]],
     return dist, prev
 
 
-def ConstructPath(end_vertex: str, prev: dict):
+def ConstructPath(prev: dict, end: str, start: str):
     # Assert that prev is 1 dimensional
-    curr = prev[end_vertex]
-    path = [end_vertex]
+    curr = prev[end]
+    path = [end]
 
     # Since the prev array contains both prev nodes and nan
     # We havd to cast node values to integer to be used as index
     # can be avoided with python dicts
-    while curr != None:
+    while curr != start:
         path.append(curr)
         curr = prev[curr]
+    path.append(start)
     path.reverse()
     return path
 
@@ -59,5 +60,5 @@ if __name__ == '__main__':
     for vertex in GetVertices(UNDIRECTED_3):
         if vertex != start_vertex:
             print(
-                f'Shortest Path from {start_vertex} to {vertex} is {ConstructPath(vertex, prev)}'
+                f'Shortest Path from {start_vertex} to {vertex} is {ConstructPath(prev, vertex, start_vertex)}'
             )

@@ -27,6 +27,7 @@ def knapsack_DP(max_capacity) -> int:
     # up to num_items - 2 because the recursive call will add 1
     # Traverse backwards becasue of the order of evaluation
     for item in reversed(range(0, NUM_ITEMS - 1)):
+        # The direction of the capacity loop doesn't matter
         for capacity in range(0, max_capacity + 1):
             take = dp_table[capacity - ITEM_WEIGHTS[item],
                             item + 1] + ITEM_VALUES[item]

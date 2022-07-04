@@ -9,6 +9,22 @@ DIRECTED_1: dict[str, list[str]] = {
     '8': []
 }
 
+DIRECTED_ACYCLIC_1: dict[str, list[str]] = {
+    'A': ['C'],
+    'B': ['C', 'E'],
+    'C': ['D'],
+    'D': [],
+    'E': ['D']
+}
+DIRECTED_ACYCLIC_2: dict[str, list[str]] = {
+    '5': ['2', '0'],
+    '4': ['0', '1'],
+    '3': ['1'],
+    '2': ['3'],
+    '1': [],
+    '0': []
+}
+
 UNDIRECTED_1: dict[str, list[str]] = {
     '5': ['3', '7'],
     '3': ['2', '4', '5'],

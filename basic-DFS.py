@@ -1,22 +1,13 @@
-# Global Constants
-SAMPLE_GRAPH: dict[str, list[str]] = {
-    '5': ['3', '7'],
-    '3': ['2', '4'],
-    '7': ['8'],
-    '2': [],
-    '4': ['8'],
-    '8': []
-}
+from example_unweighted_graphs import UNDIRECTED_1
 
 VISIT_STATUS = {}
 DISCOVER_TIME = {}
 FINISH_TIME = {}
 
 
-def DFS_search(G: dict):
-    time = [
-        0
-    ]  # force pass by reference, technically bad cuz it's a global mutable
+def DFS_search(G: dict[str, list[str]]):
+    # force pass by reference, technically bad cuz it's a global mutable
+    time = [0]
     for vertex in G.keys():
         VISIT_STATUS[vertex] = 'undiscovered'
 
@@ -25,7 +16,7 @@ def DFS_search(G: dict):
             DFS_visit(G, vertex, time)
 
 
-def DFS_visit(G, start_vertex, time):
+def DFS_visit(G: dict[str, list[str]], start_vertex: str, time: list[int]):
     print(f'Discovered vertex {start_vertex} at time = {time[0]}')
 
     VISIT_STATUS[start_vertex] = 'discovered'
@@ -38,8 +29,9 @@ def DFS_visit(G, start_vertex, time):
     VISIT_STATUS[start_vertex] = 'finished'
     time[0] += 1
     FINISH_TIME[start_vertex] = time[0]
+
     print(f'=> Finish vertex {start_vertex} at time = {time[0]}')
 
 
 if __name__ == '__main__':
-    DFS_search(SAMPLE_GRAPH)
+    DFS_search(UNDIRECTED_1)
