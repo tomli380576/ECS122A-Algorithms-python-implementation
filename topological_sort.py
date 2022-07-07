@@ -27,8 +27,8 @@ def TopologicalSort(G: dict[str, list[str]]):
 
 
 def TopologicalVisit(G: dict[str, list[str]], vertex: str, clock: int) -> int:
-
     VISIT_STATUS[vertex] = STATUS.ACTIVE
+
     for adjacent_vertex in G[vertex]:
         if VISIT_STATUS[adjacent_vertex] == STATUS.NEW:
             clock = TopologicalVisit(G, adjacent_vertex, clock)
@@ -43,9 +43,20 @@ def TopologicalVisit(G: dict[str, list[str]], vertex: str, clock: int) -> int:
 
 if __name__ == '__main__':
     result1 = TopologicalSort(DIRECTED_ACYCLIC_1)
-    sorted_dict1 = {k:v for k, v in sorted(result1.items(), key=lambda item: item[1])}
-    
+    sorted_dict1 = {
+        k: v
+        for k, v in sorted(result1.items(), key=lambda item: item[1])
+    }
+
     result2 = TopologicalSort(DIRECTED_ACYCLIC_2)
-    sorted_dict2 = {k:v for k, v in sorted(result2.items(), key=lambda item: item[1])}
-    print(f'{list(sorted_dict1.keys())} is 1 way of topologically sorting DIRECTED_ACYCLIC_1')
-    print(f'{list(sorted_dict2.keys())} is 1 way of topologically sorting DIRECTED_ACYCLIC_2')
+    sorted_dict2 = {
+        k: v
+        for k, v in sorted(result2.items(), key=lambda item: item[1])
+    }
+
+    print(
+        f'{list(sorted_dict1.keys())} is 1 way of topologically sorting DIRECTED_ACYCLIC_1'
+    )
+    print(
+        f'{list(sorted_dict2.keys())} is 1 way of topologically sorting DIRECTED_ACYCLIC_2'
+    )

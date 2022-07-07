@@ -1,4 +1,5 @@
 import numpy as np
+from time import time
 
 PRICES = [1, 5, 8, 9, 10, 17, 17, 20]  # some price values
 
@@ -32,13 +33,17 @@ def cutRod_DP(max_rod_len) -> int:
             if price_if_make_cut > best:
                 best = price_if_make_cut
         CutRod_dpTable[rod_len] = best
-    print(CutRod_dpTable)
+    # print(CutRod_dpTable)
     return CutRod_dpTable[max_rod_len]
 
 
 if __name__ == '__main__':
-    print('Backtracking: ')
-    print([cutRod(i) for i in range(len(PRICES) + 1)])
+    start = time()
+    print(f'Backtracking: {cutRod(len(PRICES))}')
+    end = time()
+    print(f'took: {end - start}s')
 
-    print('DP: ')
-    cutRod_DP(len(PRICES))
+    start = time()
+    print(f'DP: {cutRod_DP(len(PRICES))}')
+    end = time()
+    print(f'took: {end - start}s')

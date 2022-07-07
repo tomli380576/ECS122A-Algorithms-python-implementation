@@ -16,8 +16,11 @@ def EditDistance(A: str, B: str, i: int, j: int) -> int:
 
 
 def EditDistance_DP(A: str, B: str) -> int:
+    # Python preallocation:
+    #                                  axis 2                     axis 1
+    # dpTable = [[0 for _ in range(len(B) + 1)] for _ in range(len(A) + 1)]
     dpTable = np.zeros(shape=(len(A) + 1, len(B) + 1), dtype='int')
-    
+
     for k in range(len(B)):
         dpTable[-1, k] = k + 1  # if i == 0: return j + 1
     for k in range(len(A)):
@@ -34,15 +37,23 @@ def EditDistance_DP(A: str, B: str) -> int:
 
 
 if __name__ == '__main__':
-    A = 'ALGORITHM'
-    B = 'ALTRUISTIC'
+    A = 'hippopotomonstrosesquippedaliophobia'.upper()
+    B = 'pneumonoultramicroscopicsilicovolcanoconiosis'.upper()
 
-    start = time()
-    print(f'Edit distance from {A} to {B} is {EditDistance(A, B, len(A) - 1, len(B) - 1)}')
-    end = time()
+    # A = 'ABDOMINOHYST'
+    # B = 'ACETYLCHOLIN'
 
     start2 = time()
-    print(f'Edit distance from {A} to {B} is {EditDistance_DP(A, B)}')
+    print(
+        f'Edit distance from {A} to {B} is \033[96m{EditDistance_DP(A, B)}\033[0m'
+    )
     end2 = time()
+    print(f'DP: {end2 - start2}s')
+
+    start = time()
+    print(
+        f'Edit distance from {A} to {B} is {EditDistance(A, B, len(A) - 1, len(B) - 1)}'
+    )
+    end = time()
 
     print(f'Backtracking: {end-start}s, DP: {end2 - start2}s')
