@@ -2,6 +2,9 @@ import numpy as np
 
 ITEM_VALUES = [60, 100, 120]
 ITEM_WEIGHTS = [10, 20, 30]
+
+# ITEM_VALUES = [10, 40, 30, 50]
+# ITEM_WEIGHTS = [5, 4, 6, 3]
 NUM_ITEMS = len(ITEM_VALUES)
 
 
@@ -27,11 +30,12 @@ def knapsack_DP(max_capacity) -> int:
     # up to num_items - 2 because the recursive call will add 1
     # Traverse backwards becasue of the order of evaluation
     for item in reversed(range(0, NUM_ITEMS - 1)):
-        # The direction of the capacity loop doesn't matter
         for capacity in range(0, max_capacity + 1):
-            take = dp_table[capacity - ITEM_WEIGHTS[item],
-                            item + 1] + ITEM_VALUES[item]
             skip = dp_table[capacity, item + 1]
+            take = skip
+            if capacity >= ITEM_WEIGHTS[item]:
+                take = dp_table[capacity - ITEM_WEIGHTS[item],
+                                item + 1] + ITEM_VALUES[item]
             dp_table[capacity, item] = max(take, skip)
 
     # Return the value of initial call knapsack(max_capacity, 0)
