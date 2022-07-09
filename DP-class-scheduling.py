@@ -7,7 +7,6 @@ FINISH_TIMES2 = [3, 4, 5, 6, 7]
 START_TIMES = [1, 2, 6, 3]
 FINISH_TIMES = [5, 4, 8, 9]
 
-
 def DP_schedule(start_times: list[int], finish_times: list[int]) -> int:
     # ! Need to sort by start times here
     # ! SAMPLEs are already sorted

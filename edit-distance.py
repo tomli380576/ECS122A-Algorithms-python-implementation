@@ -10,9 +10,9 @@ def EditDistance(A: str, B: str, i: int, j: int) -> int:
         return i + 1
 
     return min(
-        EditDistance(A, B, i, j - 1) + 1,
-        EditDistance(A, B, i - 1, j) + 1,
-        EditDistance(A, B, i - 1, j - 1) + (1 if A[i] != B[j] else 0))
+        EditDistance(A, B, i, j - 1) + 1, # Insert
+        EditDistance(A, B, i - 1, j) + 1, # Delete
+        EditDistance(A, B, i - 1, j - 1) + (1 if A[i] != B[j] else 0)) # Replace
 
 
 def EditDistance_DP(A: str, B: str) -> int:

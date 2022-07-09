@@ -1,5 +1,6 @@
 from example_unweighted_graphs import DIRECTED_ACYCLIC_2, DIRECTED_ACYCLIC_1
 from enum import Enum
+from graphlib import TopologicalSorter
 
 
 class STATUS(Enum):
@@ -54,9 +55,18 @@ if __name__ == '__main__':
         for k, v in sorted(result2.items(), key=lambda item: item[1])
     }
 
+    lib_sort1 = list(TopologicalSorter(DIRECTED_ACYCLIC_1).static_order())
+    lib_sort2 = list(TopologicalSorter(DIRECTED_ACYCLIC_2).static_order())
+
     print(
         f'{list(sorted_dict1.keys())} is 1 way of topologically sorting DIRECTED_ACYCLIC_1'
     )
     print(
+        f'{list(reversed(lib_sort1))} is how the library sorts DIRECTED_ACYCLIC_1'
+    )
+    print(
         f'{list(sorted_dict2.keys())} is 1 way of topologically sorting DIRECTED_ACYCLIC_2'
+    )
+    print(
+        f'{list(reversed(lib_sort2))} is how the library sorts DIRECTED_ACYCLIC_2'
     )
