@@ -10,6 +10,7 @@ NUM_ITEMS = len(ITEM_VALUES)
 def knapsack(capacity, item_index):
     if capacity == 0:
         return 0
+
     if item_index == NUM_ITEMS - 1:
         if ITEM_WEIGHTS[item_index] <= capacity:
             return ITEM_VALUES[item_index]
