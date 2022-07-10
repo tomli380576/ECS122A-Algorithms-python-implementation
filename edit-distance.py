@@ -1,5 +1,6 @@
 from time import time
 import numpy as np
+from functools import cache
 
 
 def EditDistance(A: str, B: str, i: int, j: int) -> int:
@@ -13,6 +14,21 @@ def EditDistance(A: str, B: str, i: int, j: int) -> int:
         EditDistance(A, B, i, j - 1) + 1,  # Insert
         EditDistance(A, B, i - 1, j) + 1,  # Delete
         EditDistance(A, B, i - 1, j - 1) +
+        (1 if A[i] != B[j] else 0))  # Replace
+
+
+@cache
+def EditDistance_with_cache(A: str, B: str, i: int, j: int) -> int:
+    if i == -1:
+        # +1 offset because i and j are array indices
+        return j + 1
+    if j == -1:
+        return i + 1
+
+    return min(
+        EditDistance_with_cache(A, B, i, j - 1) + 1,  # Insert
+        EditDistance_with_cache(A, B, i - 1, j) + 1,  # Delete
+        EditDistance_with_cache(A, B, i - 1, j - 1) +
         (1 if A[i] != B[j] else 0))  # Replace
 
 
@@ -38,23 +54,26 @@ def EditDistance_DP(A: str, B: str) -> int:
 
 
 if __name__ == '__main__':
-    A = 'hippopotomonstrosesquippedaliophobia'.upper()
-    B = 'pneumonoultramicroscopicsilicovolcanoconiosis'.upper()
+    A = 'hippopotom'.upper()
+    B = 'pneumonoultra'.upper()
 
     # A = 'ABDOMINOHYST'
     # B = 'ACETYLCHOLIN'
 
-    start2 = time()
-    print(
-        f'Edit distance from {A} to {B} is \033[96m{EditDistance_DP(A, B)}\033[0m'
-    )
-    end2 = time()
-    print(f'DP: {end2 - start2}s')
-
     start = time()
     print(
-        f'Edit distance from {A} to {B} is {EditDistance(A, B, len(A) - 1, len(B) - 1)}'
+        f'Edit distance from {A} to {B} is \033[93m{EditDistance_DP(A, B)}\033[0m'
     )
     end = time()
+    print(f'DP: {end - start}s')
 
-    print(f'Backtracking: {end-start}s, DP: {end2 - start2}s')
+    start = time()
+    EditDistance_with_cache(A, B, len(A) - 1, len(B) - 1)
+    end = time()
+
+    print(f'Libray Cache Wrapper: {end - start}s')
+
+    start = time()
+    EditDistance(A, B, len(A) - 1, len(B) - 1)
+    end = time()
+    print(f'Raw Backtracking: {end - start}s')
