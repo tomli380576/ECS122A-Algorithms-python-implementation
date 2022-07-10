@@ -32,7 +32,7 @@ def knapsack(capacity, item_index=0):
 
 
 if __name__ == '__main__':
-    
+
     max_capacity = randint(1, 100)
     print(
         f'At max_capacity {max_capacity}, The max profit is: {knapsack(max_capacity)}'

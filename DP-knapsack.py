@@ -13,7 +13,7 @@ NUM_ITEMS = len(VALUES)
 
 
 def knapsack_DP(max_capacity) -> int:
-    assert(len(VALUES) == len(WEIGHTS))
+    assert (len(VALUES) == len(WEIGHTS))
     # Waste a little space here to avoid messing with index offset
     dp_table = np.zeros(shape=(max_capacity + 1, NUM_ITEMS), dtype='int')
     # Let's choose:
@@ -49,4 +49,6 @@ def knapsack_DP(max_capacity) -> int:
 
 if __name__ == '__main__':
     max_capacity = randint(1, 100)
-    print(f'At max_capacity {max_capacity}, The max profit is: {knapsack_DP(max_capacity)}')
+    print(
+        f'At max_capacity {max_capacity}, The max profit is: {knapsack_DP(max_capacity)}'
+    )

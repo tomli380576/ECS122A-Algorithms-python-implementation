@@ -5,7 +5,8 @@ def trapRainwater_BruteForce(heights: list[int]) -> int:
 
     total_rainwater = 0
     for idx, height in enumerate(heights):
-        total_rainwater += min(max(heights[0:idx + 1]), max(heights[idx:N])) - height
+        total_rainwater += min(max(heights[0:idx + 1]), max(
+            heights[idx:N])) - height
 
     return total_rainwater
 
@@ -48,4 +49,3 @@ if __name__ == '__main__':
     print(
         f'The total rainwater is: {trapRainwater_BruteForce(really_large_input)}'
     )
-
