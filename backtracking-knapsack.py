@@ -1,4 +1,5 @@
 import math
+from random import randint
 
 # ITEM_VALUES = [60, 100, 120]
 # ITEM_WEIGHTS = [10, 20, 30]
@@ -7,7 +8,9 @@ ITEM_WEIGHTS = [5, 4, 6, 3]
 NUM_ITEMS = len(ITEM_VALUES)
 
 
-def knapsack(capacity, item_index):
+def knapsack(capacity, item_index=0):
+    assert (len(ITEM_VALUES) == len(ITEM_WEIGHTS))
+
     if capacity == 0:
         return 0
 
@@ -29,5 +32,8 @@ def knapsack(capacity, item_index):
 
 
 if __name__ == '__main__':
-    assert (len(ITEM_VALUES) == len(ITEM_WEIGHTS))
-    print(f'The max profit is: {knapsack(10, 0)}')
+    
+    max_capacity = randint(1, 100)
+    print(
+        f'At max_capacity {max_capacity}, The max profit is: {knapsack(max_capacity)}'
+    )
