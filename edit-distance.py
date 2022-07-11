@@ -54,7 +54,7 @@ def EditDistance_DP(A: str, B: str) -> int:
 
 
 if __name__ == '__main__':
-    A = 'hippopotom'.upper()
+    A = 'hippopotomn'.upper()
     B = 'pneumonoultra'.upper()
 
     # A = 'ABDOMINOHYST'
@@ -65,6 +65,7 @@ if __name__ == '__main__':
         f'Edit distance from {A} to {B} is \033[93m{EditDistance_DP(A, B)}\033[0m'
     )
     end = time()
+
     print(f'DP: {end - start}s')
 
     start = time()

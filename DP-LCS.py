@@ -21,7 +21,8 @@ def LCS_DP_Length(X: str, Y: str) -> int:
 
 def LCS_DP_Sequnce(X: str, Y: str) -> str:
     # do not use dtype = 'str' here, numpy string and python native strings are different
-    dpTable = np.zeros(shape=(len(X) + 1, len(Y) + 1), dtype='object')
+    dpTable: np.ndarray = np.zeros(shape=(len(X) + 1, len(Y) + 1),
+                                   dtype=np.object_)
 
     # Fill in the base cases
     for i in range(len(Y)):
@@ -49,6 +50,8 @@ def LCS_DP_Sequnce(X: str, Y: str) -> str:
 
 
 if __name__ == '__main__':
-    X = 'DUTC'
-    Y = 'DCUT'
-    print(f'The length of LCS between {X} and {Y} is {LCS_DP_Sequnce(X, Y)}')
+    X: str = 'DUTC'
+    Y: str = 'DCUT'
+    print(
+        f'The LCS between {X} and {Y} is {LCS_DP_Sequnce(X, Y)} with length = {LCS_DP_Length(X, Y)}'
+    )
