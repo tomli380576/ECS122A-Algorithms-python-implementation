@@ -2,6 +2,7 @@ from math import floor
 from time import time
 import numpy as np
 
+
 def fib_recursive(n):
     if n <= 1:
         return n
@@ -101,9 +102,9 @@ if __name__ == '__main__':
     t4 = end - start
     print(f'Matrix Repeated Squaring: {end-start}s')
 
-    addition_chain_100 = [1, 2, 3, 5, 10, 15, 30]
+    addition_chain = [1, 2, 3, 5, 10, 15, 30]
     start = time()
-    fib_matrix_addition_chain(n, addition_chain_100)
+    fib_matrix_addition_chain(n, addition_chain)
     end = time()
     t5 = end - start
     print(f'Matrix addition chain: {end-start}s')
@@ -116,6 +117,9 @@ if __name__ == '__main__':
         'mat_addition_chain': t5
     }
 
-
     print('Ranked by Time:')
-    print(list({k: v for k, v in sorted(timedict.items(), key=lambda item: item[1])}.keys()))
+    print(
+        list({
+            k: v
+            for k, v in sorted(timedict.items(), key=lambda item: item[1])
+        }.keys()))
