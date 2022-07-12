@@ -10,10 +10,13 @@ SAMPLE_WEIGHTED_UNDIRECTED_GRAPH = np.array([[0, 9, 75, 0, 0],
 def getEdges(G: np.ndarray) -> list[tuple]:
     num_vertices = len(G)
     edges = []
+
     for y in range(num_vertices):
         for x in range(num_vertices):
+            # if never seen before and (x, y) are connected
             if x < y and G[y, x] != 0:
                 edges.append((y, x))
+
     return edges
 
 
@@ -26,8 +29,9 @@ def find(u, v, all_sets: list[set]):
             set_with_u = idx
         if v in _set:
             set_with_v = idx
+
     if set_with_u == -1 or set_with_v == -1:
-        raise ValueError('No sets found containing u or v')
+        raise ValueError('No sets found containing u nor v')
     else:
         return set_with_u, set_with_v
 
@@ -43,17 +47,18 @@ def KruskalsMST(G: np.ndarray):
         vertex_sets.append(set([vertex]))
 
     for edge in sorted_edges:
-        u, v = edge
+        u, v = edge  # unpack vertices
         set_with_u_idx, set_with_v_idx = find(
             u, v, all_sets=vertex_sets)  # returns index
         if set_with_u_idx != set_with_v_idx:  # if find(u, v)
             # Simulates union(u, v)
             # merge in to set v first, then remove set u
-            # avoids ambiguous index shifting
+            # avoids ambiguous index shifting from directly modifying 'vertex_sets'
             vertex_sets[set_with_v_idx] = vertex_sets[set_with_v_idx].union(
                 vertex_sets[set_with_u_idx])
             vertex_sets.pop(set_with_u_idx)
             curr_tree.append(edge)
+
     return curr_tree
 
 

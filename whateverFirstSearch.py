@@ -3,15 +3,14 @@ from typing import Union
 from enum import Enum
 from example_unweighted_graphs import UNDIRECTED_3
 
+Bag = Union[LifoQueue, Queue, PriorityQueue]
+
 
 class STATUS(Enum):
-    DISCOVERED = 1
-    NOT_DISCOVERED = 2
+    NEW = 1
+    ACTIVE = 2
     FINISHED = 3
 
-
-# Generic data type that has: put(), get(), empty()
-Bag = Union[LifoQueue, Queue, PriorityQueue]
 
 VISIT_STATUS: dict[str, STATUS] = {}
 
@@ -19,9 +18,9 @@ VISIT_STATUS: dict[str, STATUS] = {}
 # Handles disconnected graphs
 def WhateverFirstSearch_All(G, data_structure: Bag):
     for vertex in G:
-        VISIT_STATUS[vertex] = STATUS.NOT_DISCOVERED
+        VISIT_STATUS[vertex] = STATUS.NEW
     for vertex in G:
-        if VISIT_STATUS[vertex] == STATUS.NOT_DISCOVERED:
+        if VISIT_STATUS[vertex] == STATUS.NEW:
             WFS_Visit(G, vertex, data_structure)
 
 
@@ -33,9 +32,9 @@ def WFS_Visit(G, start_vertex: str, data_structure: Bag):
     while not data_structure.empty():
         # Get whatever the 'first' vertex is, depending on the data structure
         vertex = data_structure.get()
-        if VISIT_STATUS[vertex] == STATUS.NOT_DISCOVERED:
+        if VISIT_STATUS[vertex] == STATUS.NEW:
             print(f'Newly Discovered {vertex}')
-            VISIT_STATUS[vertex] = STATUS.DISCOVERED
+            VISIT_STATUS[vertex] = STATUS.ACTIVE
             for adjacent_vertex in G[vertex]:
                 data_structure.put(adjacent_vertex)
 
@@ -45,15 +44,15 @@ def WFS_Visit(G, start_vertex: str, data_structure: Bag):
 def WhateverFirstSearch_Connected(G, start_vertex: str, data_structure: Bag):
     # Initialize visit status
     for vertex in G:
-        VISIT_STATUS[vertex] = STATUS.NOT_DISCOVERED
+        VISIT_STATUS[vertex] = STATUS.NEW
 
     data_structure.put(start_vertex)
     while not data_structure.empty():
         # Get whatever the 'first' vertex is, depending on the data structure
         vertex = data_structure.get()
-        if VISIT_STATUS[vertex] == STATUS.NOT_DISCOVERED:
+        if VISIT_STATUS[vertex] == STATUS.NEW:
             print(f'Newly Discovered {vertex}')
-            VISIT_STATUS[vertex] = STATUS.DISCOVERED
+            VISIT_STATUS[vertex] = STATUS.ACTIVE
             for adjacent_vertex in G[vertex]:
                 data_structure.put(adjacent_vertex)
 

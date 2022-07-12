@@ -8,7 +8,7 @@ def fib_recursive(n):
         return n
     return fib_recursive(n - 1) + fib_recursive(n - 2)
 
-
+# DP version
 def fib_iterative(n):
     f_n_minus_2 = 0
     f_n_minus_1 = 1
@@ -56,6 +56,7 @@ def fib_matrix_addition_chain(n, addition_chain: list[int]):
     for idx, exponent in enumerate(addition_chain):
         if idx == 0:
             continue
+        # Find the 2 previous exponents that add up to the current one
         exp1, exp2 = twoSum(addition_chain[:idx], exponent)
         result_mat = np.matmul(prev_results[exp1], prev_results[exp2])
         prev_results[exponent] = result_mat

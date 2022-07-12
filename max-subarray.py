@@ -3,7 +3,6 @@ import math
 
 
 def maxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
-
     best_left_sum = -math.inf
     curr_sum = 0
 
@@ -32,6 +31,7 @@ def maxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
 def maxSubarray(arr: list[int], low: int, high: int) -> int:
     if len(arr) == 0:
         raise ArgumentError(argument=None, message='\'arr\' cannot be empty')
+
     if low == high:
         return arr[0]
 

@@ -1,37 +1,42 @@
+from enum import Enum
 from example_unweighted_graphs import UNDIRECTED_1
 
 VISIT_STATUS = {}
 DISCOVER_TIME = {}
 FINISH_TIME = {}
 
+class STATUS(Enum):
+    NEW = 1
+    ACTIVE = 2
+    FINISHED = 3
 
-def DFS_search(G: dict[str, list[str]]):
-    # force pass by reference, technically bad cuz it's a global mutable
+def DepthFirstSearch(G: dict[str, list[str]]):
+    # force pass by reference
     time = [0]
     for vertex in G.keys():
-        VISIT_STATUS[vertex] = 'undiscovered'
+        VISIT_STATUS[vertex] = STATUS.NEW
 
     for vertex in G.keys():
-        if VISIT_STATUS[vertex] == 'undiscovered':
+        if VISIT_STATUS[vertex] == STATUS.NEW:
             DFS_visit(G, vertex, time)
 
 
 def DFS_visit(G: dict[str, list[str]], start_vertex: str, time: list[int]):
-    print(f'Discovered vertex {start_vertex} at time = {time[0]}')
-
-    VISIT_STATUS[start_vertex] = 'discovered'
+    VISIT_STATUS[start_vertex] = STATUS.ACTIVE
     time[0] += 1
 
+    print(f'Discovered vertex {start_vertex} at time = {time[0]}')
+
     for adjacent_vertex in G[start_vertex]:  # Adjacent vertices
-        if VISIT_STATUS[adjacent_vertex] == 'undiscovered':
+        if VISIT_STATUS[adjacent_vertex] == STATUS.NEW:
             DFS_visit(G, adjacent_vertex, time)
 
-    VISIT_STATUS[start_vertex] = 'finished'
+    VISIT_STATUS[start_vertex] = STATUS.FINISHED
     time[0] += 1
     FINISH_TIME[start_vertex] = time[0]
 
-    print(f'=> Finish vertex {start_vertex} at time = {time[0]}')
+    print(f'=> Finished vertex {start_vertex} at time = {time[0]}')
 
 
 if __name__ == '__main__':
-    DFS_search(UNDIRECTED_1)
+    DepthFirstSearch(UNDIRECTED_1)

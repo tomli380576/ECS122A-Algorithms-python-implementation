@@ -13,6 +13,7 @@ def merge2SortedArrays(arr1: list, arr2: list,
                        predicate: Callable[[Any, Any], bool]) -> list:
     ptr1, ptr2 = 0, 0
     out = []
+
     while ptr1 != len(arr1) and ptr2 != len(arr2):
         if predicate(arr1[ptr1], arr2[ptr2]):
             out.append(arr1[ptr1])
@@ -29,6 +30,7 @@ def merge2SortedArrays(arr1: list, arr2: list,
 def mergeSort(arr: list, predicate: Callable[[Any, Any], bool]) -> list:
     if len(arr) == 0 or len(arr) == 1:
         return arr
+
     if len(arr) == 2:
         if predicate(arr[0], arr[1]):
             return arr
@@ -38,6 +40,7 @@ def mergeSort(arr: list, predicate: Callable[[Any, Any], bool]) -> list:
     middle = len(arr) // 2
     left = mergeSort(arr[0:middle], predicate)
     right = mergeSort(arr[middle:len(arr)], predicate)
+
     return merge2SortedArrays(left, right, predicate)
 
 

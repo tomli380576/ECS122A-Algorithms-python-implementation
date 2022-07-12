@@ -19,30 +19,26 @@ def InitializeSSSP(G: dict[str, list[str]],
     return dist, prev
 
 
-def ConstructPath(prev: dict, end: str, start: str):
-    # Assert that prev is 1 dimensional
+def ConstructPath(prev: dict, end: str):
     curr = prev[end]
     path = [end]
 
-    # Since the prev array contains both prev nodes and nan
-    # We havd to cast node values to integer to be used as index
-    # can be avoided with python dicts
-    while curr != start:
+    # It's like traversing a linked list
+    while curr != None:
         path.append(curr)
         curr = prev[curr]
-    path.append(start)
+
     path.reverse()
     return path
 
 
-def BFS_SSSP(G: dict[str, list[str]], start_vertex: str):
+def BFS_SSSP_Unweighted(G: dict[str, list[str]], start_vertex: str):
     dist, prev = InitializeSSSP(G, start_vertex)
     queue = Queue()
     queue.put(start_vertex)
     while not queue.empty():
         u = queue.get()
         for adjacent_vertex in G[u]:
-            # if connected
             # if Tense, since it's unweighted we can let all weighte be 1
             if dist[u] + 1 < dist[adjacent_vertex]:
                 # Relax
@@ -55,10 +51,10 @@ def BFS_SSSP(G: dict[str, list[str]], start_vertex: str):
 
 if __name__ == '__main__':
     start_vertex = 'S'
-    dist, prev = BFS_SSSP(UNDIRECTED_3, start_vertex)
+    dist, prev = BFS_SSSP_Unweighted(UNDIRECTED_3, start_vertex)
     print(f'dist:{dist}, prev:{prev}')
     for vertex in GetVertices(UNDIRECTED_3):
         if vertex != start_vertex:
             print(
-                f'Shortest Path from {start_vertex} to {vertex} is {ConstructPath(prev, vertex, start_vertex)}'
+                f'Shortest Path from {start_vertex} to {vertex} is {ConstructPath(prev, vertex)}'
             )

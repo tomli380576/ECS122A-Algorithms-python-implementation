@@ -1,6 +1,4 @@
-import numpy as np
-
-PRICES = [1, 5, 8, 9, 10, 17, 17, 20]  # some price values
+PRICES = [1, 5, 8, 9, 10, 17, 17, 20]  # sample prices
 
 
 def cutRod(rod_len) -> int:

@@ -12,8 +12,8 @@ def sortDictByValue(x: dict[str, int]) -> dict:
 
 def greedySchedule() -> list[str]:
     # Sort by finish and change the order in START with it
-    # In this case we don't need to permute START_TIMES becasue we can directly access by key
-    # So the order in START_TIMES doesn't matter because we are using dict
+    # In this case we don't have need to permute START_TIMES
+    # becasue it's a dict and we can directly access by key in O(1)
     sorted_finish = sortDictByValue(FINISH_TIMES)
     CLASSES = list(sorted_finish.keys())
 
