@@ -50,8 +50,9 @@ def LCS_DP_Sequnce(X: str, Y: str) -> str:
 
 
 if __name__ == '__main__':
-    X: str = 'DUTC'
-    Y: str = 'DCUT'
+    X: str = 'pneumonoultramicroscopicsilicovolcanoconiosis'
+    Y: str = 'hippopotomonstrosesquippedaliophobia'
+
     print(
         f'The LCS between {X} and {Y} is {LCS_DP_Sequnce(X, Y)} with length = {LCS_DP_Length(X, Y)}'
     )

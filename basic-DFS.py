@@ -24,7 +24,7 @@ def DepthFirstSearch(G: dict[str, list[str]]):
 def DFS_visit(G: dict[str, list[str]], start_vertex: str, time: list[int]):
     VISIT_STATUS[start_vertex] = STATUS.ACTIVE
     time[0] += 1
-
+    DISCOVER_TIME[start_vertex] = time[0]
     print(f'Discovered vertex {start_vertex} at time = {time[0]}')
 
     for adjacent_vertex in G[start_vertex]:  # Adjacent vertices
@@ -34,9 +34,10 @@ def DFS_visit(G: dict[str, list[str]], start_vertex: str, time: list[int]):
     VISIT_STATUS[start_vertex] = STATUS.FINISHED
     time[0] += 1
     FINISH_TIME[start_vertex] = time[0]
-
     print(f'=> Finished vertex {start_vertex} at time = {time[0]}')
 
 
 if __name__ == '__main__':
     DepthFirstSearch(UNDIRECTED_1)
+    print(DISCOVER_TIME)
+    print(FINISH_TIME)

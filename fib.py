@@ -1,4 +1,4 @@
-from math import floor
+from math import floor, inf
 from time import time
 import numpy as np
 
@@ -7,6 +7,7 @@ def fib_recursive(n):
     if n <= 1:
         return n
     return fib_recursive(n - 1) + fib_recursive(n - 2)
+
 
 # DP version
 def fib_iterative(n):
@@ -20,11 +21,13 @@ def fib_iterative(n):
 
 def fib_matrix_mult(n):
     fib_matrix = np.array([[0, 1], [1, 1]])
-    result_mat = np.array([[0, 1], [1, 1]])
+    # tells numpy to not use C types but to use python native types
+    # Avoids integer overflow
+    result_mat = np.array([[0, 1], [1, 1]], dtype=object)
 
     for _ in range(n):
         result_mat = np.matmul(fib_matrix, result_mat)
-    return result_mat[0, 1]
+    return result_mat[0, 0]
 
 
 def fib_matrix_repeated_squaring(n):
@@ -32,7 +35,7 @@ def fib_matrix_repeated_squaring(n):
         return 1
 
     fib_matrix = np.array([[0, 1], [1, 1]])
-    result_mat = np.array([[0, 1], [1, 1]])
+    result_mat = np.array([[0, 1], [1, 1]], dtype=object)
 
     # Handle the offset. Suppose n=6, then we can only reach 4 by squares
     # The extra 2 steps need to be done through direct iteration
@@ -41,15 +44,15 @@ def fib_matrix_repeated_squaring(n):
         result_mat = np.matmul(result_mat, result_mat)
 
     if max_reachable_by_squares < n:
-        for _ in range(max_reachable_by_squares, n):
+        for _ in range(max_reachable_by_squares, n + 1):
             result_mat = np.matmul(fib_matrix, result_mat)
-    return result_mat[0, 1]
+    return result_mat[0, 0]
 
 
 def fib_matrix_addition_chain(n, addition_chain: list[int]):
     assert (addition_chain[len(addition_chain) - 1] == n)
 
-    fib_matrix = np.array([[0, 1], [1, 1]])
+    fib_matrix = np.array([[0, 1], [1, 1]], dtype=object)
     prev_results = {}
     prev_results[1] = fib_matrix
 
@@ -77,40 +80,49 @@ def twoSum(arr, target) -> tuple[int, int]:
 
 if __name__ == '__main__':
 
-    n = 30
+    n = 1023
+
+    # Really slow, don't run this one for large values
+    t1 = inf
+    if n <= 10:
+        start = time()
+        fib_recursive(n)
+        end = time()
+        t1 = end - start
+        print(f'Recursive: {end-start}s')
+    else:
+        print(f'n={n} is too big for raw recursion')
 
     start = time()
-    fib_recursive(n)
-    end = time()
-    t1 = end - start
-    print(f'Recursive: {end-start}s')
-
-    start = time()
-    fib_iterative(n)
+    answer = fib_iterative(n)
     end = time()
     t2 = end - start
     print(f'Iterative: {end-start}s')
 
     start = time()
-    fib_matrix_mult(n)
+    ans_mat = fib_matrix_mult(n)
     end = time()
+    assert (ans_mat == answer)
     t3 = end - start
     print(f'Matrix Raw: {end-start}s')
 
     start = time()
-    fib_matrix_repeated_squaring(n)
+    ans_mat = fib_matrix_repeated_squaring(n)
     end = time()
+    assert (ans_mat == answer)
     t4 = end - start
     print(f'Matrix Repeated Squaring: {end-start}s')
 
-    addition_chain = [1, 2, 3, 5, 10, 15, 30]
+    # addition_chain = [1, 2, 3, 5, 10, 15, 25, 50, 75, 125, 250, 500, 1000]
+    addition_chain = [1, 2, 3, 4, 7, 14, 17, 31, 62, 124, 248, 496, 527, 1023]
     start = time()
-    fib_matrix_addition_chain(n, addition_chain)
+    ans_mat = fib_matrix_addition_chain(n, addition_chain)
     end = time()
+    assert (ans_mat == answer)
     t5 = end - start
     print(f'Matrix addition chain: {end-start}s')
 
-    timedict = {
+    time_dict = {
         'recursive': t1,
         'iterative': t2,
         'matraw': t3,
@@ -118,9 +130,9 @@ if __name__ == '__main__':
         'mat_addition_chain': t5
     }
 
-    print('Ranked by Time:')
+    print('\nRanked by Time:')
     print(
         list({
             k: v
-            for k, v in sorted(timedict.items(), key=lambda item: item[1])
+            for k, v in sorted(time_dict.items(), key=lambda item: item[1])
         }.keys()))
