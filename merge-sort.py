@@ -1,11 +1,11 @@
 from typing import Callable, Any
 
 
-def sortAscending(x, y):
+def sortAscending(x: int, y: int):
     return x < y
 
 
-def sortDescending(x, y):
+def sortDescending(x: int, y: int):
     return x > y
 
 
@@ -27,9 +27,8 @@ def merge2SortedArrays(arr1: list, arr2: list,
     out = []
 
     while ptr1 != len(arr1) and ptr2 != len(arr2):  # O(n)
-        if predicate(
-                arr1[ptr1], arr2[ptr2]
-        ):  # O(perdicate)       comparing 2 strings: O(n), comparing 2 numbers: O(1)
+        # O(perdicate); comparing 2 strings: O(n), comparing 2 numbers: O(1)
+        if predicate(arr1[ptr1], arr2[ptr2]):
             out.append(arr1[ptr1])
             ptr1 += 1
         else:
