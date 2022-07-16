@@ -1,45 +1,37 @@
-CYAN = '\033[96m'
-END_COLOR = '\033[0m'  # for command line colors
+import random
+from random_inputs import randomIntArray
 
 
-def partition(nums: list, left: int, right: int) -> int:
-    # swap the last element with pivot
-    pivot, num_lt_pivot = nums[right], left
+def Partition(nums, pivot_val):
+    left = []
+    right = []
+    pivot_seen = False
+    for num in nums:
+        if num < pivot_val:
+            left.append(num)
+        elif num == pivot_val and not pivot_seen:
+            pivot_seen = True
+        elif num == pivot_val and pivot_seen:
+            left.append(num)
+        else:
+            right.append(num)
 
-    # right is not included in range
-    for i in range(left, right):
-        if nums[i] <= pivot:
-            nums[i], nums[num_lt_pivot] = nums[num_lt_pivot], nums[i]
-            num_lt_pivot += 1
-
-    nums[num_lt_pivot], nums[right] = nums[right], nums[num_lt_pivot]
-    return num_lt_pivot
+    return left, right
 
 
-def quicksort(nums: list,
-              left: int,
-              right: int,
-              showIntermediateSteps=False) -> list:
-    if len(nums) == 1:
+def QuickSort(nums) -> list:
+    if len(nums) > 1:
+        pivot_val = random.choice(nums)
+        left, right = Partition(nums, pivot_val)
+        sorted_left = QuickSort(left)
+        sorted_right = QuickSort(right)
+        return sorted_left + [pivot_val] + sorted_right
+    else:
         return nums
-    if left < right:
-        # sort the single pivot first
-        pivot = partition(nums, left, right)
-        if showIntermediateSteps:
-            print(
-                f'{nums[left:pivot - 1]}\b, {CYAN}{nums[pivot]}{END_COLOR}, {str(nums[pivot + 1: right])[1:]}'
-            )
-
-        quicksort(nums, left, pivot - 1)  # Recursively sorting the left values
-        quicksort(nums, pivot + 1,
-                  right)  # Recursively sorting the right values
-    return nums
-
 
 if __name__ == '__main__':
-    sample_arr = [
-        3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6
-    ]
-    print(f'Original: {sample_arr}')
-    quicksort(nums=sample_arr, left=0, right=len(sample_arr) - 1)
-    print(f'Sorted: {sample_arr}')
+    sample_arr = [3, 1, 4, 1, 5, 9, 2]
+    random_huge_list = randomIntArray(low=1, high=1000000, length=500)
+
+    print(f'Sorted: {QuickSort(sample_arr)}')
+    assert (QuickSort(random_huge_list) == sorted(random_huge_list))

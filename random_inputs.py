@@ -43,13 +43,35 @@ def randomUpperAndLowerStrings(num_strs: int = 15,
 
 def randomIntArray(low: int = 0,
                    high: int = 20,
-                   length: int = 15) -> list[int]:
-    return [random.choice(range(low, high + 1)) for _ in range(length)]
+                   length: int = 15,
+                   ordered=False,
+                   increasing=True,
+                   allow_duplicates=True) -> list[int]:
+    '''
+    Generates a random integer array
+    ----
+    @param low: minimum value, inclusive
+    @param high: maximum value, inclusive
+    @param length: number of items
+    @param ordered: whether the list should be ordered. 
+                    If enabled, defaults to increasing
+    @param increasing: True for increasing sequence, Fasle for decreasing sequence
+                    Ignored if ordered is set to False
+    @param allow_duplicates: whether duplicates is allowed
+    '''
+
+    raw = [random.choice(range(low, high + 1)) for _ in range(length)]
+    if ordered:
+        raw.sort(reverse=not increasing)
+    if not allow_duplicates:
+        return sorted(list(set(raw)))
+    return raw
 
 
 if __name__ == '__main__':
-    print(randomString(), '\n')
-    print(randomLowerCaseStrings(), '\n')
-    print(randomUpperCaseStrings(), '\n')
-    print(randomUpperAndLowerStrings(), '\n')
-    print(randomIntArray(), '\n')
+    # print(randomString(), '\n')
+    # print(randomLowerCaseStrings(), '\n')
+    # print(randomUpperCaseStrings(), '\n')
+    # print(randomUpperAndLowerStrings(), '\n')
+    print(randomIntArray(length=5, ordered=True), '\n')
+    print(randomIntArray(length=5, ordered=True), '\n')
