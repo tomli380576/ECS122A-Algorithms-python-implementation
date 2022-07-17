@@ -3,6 +3,7 @@ import numpy as np
 EMPTY = 0
 OCCUPIED = 1
 
+
 def wontBeAttacked(board: np.ndarray, curr_row: int, position: int) -> bool:
     for row in range(board.shape[0]):
         for col in range(board.shape[1]):
@@ -24,9 +25,9 @@ def NQueens(board: np.ndarray, row: int, num_solutions: list[int]) -> None:
 
     for col in range(board[row].shape[0]):
         if wontBeAttacked(board, row, col):
-            board[row, col] = OCCUPIED # make choice
+            board[row, col] = OCCUPIED  # make choice
             NQueens(board, row + 1, num_solutions)
-        board[row, col] = EMPTY # always undo b/c we want all solutions
+        board[row, col] = EMPTY  # always undo b/c we want all solutions
 
 
 def NQueens_wrapper(board: np.ndarray, row: int) -> int:

@@ -29,6 +29,7 @@ def QuickSort(nums) -> list:
     else:
         return nums
 
+
 if __name__ == '__main__':
     sample_arr = [3, 1, 4, 1, 5, 9, 2]
     random_huge_list = randomIntArray(low=1, high=1000000, length=500)

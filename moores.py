@@ -3,12 +3,12 @@ from math import inf
 
 Graph = dict[str, list[tuple[int, str]]]
 
+
 def GetVertices(G: Graph) -> list[str]:
     return list(G.keys())
 
 
-def InitializeSSSP(G: Graph,
-                   start_vertex: str) -> tuple[dict, dict]:
+def InitializeSSSP(G: Graph, start_vertex: str) -> tuple[dict, dict]:
     vertices = GetVertices(G)
     assert (start_vertex in vertices)
 

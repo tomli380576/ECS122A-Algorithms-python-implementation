@@ -41,7 +41,7 @@ def randomUpperAndLowerStrings(num_strs: int = 15,
     ]
 
 
-def randomIntArray(low: int = 0,
+def randomIntArray(low: int = -20,
                    high: int = 20,
                    length: int = 15,
                    ordered=False,
@@ -56,15 +56,54 @@ def randomIntArray(low: int = 0,
     @param ordered: whether the list should be ordered. 
                     If enabled, defaults to increasing
     @param increasing: True for increasing sequence, Fasle for decreasing sequence
-                    Ignored if ordered is set to False
+                    *Ignored if ordered == False*
     @param allow_duplicates: whether duplicates is allowed
     '''
+    if high - low + 1 < length and not allow_duplicates:
+        raise ValueError(
+            f'Cannot generate list with more than {high-low+1} unique numbers in [{low}, {high}]'
+        )
 
     raw = [random.choice(range(low, high + 1)) for _ in range(length)]
+
     if ordered:
         raw.sort(reverse=not increasing)
     if not allow_duplicates:
-        return sorted(list(set(raw)))
+        set_raw = set(raw)
+        while len(set_raw) < length:
+            set_raw.add(random.choice(range(low, high + 1)))
+        return list(set_raw)
+
+    return raw
+
+
+def randomLetterArray(length: int = 15,
+                      ordered=False,
+                      increasing=True,
+                      allow_duplicates=True) -> list[str]:
+    '''
+    Generates a random integer array
+    ----
+    @param length: number of items
+    @param ordered: whether the list should be ordered. 
+                    If enabled, defaults to increasing
+    @param increasing: True for increasing sequence, Fasle for decreasing sequence
+                    *Ignored if ordered == False*
+    @param allow_duplicates: whether duplicates is allowed
+    '''
+
+    if length > 26 and not allow_duplicates:
+        raise ValueError(
+            'Cannot generate string with more than 26 unique latin letters')
+
+    raw = [random.choice(string.ascii_uppercase) for _ in range(length)]
+    if ordered:
+        raw.sort(reverse=not increasing)
+    if not allow_duplicates:
+        set_raw = set(raw)
+        while len(set_raw) < length:
+            set_raw.add(random.choice(string.ascii_uppercase))
+        return list(set_raw)
     return raw
 
 
@@ -73,5 +112,5 @@ if __name__ == '__main__':
     # print(randomLowerCaseStrings(), '\n')
     # print(randomUpperCaseStrings(), '\n')
     # print(randomUpperAndLowerStrings(), '\n')
-    print(randomIntArray(length=5, ordered=True), '\n')
-    print(randomIntArray(length=5, ordered=True), '\n')
+    print(randomIntArray(length=25, ordered=False), '\n')
+    print(randomIntArray(length=25, ordered=False), '\n')

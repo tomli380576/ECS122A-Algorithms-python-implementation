@@ -1,4 +1,3 @@
-
 # Source: https://www.geeksforgeeks.org/quick-sort/
 def partition_inplace(nums: list, left: int, right: int) -> int:
     # swap the last element with pivot

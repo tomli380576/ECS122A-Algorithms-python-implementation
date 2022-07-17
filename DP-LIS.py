@@ -48,7 +48,7 @@ def LIS_DP(A_original: list) -> int:
 
 
 if __name__ == '__main__':
-    sample_set:list[Union[float, int]] = [
+    sample_set: list[Union[float, int]] = [
         3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6
     ]
     print(f'Index version: {LIS_index_based([-math.inf] + sample_set, 0,1)}'

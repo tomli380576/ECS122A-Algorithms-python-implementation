@@ -5,10 +5,12 @@ VISIT_STATUS = {}
 DISCOVER_TIME = {}
 FINISH_TIME = {}
 
+
 class STATUS(Enum):
     NEW = 1
     ACTIVE = 2
     FINISHED = 3
+
 
 def DepthFirstSearch(G: dict[str, list[str]]):
     # force pass by reference
