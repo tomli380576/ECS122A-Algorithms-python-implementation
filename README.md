@@ -6,6 +6,8 @@ They are referenced in this [**Notion Document**](https://zhongning-tommy-li.not
 
 Note that some of the graph algorithms references graphs in the **`example_unweighted_graphs.py`** file. Make sure the algorithm file and the graph file are in the same directory
 
+Some algorithms now have helper functions to generate random test inputs. Make sure the **`random_inputs.py`** is  in ths same directory as the algorithm file.
+
 ## System Requirements
 
-Python 3.8+
+Python 3.8+, Numpy
