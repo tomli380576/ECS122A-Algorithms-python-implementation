@@ -1,25 +1,28 @@
 import math
-from typing import Union
 import numpy as np
+from random_inputs import randomIntArray
 
 
-def LIS_index_based(A: list, i: int, j: int) -> int:
-    if j >= len(A):
+# both prev and choice are indices
+def LIS_index_based(A: list, prev: int, choice: int) -> int:
+    if choice == len(A):
         return 0
-    elif A[i] >= A[j]:
-        return LIS_index_based(A, i, j + 1)
+    elif A[prev] >= A[choice]:
+        return LIS_index_based(A, prev, choice + 1)
     else:
-        take = LIS_index_based(A, j, j + 1) + 1
-        leave = LIS_index_based(A, i, j + 1)
+        take = LIS_index_based(A, choice, choice + 1) + 1
+        leave = LIS_index_based(A, prev, choice + 1)
         return max(take, leave)
 
 
 def LIS_DP(A_original: list) -> int:
     A = [-math.inf] + A_original
     N = len(A)
-    # N+1 for the number of columns becasue we need j = N as the base case
+    # N + 1 for the j axis
+    # becasue we need j = N as the base case
     dp_table: np.ndarray = np.zeros(shape=(N, N + 1), dtype='int')
     result = []
+
     # initialize base cases
     for i in range(len(A)):
         # this corresponds to `if j >= len(A)`
@@ -34,23 +37,46 @@ def LIS_DP(A_original: list) -> int:
                 take = dp_table[j, j + 1] + 1
                 leave = dp_table[i, j + 1]
                 dp_table[i, j] = max(take, leave)
-                if take > leave:
-                    if (dp_table[i, j]) > len(result):
-                        result.append(A[j])
-                    # We want to directly replace the element in the sequence
-                    # Not always appending to the back
-                    else:
-                        result[dp_table[i, j] - 1] = A[j]
+                # Avoid repeating elements
+                if take > leave and dp_table[i, j] > len(result):
+                    result.append(A[j])
+
     result.reverse()
-    print(f'Sequence Contents: {result}')
-    # This corresponds to the initial call LIS(i=0, j=1)
+    # This corresponds to the initial call LIS(i = 0, j = 1)
     return dp_table[0, 1]
 
 
 if __name__ == '__main__':
-    sample_set: list[Union[float, int]] = [
-        3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6
-    ]
-    print(f'Index version: {LIS_index_based([-math.inf] + sample_set, 0,1)}'
-          )  # type: ignore
-    print(f'DP version: {LIS_DP(sample_set)}')
+    '''
+    Driver Code for testing.
+    Change these 2 variables to toggle:
+    - whether to run tests or run sample inputs
+    - number of tests
+    '''
+    use_random_input = True
+    num_tests = 2000
+
+    if use_random_input:
+        for _ in range(num_tests):
+            random_arr = randomIntArray()
+            try:
+                backtracking = LIS_index_based([-math.inf] + random_arr, 0, 1) #type:ignore
+                dp = LIS_DP(random_arr)
+                assert (backtracking == dp)
+            except:
+                print(f'Broke on: {random_arr}')
+        print(f'All {num_tests} cases passed!')
+    else:
+        sample_1 = [
+            3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6
+        ]
+        sample_1_ans = 6
+
+        sample_2 = [19, 7, 13, 5, 10, 20, 12, 13, 1, 20, 6, 19, 9, 9, 5]
+        sample_2_ans = 5
+
+        backtracking = LIS_index_based([-math.inf] + sample_1, 0, 1) #type:ignore
+        dp = LIS_DP(sample_1)
+
+        print(f'Longest Subsequence (Backtracking) length: {backtracking}')
+        print(f'Longest Subsequence (DP) length: {dp}')

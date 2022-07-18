@@ -48,8 +48,7 @@ def KruskalsMST(G: np.ndarray):
 
     for edge in sorted_edges:
         u, v = edge  # unpack vertices
-        set_with_u_idx, set_with_v_idx = find(
-            u, v, all_sets=vertex_sets)  # returns index
+        set_with_u_idx, set_with_v_idx = find(u, v, vertex_sets)
         if set_with_u_idx != set_with_v_idx:  # if find(u, v)
             # Simulates union(u, v)
             # merge in to set v first, then remove set u

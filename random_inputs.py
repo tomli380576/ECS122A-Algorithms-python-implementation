@@ -66,13 +66,14 @@ def randomIntArray(low: int = -20,
 
     raw = [random.choice(range(low, high + 1)) for _ in range(length)]
 
-    if ordered:
-        raw.sort(reverse=not increasing)
     if not allow_duplicates:
         set_raw = set(raw)
         while len(set_raw) < length:
             set_raw.add(random.choice(range(low, high + 1)))
-        return list(set_raw)
+        raw = list(set_raw)
+
+    if ordered:
+        raw.sort(reverse=not increasing)
 
     return raw
 
@@ -97,13 +98,16 @@ def randomLetterArray(length: int = 15,
             'Cannot generate string with more than 26 unique latin letters')
 
     raw = [random.choice(string.ascii_uppercase) for _ in range(length)]
-    if ordered:
-        raw.sort(reverse=not increasing)
+
     if not allow_duplicates:
         set_raw = set(raw)
         while len(set_raw) < length:
             set_raw.add(random.choice(string.ascii_uppercase))
-        return list(set_raw)
+        raw = list(set_raw)
+
+    if ordered:
+        raw.sort(reverse=not increasing)
+
     return raw
 
 
