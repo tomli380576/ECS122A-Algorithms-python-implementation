@@ -1,5 +1,6 @@
 import numpy as np
-
+from random_inputs import randomString
+from random import randint
 
 def LCS_DP_Length(X: str, Y: str) -> int:
     dpTable = np.zeros(shape=(len(X) + 1, len(Y) + 1), dtype='int')
@@ -50,9 +51,9 @@ def LCS_DP_Sequnce(X: str, Y: str) -> str:
 
 
 if __name__ == '__main__':
-    X: str = 'pneumonoultramicroscopicsilicovolcanoconiosis'
-    Y: str = 'hippopotomonstrosesquippedaliophobia'
+    X = randomString(randint(5, 50))
+    Y = randomString(randint(5, 50))
 
     print(
-        f'The LCS between {X} and {Y} is {LCS_DP_Sequnce(X, Y)} with length = {LCS_DP_Length(X, Y)}'
+        f'X = {X} \nY = {Y}\nLCS is: \'{LCS_DP_Sequnce(X, Y)}\' with length = {LCS_DP_Length(X, Y)}'
     )

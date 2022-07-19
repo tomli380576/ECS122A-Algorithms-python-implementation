@@ -12,4 +12,5 @@ def cutRod(rod_len) -> int:
         price_if_make_cut = cutRod(rod_len - i) + PRICES[i - 1]
         if price_if_make_cut > best:
             best = price_if_make_cut
+
     return best

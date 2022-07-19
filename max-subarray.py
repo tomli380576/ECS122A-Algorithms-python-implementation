@@ -1,9 +1,8 @@
-from argparse import ArgumentError
-import math
+from math import inf
 
 
 def maxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
-    best_left_sum = -math.inf
+    best_left_sum = -inf
     curr_sum = 0
 
     # Has to go reversed to the left because the final array has to be contiguous
@@ -12,7 +11,7 @@ def maxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
         if curr_sum > best_left_sum:
             best_left_sum = curr_sum
 
-    best_right_sum = -math.inf
+    best_right_sum = -inf
     curr_sum = 0
 
     # has to go in the normal order
@@ -30,7 +29,7 @@ def maxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
 
 def maxSubarray(arr: list[int], low: int, high: int) -> int:
     if len(arr) == 0:
-        raise ArgumentError(argument=None, message='\'arr\' cannot be empty')
+        raise ValueError('arr cannot be empty')
 
     if low == high:
         return arr[0]

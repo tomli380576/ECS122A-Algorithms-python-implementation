@@ -1,4 +1,4 @@
-import math
+from math import inf
 from queue import Queue
 from example_unweighted_graphs import UNDIRECTED_3
 
@@ -12,7 +12,7 @@ def InitializeSSSP(G: dict[str, list[str]],
     vertices = GetVertices(G)
     assert (start_vertex in vertices)
 
-    dist = {vertex: math.inf for vertex in vertices}
+    dist = {vertex: inf for vertex in vertices}
     prev = {vertex: None for vertex in vertices}
     dist[start_vertex] = 0
 

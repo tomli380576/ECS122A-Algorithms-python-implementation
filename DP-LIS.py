@@ -1,5 +1,5 @@
-import math
 import numpy as np
+from math import inf
 from random_inputs import randomIntArray
 
 
@@ -16,7 +16,7 @@ def LIS_index_based(A: list, prev: int, choice: int) -> int:
 
 
 def LIS_DP(A_original: list) -> int:
-    A = [-math.inf] + A_original
+    A = [-inf] + A_original
     N = len(A)
     # N + 1 for the j axis
     # becasue we need j = N as the base case
@@ -60,7 +60,7 @@ if __name__ == '__main__':
         for _ in range(num_tests):
             random_arr = randomIntArray()
             try:
-                backtracking = LIS_index_based([-math.inf] + random_arr, 0, 1) #type:ignore
+                backtracking = LIS_index_based([-inf] + random_arr, 0, 1)  #type:ignore
                 dp = LIS_DP(random_arr)
                 assert (backtracking == dp)
             except:
@@ -75,7 +75,7 @@ if __name__ == '__main__':
         sample_2 = [19, 7, 13, 5, 10, 20, 12, 13, 1, 20, 6, 19, 9, 9, 5]
         sample_2_ans = 5
 
-        backtracking = LIS_index_based([-math.inf] + sample_1, 0, 1) #type:ignore
+        backtracking = LIS_index_based([-inf] + sample_1, 0, 1)  #type:ignore
         dp = LIS_DP(sample_1)
 
         print(f'Longest Subsequence (Backtracking) length: {backtracking}')

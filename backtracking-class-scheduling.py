@@ -1,4 +1,4 @@
-import math
+from math import inf
 from typing import Union
 
 START_TIMES = {'A': 1, 'B': 2, 'C': 6, 'D': 3}
@@ -59,17 +59,12 @@ def RecursiveScheduling_returnList(start_times: dict[str, int],
 
             # make choice
             take = RecursiveScheduling_returnList(
-                start_times,
-                finish_times,
-                prev_class_finish_time=finish_times[curr_class],
-                remaining_classes=remaining_classes -
-                set(curr_class)) + [curr_class]
+                start_times, finish_times, finish_times[curr_class],
+                remaining_classes - set(curr_class)) + [curr_class]
 
             skip = RecursiveScheduling_returnList(
-                start_times,
-                finish_times,
-                prev_class_finish_time=prev_class_finish_time,
-                remaining_classes=remaining_classes - set(curr_class))
+                start_times, finish_times, prev_class_finish_time,
+                remaining_classes - set(curr_class))
 
             if max(len(take), len(skip)) <= len(best_schedule):
                 continue
@@ -86,8 +81,8 @@ if __name__ == '__main__':
     # Since we are using a set, the order might be messed up
     # Sort the schedule by starting time if necessary
     best_schedule = RecursiveScheduling_returnList(START_TIMES2, FINISH_TIMES2,
-                                                   -math.inf, ALL_CLASSES)
+                                                   -inf, ALL_CLASSES)
     best_schedule.sort(key=START_TIMES2.get)  # type: ignore
     best_count = RecursiveScheduling_returnCount(START_TIMES2, FINISH_TIMES2,
-                                                 -math.inf, ALL_CLASSES)
+                                                 -inf, ALL_CLASSES)
     print(f'The best schedule is: {best_schedule}, length: {best_count}')

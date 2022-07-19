@@ -1,3 +1,7 @@
+from random_inputs import randomString
+from random import randint
+
+
 # returns length
 def LCS_length(X: str, Y: str, x_idx: int, y_idx: int) -> int:
     if x_idx == len(X) or y_idx == len(Y):
@@ -26,8 +30,11 @@ def LCS_seq(X: str, Y: str, x_idx: int, y_idx: int) -> str:
 
 
 if __name__ == '__main__':
-    X = 'ABC'
-    Y = 'ABC'
+    '''
+    Gets really slow if the strings are longer than 20 characters b/c O(2^n) runtime
+    '''
+    X = randomString(randint(5, 20)).upper()
+    Y = randomString(randint(5, 20)).upper()
     print(
         f'The LCS between \'{X}\' and \'{Y}\' is \'{LCS_seq(X, Y, 0, 0)}\' with length {LCS_length(X, Y, x_idx=0, y_idx=0)}'
     )

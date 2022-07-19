@@ -1,8 +1,8 @@
 import numpy as np
+from random import randint
 
 EMPTY = 0
 OCCUPIED = 1
-
 
 def wontBeAttacked(board: np.ndarray, curr_row: int, position: int) -> bool:
     for row in range(board.shape[0]):
@@ -37,6 +37,7 @@ def NQueens_wrapper(board: np.ndarray, row: int) -> int:
 
 
 if __name__ == '__main__':
-    N = 8
+    N = randint(4, 15)
+    print(f'Chose: {N} queens')
     result = NQueens_wrapper(np.zeros(shape=(N, N), dtype='int'), row=0)
     print(f'There are {result} possible solutions for a {N}x{N} board.')

@@ -1,5 +1,5 @@
 from typing import Union
-import math
+from math import inf
 
 
 def AdditionChain(n: int,
@@ -14,7 +14,7 @@ def AdditionChain(n: int,
                 result_arr.append(elem)
         return 0
 
-    best_len = math.inf
+    best_len = inf
 
     # ? Reverse order doesn't work for some reason
     for elem1 in curr_chain:
