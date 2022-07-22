@@ -47,12 +47,15 @@ def KruskalsMST(G: np.ndarray):
         vertex_sets.append(set([vertex]))
 
     for edge in sorted_edges:
-        u, v = edge  # unpack vertices
+        u, v = edge
         set_with_u_idx, set_with_v_idx = find(u, v, vertex_sets)
-        if set_with_u_idx != set_with_v_idx:  # if find(u, v)
-            # Simulates union(u, v)
-            # merge in to set v first, then remove set u
-            # avoids ambiguous index shifting from directly modifying 'vertex_sets'
+        # if find(u, v)
+        if set_with_u_idx != set_with_v_idx:  
+            '''
+            Simulates union(u, v)
+            - merge in to set v first, then remove set u
+            - avoids ambiguous index shifting from directly modifying 'vertex_sets'
+            '''
             vertex_sets[set_with_v_idx] = vertex_sets[set_with_v_idx].union(
                 vertex_sets[set_with_u_idx])
             vertex_sets.pop(set_with_u_idx)

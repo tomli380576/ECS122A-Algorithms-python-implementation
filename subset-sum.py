@@ -34,9 +34,13 @@ def subsetSum_allSolutions(nums: list[int], curr_subset: list[int],
         return
 
     for idx, num in enumerate(nums):
-        # always try including the choice
-        # if it doesn't work, we automatically falls back to the 'skip' case by moving on to the next
-        # The base case will do the check of whether it works or not
+        ''' 
+        Always try including the choice
+            if it doesn't work, 
+            we automatically falls back to the 'skip' case 
+            by moving on to the next
+        The base case will do the check of whether it works or not
+        '''
         subsetSum_allSolutions(nums[idx + 1:], curr_subset + [num],
                                target - num, working_subsets)
 

@@ -9,7 +9,7 @@ def fib_recursive(n):
     return fib_recursive(n - 1) + fib_recursive(n - 2)
 
 
-# DP version
+# basic DP version
 def fib_iterative(n):
     f_n_minus_2 = 0
     f_n_minus_1 = 1

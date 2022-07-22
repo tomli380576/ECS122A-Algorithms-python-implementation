@@ -57,14 +57,14 @@ def EditDistance_DP(A: str, B: str) -> int:
 
 def EditDistance_DP_LessSpace(A: str, B: str) -> int:
     '''
-    refer to the graphical table to see the literal arrays
+    Refer to the graphical table to see the literal arrays
     Indexing is a bit different from regular DP
     '''
     dp_array1 = [i for i in range(len(B) + 1)]
     dp_array2 = [0 for _ in range(len(B) + 1)]
     '''
-    reverse nesting order also works here
-    just make sure to change the array size to the length of the other string
+    Reverse nesting order also works here
+    Just make sure to change the array size to the length of the other string
     '''
     for i in range(1, len(A) + 1):
         for j in range(len(B) + 1):

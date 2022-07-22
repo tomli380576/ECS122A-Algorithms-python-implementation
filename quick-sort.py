@@ -6,6 +6,7 @@ def Partition(nums, pivot_val):
     left = []
     right = []
     pivot_seen = False
+
     for num in nums:
         if num < pivot_val:
             left.append(num)

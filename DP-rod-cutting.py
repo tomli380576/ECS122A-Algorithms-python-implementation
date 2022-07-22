@@ -21,14 +21,17 @@ def cutRod(rod_len) -> int:
 
 def cutRod_DP(max_rod_len) -> int:
     dpTable = np.zeros(shape=(max_rod_len + 1), dtype='int')
-    # fill in the base cases first
-    dpTable[0] = 0  # same as: 'if rod_len == 0: return 0'
-    dpTable[1] = PRICES[0]  # 'if rod_len == 1: return PRICES[0]'
+    ''' 
+    if rod_len == 0: return 0
+    if rod_len == 1: return PRICES[0]
+    '''
+    dpTable[0] = 0  
+    dpTable[1] = PRICES[0]  
 
-    # for each missing entry
+    ''' for each missing entry'''
     for rod_len in range(2, max_rod_len + 1):
         best = 0
-        # This is the loop on line 15
+        ''' This is the loop on line 15'''
         for choice in range(1, rod_len + 1):
             price_if_make_cut = dpTable[rod_len - choice] + PRICES[choice - 1]
             best = max(best, price_if_make_cut)
@@ -42,9 +45,9 @@ if __name__ == '__main__':
     start = time()
     print(f'Backtracking: {cutRod(len(PRICES))}')
     end = time()
-    print(f'took: {end - start}s')
+    print(f'Time: {end - start}s')
 
     start = time()
     print(f'DP: {cutRod_DP(len(PRICES))}')
     end = time()
-    print(f'took: {end - start}s')
+    print(f'Time: {end - start}s')

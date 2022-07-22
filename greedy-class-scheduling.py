@@ -3,7 +3,9 @@ import random
 
 
 def randomStartAndFinish(num_classes: int = 6):
-    '''Generates random test cases'''
+    '''
+    Generates random test cases
+    '''
     start = randomIntArray(low=1,
                            ordered=True,
                            length=num_classes,
@@ -36,7 +38,7 @@ def sortDictByValue(x: dict[str, int]) -> dict:
     return {k: v for k, v in sorted(x.items(), key=lambda item: item[1])}
 
 
-def greedySchedule(start_times, finish_times) -> list[str]:
+def GreedySchedule(start_times, finish_times) -> list[str]:
     # Sort by finish and change the order in START with it
     # In this case we don't have need to permute START_TIMES
     # becasue it's a dictionary and we can directly access by key in O(1)
@@ -46,23 +48,23 @@ def greedySchedule(start_times, finish_times) -> list[str]:
     schedule = [CLASSES[0]]  # Take the earliest class
 
     for curr_class in CLASSES[1:]:
-        last_class = schedule[len(schedule) - 1]
-        if start_times[curr_class] > finish_times[last_class]:
+        prev_class = schedule[len(schedule) - 1]
+        if start_times[curr_class] > finish_times[prev_class]:
             schedule.append(curr_class)
     return schedule
 
 
 if __name__ == '__main__':
-    USE_RANDOM_INPUTS = True
-    if USE_RANDOM_INPUTS:
+    use_random_inputs = True
+    if use_random_inputs:
         rand_start, rand_finish = randomStartAndFinish()
         print('Generated random schedule:')
         print(f'Start: {rand_start}')
         print(f'Finish: {rand_finish}')
-        print(f'=> Best Schedule is {greedySchedule(rand_start, rand_finish)}')
+        print(f'=> Best Schedule is {GreedySchedule(rand_start, rand_finish)}')
     else:
         START_TIMES = {'A': 1, 'B': 2, 'C': 6, 'D': 3}
         FINISH_TIMES = {'A': 5, 'B': 4, 'C': 8, 'D': 9}
         print('Using sample inputs:')
         print(
-            f'=> Best Schedule is {greedySchedule(START_TIMES, FINISH_TIMES)}')
+            f'=> Best Schedule is {GreedySchedule(START_TIMES, FINISH_TIMES)}')

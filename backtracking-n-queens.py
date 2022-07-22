@@ -4,6 +4,7 @@ from random import randint
 EMPTY = 0
 OCCUPIED = 1
 
+
 def wontBeAttacked(board: np.ndarray, curr_row: int, position: int) -> bool:
     for row in range(board.shape[0]):
         for col in range(board.shape[1]):
@@ -18,16 +19,26 @@ def wontBeAttacked(board: np.ndarray, curr_row: int, position: int) -> bool:
 
 
 def NQueens(board: np.ndarray, row: int, num_solutions: list[int]) -> None:
-    # Went outside the board
     if (row == board.shape[0]):
+        '''
+        Went outside the board, so we found a solution
+        record result
+        '''
         num_solutions[0] += 1
         return
 
     for col in range(board[row].shape[0]):
         if wontBeAttacked(board, row, col):
-            board[row, col] = OCCUPIED  # make choice
+            '''
+            make choice
+            recursive call
+            - subproblem is the modified board
+            - state is the current row number
+            undo choice, always undo b/c we want all solutions
+            '''
+            board[row, col] = OCCUPIED
             NQueens(board, row + 1, num_solutions)
-        board[row, col] = EMPTY  # always undo b/c we want all solutions
+            board[row, col] = EMPTY
 
 
 def NQueens_wrapper(board: np.ndarray, row: int) -> int:
@@ -37,7 +48,13 @@ def NQueens_wrapper(board: np.ndarray, row: int) -> int:
 
 
 if __name__ == '__main__':
-    N = randint(4, 15)
+    '''
+    Gets really slow if n >= 10
+    - Answer for N=8 is 92 
+    '''
+    N = randint(4, 10)
+    empty_board = np.zeros(shape=(N, N), dtype='int')
+
     print(f'Chose: {N} queens')
-    result = NQueens_wrapper(np.zeros(shape=(N, N), dtype='int'), row=0)
+    result = NQueens_wrapper(empty_board, 0)
     print(f'There are {result} possible solutions for a {N}x{N} board.')

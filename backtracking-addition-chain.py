@@ -6,12 +6,20 @@ def AdditionChain(n: int,
                   curr_chain: list,
                   result_arr: list,
                   rec_level=0) -> Union[int, float]:
-    if curr_chain[len(curr_chain) - 1] == n:
-        print(f'{curr_chain}, n={n}, r={rec_level}')
+    '''
+    If the last choice reached the end
+    '''
+    if curr_chain[-1] == n:
+        '''
+        Force deep copy
+        '''
         result_arr.clear()
         for elem in curr_chain:
             if elem not in result_arr:
                 result_arr.append(elem)
+        '''
+        return 0 because dist from n to n is 0
+        '''
         return 0
 
     best_len = inf
@@ -20,7 +28,14 @@ def AdditionChain(n: int,
     for elem1 in curr_chain:
         for elem2 in curr_chain:
             pair_sum = elem1 + elem2
-            if pair_sum > curr_chain[len(curr_chain) - 1] and pair_sum <= n:
+            if pair_sum > curr_chain[-1] and pair_sum <= n:
+                '''
+                For each pair, if their sum satisfies:
+                - greated than previous choice
+                - <= n
+                Then make choice:
+                - state after choice is the new chain
+                '''
                 take = AdditionChain(n, curr_chain + [pair_sum], result_arr,
                                      rec_level + 1) + 1
                 if take < best_len:
@@ -30,5 +45,9 @@ def AdditionChain(n: int,
 
 if __name__ == '__main__':
     w = []
-    AdditionChain(9, [1], result_arr=w)
+    '''
+    The chain always starts with 1
+    This gets extremely slow once n > 10
+    '''
+    AdditionChain(11, [1], result_arr=w)
     print(w)

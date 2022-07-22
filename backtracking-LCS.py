@@ -33,8 +33,8 @@ if __name__ == '__main__':
     '''
     Gets really slow if the strings are longer than 20 characters b/c O(2^n) runtime
     '''
-    X = randomString(randint(5, 20)).upper()
-    Y = randomString(randint(5, 20)).upper()
+    X = randomString(length=randint(5, 20)).upper()
+    Y = randomString(length=randint(5, 20)).upper()
     print(
         f'The LCS between \'{X}\' and \'{Y}\' is \'{LCS_seq(X, Y, 0, 0)}\' with length {LCS_length(X, Y, x_idx=0, y_idx=0)}'
     )

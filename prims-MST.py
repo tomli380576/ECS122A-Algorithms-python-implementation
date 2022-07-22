@@ -21,17 +21,21 @@ def getEdges(G: np.ndarray):
 def isSafeEdge(curr_tree: list[tuple], edge: tuple):
     if len(curr_tree) == 0:
         return True
-    x, y = zip(
-        *curr_tree
-    )  # unwrap tree to 2 list of vertices, ex. (x[0], y[0]) is one edge
-    u, v = edge[1]  # edge here is (weight, (u, v)), from line 41
+    '''
+    Wnwrap tree to 2 list of vertices
+    - ex. (x[0], y[0]) is one edge
+    '''
+    x, y = zip(*curr_tree)
+    u, v = edge[1]  # edge here is (weight, (u, v)), from line 48
 
     is_isolated: bool = u not in x + y and v not in x + y
     creates_cycle: bool = u in x + y and v in x + y
-    # let uv be the edge
-    # if neither u or v is in the tree, then it's not connected
-    # if both are in, then it's a cycle
-    # so the condition is 'not disconnected nor creates a cycle'
+    '''
+    Let uv be the edge
+    - if neither u or v is in the tree, then it's not connected
+    - if both are in, then it's a cycle
+    so the condition is 'not disconnected nor creates a cycle'
+    '''
     return not (creates_cycle or is_isolated)
 
 
@@ -40,7 +44,7 @@ def PrimsMST(G: np.ndarray):
     # Initially, add all edges to PQ
     for edge in getEdges(G):
         # (weight, edge),
-        # python prio queue uses the 1st element of the tuple as the priority
+        # python prio queue library uses the 1st element of the tuple as the priority
         priority_queue.put((G[edge], edge))
 
     # Take global min from priority queue

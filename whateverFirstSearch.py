@@ -37,16 +37,20 @@ def WFS_Visit(G: dict, start: Vertex, bag: Bag):
                 bag.put(adjacent_vertex)
 
 
-# This function by itself assumes all vertices in G can be reached from start_vertex
-# Needs a wrapper such as WhateverFirstSearch_All() for disconnected graphs
 def WhateverFirstSearch_Connected(G, start: Vertex, bag: Bag):
-    # Initialize visit status
+    '''
+    This function by itself assumes all vertices in G can be reached from start_vertex
+    Needs a wrapper like WhateverFirstSearch_All() for disconnected graphs
+    '''
+
     for vertex in G:
+        # Initialize visit status
         STATUS[vertex] = NEW
 
     bag.put(start)
     while not bag.empty():
-        # Get whatever the 'first' vertex is, depending on the data structure
+        # Get whatever the 'first' vertex is, 
+        # depends on the data structure
         vertex = bag.get()
         if STATUS[vertex] == NEW:
             print(f'Newly Discovered {vertex}')

@@ -3,46 +3,45 @@ from math import inf
 from random_inputs import randomIntArray
 
 
-# both prev and choice are indices
 def LIS_index_based(A: list, prev: int, choice: int) -> int:
+    ''' Both prev and choice are indices '''
     if choice == len(A):
         return 0
     elif A[prev] >= A[choice]:
         return LIS_index_based(A, prev, choice + 1)
     else:
         take = LIS_index_based(A, choice, choice + 1) + 1
-        leave = LIS_index_based(A, prev, choice + 1)
-        return max(take, leave)
+        skip = LIS_index_based(A, prev, choice + 1)
+        return max(take, skip)
 
 
 def LIS_DP(A_original: list) -> int:
     A = [-inf] + A_original
     N = len(A)
-    # N + 1 for the j axis
-    # becasue we need j = N as the base case
+    ''' 
+    N + 1 for the j axis
+    becasue we need j = N as the base case
+    '''
     dp_table: np.ndarray = np.zeros(shape=(N, N + 1), dtype='int')
-    result = []
 
-    # initialize base cases
-    for i in range(len(A)):
-        # this corresponds to `if j >= len(A)`
-        # needed for all the i's
-        dp_table[i, N] = 0
+    for prev in range(len(A)):
+        '''
+        Fill in the base cases.
+        this corresponds to `if choice == len(A)`
+        needed for all the prev's
+        '''
+        dp_table[prev, N] = 0
 
-    for j in reversed(range(1, N)):
-        for i in range(N - 1):
-            if A[i] >= A[j]:
-                dp_table[i, j] = dp_table[i, j + 1]
+    for choice in reversed(range(1, N)):
+        for prev in range(N - 1):
+            if A[prev] >= A[choice]:
+                dp_table[prev, choice] = dp_table[prev, choice + 1]
             else:
-                take = dp_table[j, j + 1] + 1
-                leave = dp_table[i, j + 1]
-                dp_table[i, j] = max(take, leave)
-                # Avoid repeating elements
-                if take > leave and dp_table[i, j] > len(result):
-                    result.append(A[j])
+                take = dp_table[choice, choice + 1] + 1
+                leave = dp_table[prev, choice + 1]
+                dp_table[prev, choice] = max(take, leave)
 
-    result.reverse()
-    # This corresponds to the initial call LIS(i = 0, j = 1)
+    '''This corresponds to the initial call LIS(prev = 0, choice = 1)'''
     return dp_table[0, 1]
 
 
@@ -53,14 +52,14 @@ if __name__ == '__main__':
     - whether to run tests or run sample inputs
     - number of tests
     '''
-    use_random_input = True
+    use_random_input = False
     num_tests = 2000
 
     if use_random_input:
         for _ in range(num_tests):
             random_arr = randomIntArray()
             try:
-                backtracking = LIS_index_based([-inf] + random_arr, 0, 1)  #type:ignore
+                backtracking = LIS_index_based([-inf] + random_arr, 0, 1)  # type:ignore
                 dp = LIS_DP(random_arr)
                 assert (backtracking == dp)
             except:

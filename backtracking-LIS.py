@@ -1,12 +1,13 @@
 from math import inf
 from random_inputs import randomIntArray
-'''
-Note: prev_idx == -1 for initial call so that arr can directly accept inputs 
-- Otherwise we have to append [-math.inf] to the front of arr
-'''
 
 
 def LIS_FindNext(A: list[int], prev: int, choice: int) -> int:
+    '''
+    Note: prev_idx is set to -1 for initial call
+    - Otherwise we have to append [-math.inf] to the front of arr
+    '''
+
     if len(A) == 0:
         return 0
 

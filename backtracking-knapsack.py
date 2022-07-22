@@ -3,7 +3,7 @@ from random_inputs import randomIntArray
 from math import inf
 
 
-def Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity, item_index=0):
+def Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity, item=0):
     if len(VALUES) != len(WEIGHTS):
         raise ValueError(
             'Invalid input, values and weights have different lengths')
@@ -11,35 +11,38 @@ def Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity, item_index=0):
     if capacity == 0:
         return 0
 
-    if item_index == len(VALUES) - 1:
-        if WEIGHTS[item_index] <= capacity:
-            return VALUES[item_index]
+    if item == len(VALUES) - 1:
+        if WEIGHTS[item] <= capacity:
+            return VALUES[item]
         else:
             return 0
 
-    skip = Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity, item_index + 1)
+    skip = Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity, item + 1)
     take = skip
 
-    if capacity >= WEIGHTS[item_index]:
+    if capacity >= WEIGHTS[item]:
         take = Knapsack_TakeOrSkip(VALUES, WEIGHTS,
-                                   capacity - WEIGHTS[item_index],
-                                   item_index + 1) + VALUES[item_index]
+                                   capacity - WEIGHTS[item],
+                                   item + 1) + VALUES[item]
 
     return max(take, skip)
 
 
-def Knapsack_FindNext(VALUES, WEIGHTS, capacity, item_index=0):
+def Knapsack_FindNext(VALUES, WEIGHTS, capacity, item=0):
+    if len(VALUES) != len(WEIGHTS):
+        raise ValueError('Invalid input, values and weights have different lengths')
+
     if capacity == 0:
         return 0
 
-    if item_index == len(VALUES) - 1:
-        if WEIGHTS[item_index] <= capacity:
-            return VALUES[item_index]
+    if item == len(VALUES) - 1:
+        if WEIGHTS[item] <= capacity:
+            return VALUES[item]
         else:
             return 0
 
     best = -inf
-    for choice in range(item_index, len(VALUES)):
+    for choice in range(item, len(VALUES)):
         skip = Knapsack_FindNext(VALUES, WEIGHTS, capacity, choice + 1)
         take = skip
 

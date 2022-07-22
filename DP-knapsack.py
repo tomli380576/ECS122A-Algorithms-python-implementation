@@ -1,28 +1,21 @@
-from random import randint
 import numpy as np
 
-# VALUES = [4, 5, 3, 7]
-# WEIGHTS = [2, 3, 1, 4]
 
-# VALUES = [60, 100, 120]
-# WEIGHTS = [10, 20, 30]
-
-VALUES = [10, 40, 30, 50]
-WEIGHTS = [5, 4, 6, 3]
-NUM_ITEMS = len(VALUES)
-
-
-def knapsack_DP(max_capacity) -> int:
+def Knapsack_DP(VALUES, WEIGHTS, max_capacity) -> int:
     assert (len(VALUES) == len(WEIGHTS))
-    # Waste a little space here to avoid messing with index offset
-    dp_table = np.zeros(shape=(max_capacity + 1, NUM_ITEMS), dtype='int')
-    # Let's choose:
-    #  the 1st axis to be capacity values,
-    #  the 2nd axis to be item indexes
-    LAST_ITEM = NUM_ITEMS - 1
+    '''   
+    Waste a little space here to avoid messing with index offset
+    Let's choose:
+    - the 1st axis to be capacity values,
+    - the 2nd axis to be item indexes
+    '''
+    num_items = len(VALUES)
+    dp_table = np.zeros(shape=(max_capacity + 1, num_items), dtype='int')
+
+    LAST_ITEM = num_items - 1
 
     # fill in base cases
-    for item in range(0, NUM_ITEMS):
+    for item in range(0, num_items):
         dp_table[0, item] = 0  # 'if capacity == 0' case
 
     for capacity in range(0, max_capacity + 1):
@@ -34,7 +27,7 @@ def knapsack_DP(max_capacity) -> int:
 
     # up to num_items - 2 because the recursive call will add 1
     # Traverse backwards becasue of the order of evaluation
-    for item in reversed(range(NUM_ITEMS - 1)):
+    for item in reversed(range(num_items - 1)):
         for capacity in range(max_capacity + 1):
             skip = dp_table[capacity, item + 1]
             take = skip
@@ -48,7 +41,16 @@ def knapsack_DP(max_capacity) -> int:
 
 
 if __name__ == '__main__':
-    max_capacity = randint(1, 100)
-    print(
-        f'At max_capacity {max_capacity}, The max profit is: {knapsack_DP(max_capacity)}'
-    )
+    sample_values_1 = [4, 5, 3, 7]
+    sample_weights_1 = [2, 3, 1, 4]
+
+    sample_values_2 = [60, 100, 120]
+    sample_weights_2 = [10, 20, 30]
+
+    sample_values_3 = [10, 40, 30, 50]
+    sample_weights_3 = [5, 4, 6, 3]
+
+    max_capacity = 50
+
+    answer = Knapsack_DP(sample_values_2, sample_weights_2, max_capacity)
+    print(f'At max_capacity {max_capacity}, The max profit is: {answer}')

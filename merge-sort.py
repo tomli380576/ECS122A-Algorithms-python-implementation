@@ -11,13 +11,16 @@ def sortDescending(x: int, y: int):
 
 def alphabeticalOrder(s1: str, s2: str) -> bool:
     shorter_len = min(len(s1), len(s2))
-    for i in range(shorter_len):  # O(length of shorter string)
+
+    # O(length of shorter string)
+    for i in range(shorter_len):
         if ord(s1[i]) == ord(s2[i]):
             continue
         elif ord(s1[i]) > ord(s2[i]):
             return False
         elif ord(s1[i]) < ord(s2[i]):
             return True
+
     return True
 
 
@@ -27,7 +30,12 @@ def merge2SortedArrays(arr1: list, arr2: list,
     out = []
 
     while ptr1 != len(arr1) and ptr2 != len(arr2):  # O(n)
-        # O(perdicate); comparing 2 strings: O(n), comparing 2 numbers: O(1)
+        '''
+        O(perdicate) 
+        - comparing 2 strings: O(n)
+        - comparing 2 numbers: O(1)
+        Change the complexity recurrence accordingly
+        '''
         if predicate(arr1[ptr1], arr2[ptr2]):
             out.append(arr1[ptr1])
             ptr1 += 1
