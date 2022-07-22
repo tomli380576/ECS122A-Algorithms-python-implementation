@@ -1,62 +1,86 @@
 from queue import Queue
-from enum import Enum
 from example_unweighted_graphs import UNDIRECTED_3
 
-
-class STATUS(Enum):
-    NEW = 1
-    ACTIVE = 2
-    FINISHED = 3
+NEW = 1
+VISITED = 2
+Vertex = str
 
 
-def BreadthFirstSearch(G: dict, start_vertex: str):
-    VISIT_STATUS: dict[str, STATUS] = {}
+def BreadthFirstSearch(G: dict, start: Vertex):
+    STATUS: dict[Vertex, int] = {}
 
     for vertex in G:
-        VISIT_STATUS[vertex] = STATUS.NEW
+        STATUS[vertex] = NEW
 
     queue = Queue()
-    queue.put(start_vertex)
+    queue.put(start)
 
     while not queue.empty():
-        first_vertex_in_queue = queue.get()
+        first_vertex = queue.get()
 
-        if VISIT_STATUS[first_vertex_in_queue] == STATUS.NEW:
-            print(f'Discovered: {first_vertex_in_queue}')
-            VISIT_STATUS[first_vertex_in_queue] = STATUS.ACTIVE
-
-            for adjacent_vertex in G[first_vertex_in_queue]:
+        if STATUS[first_vertex] == NEW:
+            print(f'{first_vertex}')
+            STATUS[first_vertex] = VISITED
+            for adjacent_vertex in G[first_vertex]:
                 queue.put(adjacent_vertex)
 
 
-def BFS_WithToken(G: dict, start_vertex: str):
-    TOKEN = '\033[93m*Special Token*\033[0m'
-    VISIT_STATUS: dict[str, STATUS] = {}
+def BFS_122A_Version(G: dict, start: Vertex):
+    STATUS: dict[Vertex, int] = {}
 
     for vertex in G:
-        VISIT_STATUS[vertex] = STATUS.NEW
+        STATUS[vertex] = NEW
 
     queue = Queue()
-    queue.put(start_vertex)
+    queue.put(start)
+    STATUS[start] = VISITED
+
+    while not queue.empty():
+        first_vertex = queue.get()
+        print(first_vertex)
+        for adjacent_vertex in G[first_vertex]:
+            if STATUS[adjacent_vertex] == NEW:
+                STATUS[adjacent_vertex] = VISITED
+                queue.put(adjacent_vertex)
+
+
+def BFS_WithToken(G: dict, start: Vertex):
+    TOKEN = '\033[93m*Special Token*\033[0m'
+    STATUS: dict[str, int] = {}
+
+    for vertex in G:
+        STATUS[vertex] = NEW
+
+    queue = Queue()
+    queue.put(start)
     queue.put(TOKEN)
 
     while not queue.empty():
-        first_vertex_in_queue = queue.get()
-
-        if first_vertex_in_queue == TOKEN:
+        first_vertex = queue.get()
+        if first_vertex == TOKEN:
             print(TOKEN)
-            if queue.empty():  # If no more vertices, token was the only thing
+            ''' 
+            If no more vertices, token was the only thing
+            '''
+            if queue.empty():
                 break
             else:
                 queue.put(TOKEN)
         else:
-            if VISIT_STATUS[first_vertex_in_queue] == STATUS.NEW:
-                print(f'Discovered: {first_vertex_in_queue}')
-                VISIT_STATUS[first_vertex_in_queue] = STATUS.ACTIVE
+            if STATUS[first_vertex] == NEW:
+                print(f'{first_vertex}')
+                STATUS[first_vertex] = VISITED
 
-                for adjacent_vertex in G[first_vertex_in_queue]:
+                for adjacent_vertex in G[first_vertex]:
                     queue.put(adjacent_vertex)
 
 
 if __name__ == '__main__':
-    BFS_WithToken(UNDIRECTED_3, 'A')
+    print('==> Whatever-First based version:')
+    show_token = True
+    if show_token:
+        BFS_WithToken(UNDIRECTED_3, 'S')
+    else:
+        BreadthFirstSearch(UNDIRECTED_3, 'S')
+    print('\n==> 122A version')
+    BFS_122A_Version(UNDIRECTED_3, 'S')

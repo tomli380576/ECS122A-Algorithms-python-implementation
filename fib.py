@@ -13,7 +13,7 @@ def fib_recursive(n):
 def fib_iterative(n):
     f_n_minus_2 = 0
     f_n_minus_1 = 1
-    for i in range(n):
+    for _ in range(n):
         f_n = f_n_minus_1 + f_n_minus_2
         f_n_minus_2, f_n_minus_1 = f_n_minus_1, f_n
     return f_n_minus_2

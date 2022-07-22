@@ -1,60 +1,58 @@
 from queue import PriorityQueue, Queue, LifoQueue
 from typing import Union
-from enum import Enum
 from example_unweighted_graphs import UNDIRECTED_3
 
 Bag = Union[LifoQueue, Queue, PriorityQueue]
+Vertex = str
 
+NEW = 1
+ACTIVE = 2
+FINISHED = 3
 
-class STATUS(Enum):
-    NEW = 1
-    ACTIVE = 2
-    FINISHED = 3
-
-
-VISIT_STATUS: dict[str, STATUS] = {}
+STATUS: dict[Vertex, int] = {}
 
 
 # Handles disconnected graphs
-def WhateverFirstSearch_All(G, data_structure: Bag):
+def WhateverFirstSearch_All(G: dict, bag: Bag):
+    for vertex in G.keys():
+        STATUS[vertex] = NEW
     for vertex in G:
-        VISIT_STATUS[vertex] = STATUS.NEW
-    for vertex in G:
-        if VISIT_STATUS[vertex] == STATUS.NEW:
-            WFS_Visit(G, vertex, data_structure)
+        if STATUS[vertex] == NEW:
+            WFS_Visit(G, vertex, bag)
 
 
 # Helper for WhateverFirstSearch_All
-def WFS_Visit(G, start_vertex: str, data_structure: Bag):
+def WFS_Visit(G: dict, start: Vertex, bag: Bag):
     # no initializing here unlike WhateverFirstSearch_Connected()
     # b/c WhateverFirstSearch_All did it already
-    data_structure.put(start_vertex)
-    while not data_structure.empty():
+    bag.put(start)
+
+    while not bag.empty():
         # Get whatever the 'first' vertex is, depending on the data structure
-        vertex = data_structure.get()
-        if VISIT_STATUS[vertex] == STATUS.NEW:
-            print(f'Newly Discovered {vertex}')
-            VISIT_STATUS[vertex] = STATUS.ACTIVE
+        vertex = bag.get()
+        if STATUS[vertex] == NEW:
+            print(f'{vertex}')
+            STATUS[vertex] = ACTIVE
             for adjacent_vertex in G[vertex]:
-                data_structure.put(adjacent_vertex)
+                bag.put(adjacent_vertex)
 
 
 # This function by itself assumes all vertices in G can be reached from start_vertex
 # Needs a wrapper such as WhateverFirstSearch_All() for disconnected graphs
-def WhateverFirstSearch_Connected(G, start_vertex: str, data_structure: Bag):
+def WhateverFirstSearch_Connected(G, start: Vertex, bag: Bag):
     # Initialize visit status
     for vertex in G:
-        VISIT_STATUS[vertex] = STATUS.NEW
+        STATUS[vertex] = NEW
 
-    data_structure.put(start_vertex)
-    while not data_structure.empty():
+    bag.put(start)
+    while not bag.empty():
         # Get whatever the 'first' vertex is, depending on the data structure
-        vertex = data_structure.get()
-        if VISIT_STATUS[vertex] == STATUS.NEW:
+        vertex = bag.get()
+        if STATUS[vertex] == NEW:
             print(f'Newly Discovered {vertex}')
-            VISIT_STATUS[vertex] = STATUS.ACTIVE
+            STATUS[vertex] = ACTIVE
             for adjacent_vertex in G[vertex]:
-                data_structure.put(adjacent_vertex)
+                bag.put(adjacent_vertex)
 
 
 if __name__ == '__main__':
@@ -67,6 +65,6 @@ if __name__ == '__main__':
 
     print('=> With Queue, Breadth First:')
     WhateverFirstSearch_All(UNDIRECTED_3, queue)
-
-    print('=> With Priority Queue, Best First:')
-    WhateverFirstSearch_All(UNDIRECTED_3, priority_queue)
+    '''Needs to be weighted'''
+    # print('=> With Priority Queue, Best First:')
+    # WhateverFirstSearch_All(UNDIRECTED_3, priority_queue)

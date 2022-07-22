@@ -2,9 +2,9 @@ import random
 import string
 
 
-def randomString(length: int = 5) -> str:
-    return ''.join(
-        random.choice(string.ascii_lowercase) for _ in range(length))
+def randomString(letters: str = string.ascii_lowercase,
+                 length: int = 5) -> str:
+    return ''.join(random.choice(letters) for _ in range(length))
 
 
 def randomLowerCaseStrings(num_strs: int = 15,
