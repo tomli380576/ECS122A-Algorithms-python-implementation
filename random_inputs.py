@@ -83,7 +83,7 @@ def randomLetterArray(length: int = 15,
                       increasing=True,
                       allow_duplicates=True) -> list[str]:
     '''
-    Generates a random integer array
+    Generates a random letter array
     ----
     @param length: number of items
     @param ordered: whether the list should be ordered. 

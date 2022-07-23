@@ -3,23 +3,6 @@ from functools import cache
 from random_inputs import randomString
 from random import randint
 
-
-def EditDistance(A: str, B: str, i: int, j: int) -> int:
-    '''
-    +1 offset because i and j are array indices
-    '''
-    if i == -1:
-        return j + 1
-    if j == -1:
-        return i + 1
-
-    return min(
-        EditDistance(A, B, i, j - 1) + 1,  # Insert
-        EditDistance(A, B, i - 1, j) + 1,  # Delete
-        EditDistance(A, B, i - 1, j - 1) +
-        (1 if A[i] != B[j] else 0))  # Replace
-
-
 @cache
 def EditDistance_withCache(A: str, B: str, i: int, j: int) -> int:
     if i == -1:
@@ -84,7 +67,9 @@ def EditDistance_DP_LessSpace(A: str, B: str) -> int:
         '''
         Maybe a slight overhead here compared to regular DP
         We have to copy over the numbers from arr2 to arr1
-        If we were to write this in C++ we still need to call delete O(n) times
+        If we write this in C++,
+        we can use pointers to define which array is dp_array1
+        and just write over it
         '''
         dp_array1 = dp_array2
         dp_array2 = [0 for _ in range(len(B) + 1)]
@@ -127,8 +112,3 @@ if __name__ == '__main__':
     res = EditDistance_withCache(A, B, len(A) - 1, len(B) - 1)
     end = time() * 1000
     print(f'Libray Cache Wrapper: {format(end-start, ".3f")} ms')
-
-    start = time() * 1000
-    res = EditDistance(A, B, len(A) - 1, len(B) - 1)
-    end = time() * 1000
-    print(f'Raw Backtracking: {format(end-start, ".3f")} ms')
