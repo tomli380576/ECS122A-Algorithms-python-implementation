@@ -58,6 +58,7 @@ def BellmanFord(G: Graph, start: Vertex):
             If tense, relax it
             '''
             if dist[u] + weight < dist[v]:
+                print(f'Relaxed edge {u} -> {v} from {dist[v]} to {dist[u] + weight}')
                 dist[v] = dist[u] + weight
                 prev[v] = u
 
@@ -65,10 +66,11 @@ def BellmanFord(G: Graph, start: Vertex):
     Now there shouldn't be any tense edges,
     If we find any, then the graph has a negative cycle
     '''
+    print('Main loop over, checking for cycles')
     for edge in edges:
         weight, u, v = edge
         if dist[u] + weight < dist[v]:
-            raise ValueError('Negative Cycle')
+            raise ValueError('Negative Cycle, No solution')
 
     return dist, prev
 

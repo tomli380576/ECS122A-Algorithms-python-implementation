@@ -8,38 +8,39 @@ class STATUS(Enum):
     NEW = 2
     FINISHED = 3
 
-
-VISIT_STATUS = {}
-ORDER = {}
-
-
 def TopologicalSort(G: dict[str, list[str]]):
-    VISIT_STATUS.clear()
-    ORDER.clear()
-    for vertex in G:
-        VISIT_STATUS[vertex] = STATUS.NEW
+    VISIT_STATUS = {}
+    ORDER = {}
 
-    clock = len(G.keys())
+    def wrapper(G: dict[str, list[str]]):
+        VISIT_STATUS.clear()
+        ORDER.clear()
+        for vertex in G:
+            VISIT_STATUS[vertex] = STATUS.NEW
 
-    for vertex in G:
-        if VISIT_STATUS[vertex] == STATUS.NEW:
-            clock = TopologicalVisit(G, vertex, clock)
-    return ORDER
+        clock = len(G.keys())
+
+        for vertex in G:
+            if VISIT_STATUS[vertex] == STATUS.NEW:
+                clock = TopologicalVisit(G, vertex, clock)
+        return ORDER
 
 
-def TopologicalVisit(G: dict[str, list[str]], vertex: str, clock: int) -> int:
-    VISIT_STATUS[vertex] = STATUS.ACTIVE
+    def TopologicalVisit(G: dict[str, list[str]], vertex: str, clock: int) -> int:
+        VISIT_STATUS[vertex] = STATUS.ACTIVE
 
-    for adjacent_vertex in G[vertex]:
-        if VISIT_STATUS[adjacent_vertex] == STATUS.NEW:
-            clock = TopologicalVisit(G, adjacent_vertex, clock)
-        elif VISIT_STATUS[adjacent_vertex] == STATUS.ACTIVE:
-            raise RuntimeError('Cycle Detected')
+        for adjacent_vertex in G[vertex]:
+            if VISIT_STATUS[adjacent_vertex] == STATUS.NEW:
+                clock = TopologicalVisit(G, adjacent_vertex, clock)
+            elif VISIT_STATUS[adjacent_vertex] == STATUS.ACTIVE:
+                raise RuntimeError('Cycle Detected')
 
-    VISIT_STATUS[vertex] = STATUS.FINISHED
-    ORDER[vertex] = clock
-    clock -= 1
-    return clock
+        VISIT_STATUS[vertex] = STATUS.FINISHED
+        ORDER[vertex] = clock
+        clock -= 1
+        return clock
+    
+    return wrapper(G)
 
 
 if __name__ == '__main__':
