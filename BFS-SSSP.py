@@ -59,12 +59,10 @@ def BFS_SSSP_Unweighted(G: Graph, start: Vertex) -> tuple[dict, dict]:
 
 
 if __name__ == '__main__':
-    start_vertex = 'S'
-    dist, prev = BFS_SSSP_Unweighted(UNDIRECTED_3, start_vertex)
-    print(f'dist:{dist}\nprev:{prev}\n')
+    start = 'S'
+    dist, prev = BFS_SSSP_Unweighted(UNDIRECTED_3, start)
+    print(f'dist:{dist}\nprev:{prev}\n======')
 
     for vertex in GetVertices(UNDIRECTED_3):
-        if vertex != start_vertex:
-            print(
-                f'Shortest Path from {start_vertex} to {vertex} is {ConstructPath(prev, vertex)}'
-            )
+        if vertex != start:
+            print(f'Shortest Path from {start} to {vertex} is {ConstructPath(prev, vertex)}')
