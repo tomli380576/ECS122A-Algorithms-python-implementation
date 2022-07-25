@@ -18,16 +18,16 @@ def LineCost(words, line_width, i, j):
         return extras**3
 
 
-def PrettyPrint(WORDS, LINE_WIDTH, curr_word_idx) -> tuple[int, list]:
-    if curr_word_idx == -1:
+def PrettyPrint(WORDS, LINE_WIDTH, last_word_idx) -> tuple[int, list]:
+    if last_word_idx == -1:
         return 0, []
 
     best_cost = inf
     best_breaks = []
 
-    for break_idx in range(0, curr_word_idx + 1):
+    for break_idx in range(0, last_word_idx + 1):
         break_cost, breaks = PrettyPrint(WORDS, LINE_WIDTH, break_idx - 1)
-        break_cost += LineCost(WORDS, LINE_WIDTH, break_idx, curr_word_idx)
+        break_cost += LineCost(WORDS, LINE_WIDTH, break_idx, last_word_idx)
 
         if break_cost < best_cost:
             best_cost = break_cost
@@ -41,14 +41,14 @@ if __name__ == '__main__':
     text2 = 'aaa bb cc ddddd'
     text3 = 'cat is an animal'
     text4 = 'This is an example of text justification'
-    words = text2.split(' ')
+    words = text4.split(' ')
 
-    line_width = 6
+    line_width = 15
 
     cost, breaks = PrettyPrint(words, line_width, len(words) - 1)
 
     for i in breaks:
         if i != 0:
             words[i] = '\n' + words[i]
-
+    print(f'Cost: {cost}')
     print(' '.join(words))
