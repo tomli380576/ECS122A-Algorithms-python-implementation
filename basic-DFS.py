@@ -1,4 +1,3 @@
-from enum import Enum
 from example_unweighted_graphs import UNDIRECTED_1
 
 STATUS = {}

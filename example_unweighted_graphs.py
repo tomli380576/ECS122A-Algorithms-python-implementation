@@ -25,6 +25,23 @@ DIRECTED_ACYCLIC_2: dict[str, list[str]] = {
     '0': []
 }
 
+DIRECTED_CYCLIC_1: dict[str, list[str]] = {
+    '5': ['7'],
+    '3': ['2', '4', '5'],
+    '7': ['8'],
+    '2': [],
+    '4': ['3', '8'],
+    '8': []
+}
+
+DIRECTED_CYCLIC_2: dict[str, list[str]] = {
+    'S': ['T'],
+    'T': ['U', 'V'],
+    'U': ['S', 'V', 'W'],
+    'V': [],
+    'W': ['V'],
+}
+
 UNDIRECTED_1: dict[str, list[str]] = {
     '5': ['3', '7'],
     '3': ['2', '4', '5'],
