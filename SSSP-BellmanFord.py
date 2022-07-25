@@ -1,5 +1,6 @@
-from example_weighted_graphs import W_DIRECTED_1
+from example_weighted_graphs import W_DIRECTED_1, W_DIRECTED_2
 from math import inf
+import random
 '''Types'''
 Vertex = str
 Edge = tuple[int, Vertex, Vertex]
@@ -29,7 +30,11 @@ def InitializeSSSP(G: Graph, start: Vertex) -> tuple[dict, dict]:
     return dist, prev
 
 
-def ConstructPath(prev: dict[Vertex, Vertex], end: Vertex) -> list[Vertex]:
+def ConstructPath(prev: dict[Vertex, Vertex], start: Vertex,
+                  end: Vertex) -> list[Vertex]:
+    if prev[end] == None:
+        return []
+
     curr = prev[end]
     path = [end]
     '''
@@ -47,7 +52,6 @@ def BellmanFord(G: Graph, start: Vertex):
     dist, prev = InitializeSSSP(G, start)
     num_vertices = len(GetVertices(G))
     edges = GetEdges(G)
-
     '''
     Underscore means we don't use this variable
     '''
@@ -58,28 +62,50 @@ def BellmanFord(G: Graph, start: Vertex):
             If tense, relax it
             '''
             if dist[u] + weight < dist[v]:
-                print(f'Relaxed edge {u} -> {v} from {dist[v]} to {dist[u] + weight}')
                 dist[v] = dist[u] + weight
                 prev[v] = u
-
     '''
     Now there shouldn't be any tense edges,
     If we find any, then the graph has a negative cycle
     '''
-    print('Main loop over, checking for cycles')
     for edge in edges:
         weight, u, v = edge
         if dist[u] + weight < dist[v]:
             raise ValueError('Negative Cycle, No solution')
 
+    print('No Cycles Found')
+
     return dist, prev
 
 
 if __name__ == '__main__':
-    start = 'S'
-    dist, prev = BellmanFord(W_DIRECTED_1, start)
-    for vertex in GetVertices(W_DIRECTED_1):
-        if vertex != start:
-            print(
-                f'Shortest Path from {start} to {vertex} is {ConstructPath(prev, vertex)}'
-            )
+    run_on_all_vertices = False
+    graph = W_DIRECTED_1
+
+    if run_on_all_vertices:
+        for start in GetVertices(graph):
+            # start = '3'
+            dist, prev = BellmanFord(graph, start)
+            for end in GetVertices(graph):
+                if end != start:
+                    path = ConstructPath(prev, start, end)
+                    if len(path) > 0:
+                        print(f'Shortest Path from {start} to {end} is {path}')
+                    else:
+                        print(
+                            f"\033[91mNo path from \'{start}\' to \'{end}\'\033[0m"
+                        )
+            print('=============')
+    else:
+        start = random.choice(GetVertices(graph))
+        print(f'==> Selected start: {start}')
+        dist, prev = BellmanFord(graph, start)
+        for end in GetVertices(graph):
+            if end != start:
+                path = ConstructPath(prev, start, end)
+                if len(path) > 0:
+                    print(f'Shortest Path from {start} to {end} is {path}')
+                else:
+                    print(
+                        f"\033[91mNo path from \'{start}\' to \'{end}\'\033[0m"
+                    )
