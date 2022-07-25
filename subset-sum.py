@@ -28,6 +28,7 @@ def subsetSum_allSolutions(nums: list[int], curr_subset: list[int],
     # Goal state
     if target == 0 and curr_subset not in working_subsets:
         working_subsets.append(curr_subset)
+        return
 
     # No more choices but NOT goal state
     if (len(nums) == 0 or target < 0):

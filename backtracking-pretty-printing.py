@@ -1,24 +1,25 @@
 from math import inf
 
 
-def LineCost(words, line_width, i, j):
+def LineCost(WORDS, LINE_WIDTH, i, j):
     '''
     i, j are valid indices, inclusive
     '''
-    extras = line_width - len(' '.join(words[i:j + 1]))
+    extras = LINE_WIDTH - len(' '.join(WORDS[i:j + 1]))
     if extras < 0:
         return inf
-    # '''
-    # Depends on the problem,
-    # enable this if the last line is free
-    # '''
-    if extras >= 0 and j == len(words) - 1:
+    if extras >= 0 and j == len(WORDS) - 1:
+        '''
+        Depends on the problem,
+        enable this if the last line is free
+        '''
         return 0
     else:
         return extras**3
 
 
-def PrettyPrint(WORDS, LINE_WIDTH, last_word_idx) -> tuple[int, list]:
+def PrettyPrint(WORDS: list[str], LINE_WIDTH: int,
+                last_word_idx: int) -> tuple[int, list]:
     if last_word_idx == -1:
         return 0, []
 
@@ -41,14 +42,15 @@ if __name__ == '__main__':
     text2 = 'aaa bb cc ddddd'
     text3 = 'cat is an animal'
     text4 = 'This is an example of text justification'
-    words = text4.split(' ')
+    words = text3.split(' ')
 
-    line_width = 15
+    line_width = 6
 
     cost, breaks = PrettyPrint(words, line_width, len(words) - 1)
 
+    print(f'Cost: {cost}, printing justified words:')
     for i in breaks:
         if i != 0:
             words[i] = '\n' + words[i]
-    print(f'Cost: {cost}')
+    
     print(' '.join(words))
