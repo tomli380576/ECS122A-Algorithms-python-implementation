@@ -1,41 +1,10 @@
-from math import inf
 from queue import Queue
 from example_unweighted_graphs import UNDIRECTED_3
-
-Vertex = str
-Graph = dict[str, list[str]]
+from SSSP_graph_helpers import InitializeSSSP, GetVertices, ConstructPath, Vertex, UnweightedGraph
 
 
-def GetVertices(G: Graph) -> list[Vertex]:
-    return list(G.keys())
-
-
-def InitializeSSSP(G: Graph, start: Vertex) -> tuple[dict, dict]:
-    vertices = GetVertices(G)
-    assert (start in vertices)
-
-    dist = {vertex: inf for vertex in vertices}
-    prev = {vertex: None for vertex in vertices}
-    dist[start] = 0
-
-    return dist, prev
-
-
-def ConstructPath(prev: dict[Vertex, Vertex], end: Vertex) -> list[Vertex]:
-    curr = prev[end]
-    path = [end]
-    '''
-    It's like traversing a linked list
-    '''
-    while curr != None:
-        path.append(curr)
-        curr = prev[curr]
-
-    path.reverse()
-    return path
-
-
-def BFS_SSSP_Unweighted(G: Graph, start: Vertex) -> tuple[dict, dict]:
+def BFS_SSSP_Unweighted(G: UnweightedGraph,
+                        start: Vertex) -> tuple[dict, dict]:
     dist, prev = InitializeSSSP(G, start)
     queue = Queue()
     queue.put(start)
@@ -65,4 +34,6 @@ if __name__ == '__main__':
 
     for vertex in GetVertices(UNDIRECTED_3):
         if vertex != start:
-            print(f'Shortest Path from {start} to {vertex} is {ConstructPath(prev, vertex)}')
+            print(
+                f'Shortest Path from {start} to {vertex} is {ConstructPath(prev, vertex)}'
+            )

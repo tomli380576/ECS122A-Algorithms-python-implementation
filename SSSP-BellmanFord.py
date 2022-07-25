@@ -1,57 +1,13 @@
 from example_weighted_graphs import W_DIRECTED_1, W_DIRECTED_2
-from math import inf
+from SSSP_graph_helpers import (InitializeSSSP, GetVertices, GetWeightedEdges,
+                                ConstructPath, Vertex, WeightedGraph)
 import random
-'''Types'''
-Vertex = str
-Edge = tuple[int, Vertex, Vertex]
-Graph = dict[str, list[tuple[int, str]]]
 
 
-def GetVertices(G: Graph) -> list[Vertex]:
-    return list(G.keys())
-
-
-def GetEdges(G: Graph) -> list[Edge]:
-    out: list[Edge] = []
-    for vertex, adj_list in G.items():
-        for adj_vertex in adj_list:
-            out.append((adj_vertex[0], vertex, adj_vertex[1]))
-    return out
-
-
-def InitializeSSSP(G: Graph, start: Vertex) -> tuple[dict, dict]:
-    vertices = GetVertices(G)
-    assert (start in vertices)
-
-    dist = {vertex: inf for vertex in vertices}
-    prev = {vertex: None for vertex in vertices}
-    dist[start] = 0
-
-    return dist, prev
-
-
-def ConstructPath(prev: dict[Vertex, Vertex], start: Vertex,
-                  end: Vertex) -> list[Vertex]:
-    if prev[end] == None:
-        return []
-
-    curr = prev[end]
-    path = [end]
-    '''
-    It's like traversing a linked list
-    '''
-    while curr != None:
-        path.append(curr)
-        curr = prev[curr]
-    '''we appended everything to the back, so reverse it'''
-    path.reverse()
-    return path
-
-
-def BellmanFord(G: Graph, start: Vertex):
+def BellmanFord(G: WeightedGraph, start: Vertex):
     dist, prev = InitializeSSSP(G, start)
     num_vertices = len(GetVertices(G))
-    edges = GetEdges(G)
+    edges = GetWeightedEdges(G)
     '''
     Underscore means we don't use this variable
     '''
@@ -88,7 +44,7 @@ if __name__ == '__main__':
             dist, prev = BellmanFord(graph, start)
             for end in GetVertices(graph):
                 if end != start:
-                    path = ConstructPath(prev, start, end)
+                    path = ConstructPath(prev, end)
                     if len(path) > 0:
                         print(f'Shortest Path from {start} to {end} is {path}')
                     else:
@@ -102,7 +58,7 @@ if __name__ == '__main__':
         dist, prev = BellmanFord(graph, start)
         for end in GetVertices(graph):
             if end != start:
-                path = ConstructPath(prev, start, end)
+                path = ConstructPath(prev, end)
                 if len(path) > 0:
                     print(f'Shortest Path from {start} to {end} is {path}')
                 else:
