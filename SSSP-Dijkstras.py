@@ -1,6 +1,6 @@
 import heapq
 import random
-from example_weighted_graphs import W_DIRECTED_1, W_DIRECTED_2
+from example_weighted_graphs import W_DIRECTED_1, W_DIRECTED_2, W_DIRECTED_3
 from SSSP_graph_helpers import InitializeSSSP, GetVertices, ConstructPath, Vertex, WeightedGraph, Number
 
 # Avoid name clash with the library Priority Queue
@@ -42,18 +42,37 @@ def NonNegative_Dijkstras(G: WeightedGraph, start: Vertex):
 
     return dist, pred
 
+def Dijkstras(G: WeightedGraph, start: Vertex):
+    dist, pred = InitializeSSSP(G, start)
+    queue: PrioQueue = []
+
+    heapq.heappush(queue, (0, start))
+
+    while len(queue) > 0:
+        _, u = heapq.heappop(queue)
+
+        for weight, v in G[u]:
+            if dist[u] + weight < dist[v]:
+                dist[v] = dist[u] + weight
+                pred[v] = u
+                if v in queue:
+                    UpdatePriority(queue, v, dist[v])
+                else:
+                    heapq.heappush(queue, (dist[v], v))
+
+    return dist, pred
 
 if __name__ == '__main__':
     # Change these 2 variables to run on different graphs or run on all vertices
-    run_on_all_vertices = True
-    graph = W_DIRECTED_2
+    run_on_all_vertices = False
+    graph = W_DIRECTED_3
 
     if run_on_all_vertices:
         for start in GetVertices(graph):
-            dist, prev = NonNegative_Dijkstras(graph, start)
+            dist, pred = NonNegative_Dijkstras(graph, start)
             for end in GetVertices(graph):
                 if end != start:
-                    path = ConstructPath(prev, end)
+                    path = ConstructPath(pred, end)
                     if len(path) > 0:
                         print(f'Shortest Path from {start} to {end} is {path}')
                     else:
@@ -64,10 +83,10 @@ if __name__ == '__main__':
     else:
         start = random.choice(GetVertices(graph))
         print(f'==> Selected start: {start}')
-        dist, prev = NonNegative_Dijkstras(graph, start)
+        dist, pred = Dijkstras(graph, start)
         for end in GetVertices(graph):
             if end != start:
-                path = ConstructPath(prev, end)
+                path = ConstructPath(pred, end)
                 if len(path) > 0:
                     print(f'Shortest Path from {start} to {end} is {path}')
                 else:
