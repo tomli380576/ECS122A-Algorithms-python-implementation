@@ -1,13 +1,13 @@
 import heapq
 import random
 from example_weighted_graphs import W_DIRECTED_1, W_DIRECTED_2
-from SSSP_graph_helpers import InitializeSSSP, GetVertices, ConstructPath, Vertex, WeightedGraph
+from SSSP_graph_helpers import InitializeSSSP, GetVertices, ConstructPath, Vertex, WeightedGraph, Number
 
 # Avoid name clash with the library Priority Queue
-PrioQueue = list[tuple[int, Vertex]]
+PrioQueue = list[tuple[Number, Vertex]]
 
-def UpdatePriority(queue: PrioQueue, vertex_to_update: Vertex,
-                   new_prio: int):
+
+def UpdatePriority(queue: PrioQueue, vertex_to_update: Vertex, new_prio: Number):
     '''
     This looks pretty cumbersome because the heapq library doesn't support direct updates
     If you implement a custom priority queue it should be O(log n) update
@@ -45,7 +45,7 @@ def NonNegative_Dijkstras(G: WeightedGraph, start: Vertex):
 
 if __name__ == '__main__':
     # Change these 2 variables to run on different graphs or run on all vertices
-    run_on_all_vertices = False
+    run_on_all_vertices = True
     graph = W_DIRECTED_2
 
     if run_on_all_vertices:
@@ -60,7 +60,7 @@ if __name__ == '__main__':
                         print(
                             f"\033[91mNo path from \'{start}\' to \'{end}\'\033[0m"
                         )
-            print('=============')
+            print('==========================')
     else:
         start = random.choice(GetVertices(graph))
         print(f'==> Selected start: {start}')

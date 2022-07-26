@@ -1,26 +1,29 @@
 from math import inf
-from typing import Union
+from typing import Union, Optional
 
 Vertex = str
-Edge = tuple[int, Vertex, Vertex]
+WeightedEdge = tuple[int, Vertex, Vertex]
 WeightedGraph = dict[str, list[tuple[int, str]]]
 UnweightedGraph = dict[str, list[str]]
 Graph = Union[WeightedGraph, UnweightedGraph]
+Number = Union[int, float]
 
 
 def GetVertices(G: Graph) -> list[Vertex]:
     return list(G.keys())
 
 
-def GetWeightedEdges(G: WeightedGraph) -> list[Edge]:
-    out: list[Edge] = []
+def GetWeightedEdges(G: WeightedGraph) -> list[WeightedEdge]:
+    out: list[WeightedEdge] = []
     for vertex, adj_list in G.items():
         for adj_vertex in adj_list:
             out.append((adj_vertex[0], vertex, adj_vertex[1]))
     return out
 
 
-def InitializeSSSP(G: Graph, start: Vertex) -> tuple[dict, dict]:
+def InitializeSSSP(
+    G: Graph, start: Vertex
+) -> tuple[dict[Vertex, Number], dict[Vertex, Optional[Vertex]]]:
     vertices = GetVertices(G)
     assert (start in vertices)
 
@@ -28,10 +31,10 @@ def InitializeSSSP(G: Graph, start: Vertex) -> tuple[dict, dict]:
     prev = {vertex: None for vertex in vertices}
     dist[start] = 0
 
-    return dist, prev
+    return dist, prev # type: ignore
 
 
-def ConstructPath(prev: dict[Vertex, Vertex], end: Vertex) -> list[Vertex]:
+def ConstructPath(prev: dict[Vertex, Optional[Vertex]], end: Vertex) -> list[Vertex]:
     if prev[end] == None:
         return []
 
