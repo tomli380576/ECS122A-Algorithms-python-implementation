@@ -22,6 +22,7 @@ def LCS_DP_Length(X: str, Y: str) -> int:
                 dp_table[i, j] = dp_table[i + 1, j + 1] + 1
             else:
                 dp_table[i, j] = max(dp_table[i + 1, j], dp_table[i, j + 1])
+
     return dp_table[0, 0]
 
 
@@ -72,19 +73,18 @@ def LCS_DP_Sequence(X: str, Y: str) -> str:
                 skip_x = len(dp_table[i + 1, j])
                 skip_y = len(dp_table[i, j + 1])
                 if skip_x > skip_y:
-                    ''' LCS_seq(X, Y, x_idx + 1, y_idx) '''
+                    ''' LCS_seq(... x_idx + 1, y_idx) '''
                     dp_table[i, j] = dp_table[i + 1, j]
                 else:
-                    ''' LCS_seq(X, Y, x_idx + 1, y_idx + 1) '''
+                    ''' LCS_seq(... x_idx + 1, y_idx + 1) '''
                     dp_table[i, j] = dp_table[i, j + 1]
     # simulate initial call
     return dp_table[0, 0]
 
 
 if __name__ == '__main__':
-    X = randomString(length=randint(5, 20))
-    Y = randomString(length=randint(5, 20))
-
+    X = randomString(length=randint(5, 50))
+    Y = randomString(length=randint(5, 50))
     print(
-        f'X = {X} \nY = {Y}\nLCS is: \'{LCS_DP_Sequence(X, Y)}\' with length = {LCS_DP_Length(X, Y)}'
+        f'X = {X} \nY = {Y}\nLCS is: \'{LCS_DP_Sequence(X, Y)}\' with length = {LCS_DP_Flipped(X, Y)}'
     )

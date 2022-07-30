@@ -50,7 +50,7 @@ def KruskalsMST(G: np.ndarray):
         u, v = edge
         set_with_u_idx, set_with_v_idx = find(u, v, vertex_sets)
         # if find(u, v)
-        if set_with_u_idx != set_with_v_idx:  
+        if set_with_u_idx != set_with_v_idx:
             '''
             Simulates union(u, v)
             - merge in to set v first, then remove set u

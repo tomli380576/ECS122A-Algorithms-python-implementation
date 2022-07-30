@@ -16,7 +16,7 @@ def trapRainwater_BruteForce(heights: list[int]) -> int:
 
 def trapRainwater_LinearDP(heights: list[int]) -> int:
     N = len(heights)
-    
+
     if N < 3:
         return 0
 

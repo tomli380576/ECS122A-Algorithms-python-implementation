@@ -29,7 +29,7 @@ if __name__ == '__main__':
     I'm not really sure how to generate inputs that are guaranteed to have a solution
     '''
     use_sample_inputs = False
-    
+
     if use_sample_inputs:
         RANGE = 400
         TARGET = 950
@@ -38,15 +38,18 @@ if __name__ == '__main__':
     else:
         RANGE = random.randint(1, 500)
         TARGET = random.randint(RANGE, 1000)
-        STATIONS = [0] + randomIntArray(
-            low=1, high=TARGET - 1, ordered=True,
-            allow_duplicates=False, length=random.randint(3, 10)) + [TARGET]
+        STATIONS = [0] + randomIntArray(low=1,
+                                        high=TARGET - 1,
+                                        ordered=True,
+                                        allow_duplicates=False,
+                                        length=random.randint(3,
+                                                              10)) + [TARGET]
 
         print(f'Range: {RANGE}, Target: {TARGET}\nStations: {STATIONS}')
         try:
             indices = drive(RANGE, TARGET, STATIONS)
-            print(f'=> Chosen stations:\nIndices: {indices}\nValues: {[STATIONS[i] for i in indices]}')
+            print(
+                f'=> Chosen stations:\nIndices: {indices}\nValues: {[STATIONS[i] for i in indices]}'
+            )
         except:
             print('No solution from this set of inputs')
-        
-        

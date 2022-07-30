@@ -21,8 +21,7 @@ def Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity, item=0):
     take = skip
 
     if capacity >= WEIGHTS[item]:
-        take = Knapsack_TakeOrSkip(VALUES, WEIGHTS,
-                                   capacity - WEIGHTS[item],
+        take = Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity - WEIGHTS[item],
                                    item + 1) + VALUES[item]
 
     return max(take, skip)
@@ -30,7 +29,8 @@ def Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity, item=0):
 
 def Knapsack_FindNext(VALUES, WEIGHTS, capacity, item=0):
     if len(VALUES) != len(WEIGHTS):
-        raise ValueError('Invalid input, values and weights have different lengths')
+        raise ValueError(
+            'Invalid input, values and weights have different lengths')
 
     if capacity == 0:
         return 0

@@ -40,7 +40,6 @@ def LIS_DP(A_original: list) -> int:
                 take = dp_table[choice, choice + 1] + 1
                 leave = dp_table[prev, choice + 1]
                 dp_table[prev, choice] = max(take, leave)
-
     '''This corresponds to the initial call LIS(prev = 0, choice = 1)'''
     return dp_table[0, 1]
 
@@ -59,7 +58,8 @@ if __name__ == '__main__':
         for _ in range(num_tests):
             random_arr = randomIntArray()
             try:
-                backtracking = LIS_index_based([-inf] + random_arr, 0, 1)  # type:ignore
+                backtracking = LIS_index_based([-inf] + random_arr, 0,
+                                               1)  # type:ignore
                 dp = LIS_DP(random_arr)
                 assert (backtracking == dp)
             except:

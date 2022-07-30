@@ -52,5 +52,5 @@ if __name__ == '__main__':
     for i in breaks:
         if i != 0:
             words[i] = '\n' + words[i]
-    
+
     print(' '.join(words))

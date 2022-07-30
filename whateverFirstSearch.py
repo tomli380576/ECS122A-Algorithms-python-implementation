@@ -49,7 +49,7 @@ def WhateverFirstSearch_Connected(G, start: Vertex, bag: Bag):
 
     bag.put(start)
     while not bag.empty():
-        # Get whatever the 'first' vertex is, 
+        # Get whatever the 'first' vertex is,
         # depends on the data structure
         vertex = bag.get()
         if STATUS[vertex] == NEW:

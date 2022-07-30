@@ -9,9 +9,10 @@ ACTIVE = 2
 FINISHED = 3
 
 Vertex = str
+Graph = dict[str, list[str]]
 
 
-def ClassifyEdge(prev, curr):
+def ClassifyEdge(prev: Vertex, curr: Vertex):
     if prev != None:
         stat_prev = STATUS[prev]
         stat_curr = STATUS[curr]
@@ -23,7 +24,7 @@ def ClassifyEdge(prev, curr):
             print(f'Forward or cross: {prev} -> {curr}')
 
 
-def DFS_CycleDetection(G: dict[str, list[str]]):
+def DFS_CycleDetection(G: Graph):
     # force pass by reference
     time = [0]
     for vertex in G.keys():
@@ -34,7 +35,7 @@ def DFS_CycleDetection(G: dict[str, list[str]]):
             DFS_visit(G, vertex, time)
 
 
-def DFS_visit(G: dict[str, list[str]], curr: Vertex, time: list[int]):
+def DFS_visit(G: Graph, curr: Vertex, time: list[int]):
     '''
     Preprocessing
     '''

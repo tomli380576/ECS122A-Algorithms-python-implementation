@@ -8,6 +8,7 @@ class STATUS(Enum):
     NEW = 2
     FINISHED = 3
 
+
 def TopologicalSort(G: dict[str, list[str]]):
     VISIT_STATUS = {}
     ORDER = {}
@@ -25,8 +26,8 @@ def TopologicalSort(G: dict[str, list[str]]):
                 clock = TopologicalVisit(G, vertex, clock)
         return ORDER
 
-
-    def TopologicalVisit(G: dict[str, list[str]], vertex: str, clock: int) -> int:
+    def TopologicalVisit(G: dict[str, list[str]], vertex: str,
+                         clock: int) -> int:
         VISIT_STATUS[vertex] = STATUS.ACTIVE
 
         for adjacent_vertex in G[vertex]:
@@ -39,7 +40,7 @@ def TopologicalSort(G: dict[str, list[str]]):
         ORDER[vertex] = clock
         clock -= 1
         return clock
-    
+
     return wrapper(G)
 
 

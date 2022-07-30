@@ -7,7 +7,8 @@ from SSSP_graph_helpers import InitializeSSSP, GetVertices, ConstructPath, Verte
 PrioQueue = list[tuple[Number, Vertex]]
 
 
-def UpdatePriority(queue: PrioQueue, vertex_to_update: Vertex, new_prio: Number):
+def UpdatePriority(queue: PrioQueue, vertex_to_update: Vertex,
+                   new_prio: Number):
     '''
     This looks pretty cumbersome because the heapq library doesn't support direct updates
     If you implement a custom priority queue it should be O(log n) update
@@ -42,6 +43,7 @@ def NonNegative_Dijkstras(G: WeightedGraph, start: Vertex):
 
     return dist, pred
 
+
 def Dijkstras(G: WeightedGraph, start: Vertex):
     dist, pred = InitializeSSSP(G, start)
     queue: PrioQueue = []
@@ -61,6 +63,7 @@ def Dijkstras(G: WeightedGraph, start: Vertex):
                     heapq.heappush(queue, (dist[v], v))
 
     return dist, pred
+
 
 if __name__ == '__main__':
     # Change these 2 variables to run on different graphs or run on all vertices

@@ -29,4 +29,6 @@ if __name__ == '__main__':
         A = randomString(length=randint(5, 10))
         B = randomString(length=randint(5, 10))
         print(f'A={A}, B={B}')
-    print(f'Edit distance from \033[95m{A}\033[0m to \033[95m{B}\033[0m is: {EditDistance(A, B, len(A) - 1, len(B) - 1)}')
+    print(
+        f'Edit distance from \033[95m{A}\033[0m to \033[95m{B}\033[0m is: {EditDistance(A, B, len(A) - 1, len(B) - 1)}'
+    )

@@ -25,9 +25,8 @@ def cutRod_DP(max_rod_len) -> int:
     if rod_len == 0: return 0
     if rod_len == 1: return PRICES[0]
     '''
-    dpTable[0] = 0  
-    dpTable[1] = PRICES[0]  
-
+    dpTable[0] = 0
+    dpTable[1] = PRICES[0]
     ''' for each missing entry'''
     for rod_len in range(2, max_rod_len + 1):
         best = 0

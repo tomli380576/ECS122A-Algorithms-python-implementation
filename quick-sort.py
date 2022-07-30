@@ -2,7 +2,7 @@ import random
 from random_inputs import randomIntArray
 
 
-def Partition(nums, pivot_val):
+def Partition(nums: list[int], pivot_val: int):
     left = []
     right = []
     pivot_seen = False
@@ -20,7 +20,7 @@ def Partition(nums, pivot_val):
     return left, right
 
 
-def QuickSort(nums) -> list:
+def QuickSort(nums: list[int]) -> list[int]:
     if len(nums) > 1:
         pivot_val = random.choice(nums)
         left, right = Partition(nums, pivot_val)

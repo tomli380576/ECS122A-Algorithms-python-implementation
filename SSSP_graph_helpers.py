@@ -16,8 +16,8 @@ def GetVertices(G: Graph) -> list[Vertex]:
 def GetWeightedEdges(G: WeightedGraph) -> list[WeightedEdge]:
     out: list[WeightedEdge] = []
     for vertex, adj_list in G.items():
-        for adj_vertex in adj_list:
-            out.append((adj_vertex[0], vertex, adj_vertex[1]))
+        for weight, adj_vertex in adj_list:
+            out.append((weight, vertex, adj_vertex))
     return out
 
 
@@ -31,10 +31,11 @@ def InitializeSSSP(
     prev = {vertex: None for vertex in vertices}
     dist[start] = 0
 
-    return dist, prev # type: ignore
+    return dist, prev  # type: ignore
 
 
-def ConstructPath(prev: dict[Vertex, Optional[Vertex]], end: Vertex) -> list[Vertex]:
+def ConstructPath(prev: dict[Vertex, Optional[Vertex]],
+                  end: Vertex) -> list[Vertex]:
     if prev[end] == None:
         return []
 
