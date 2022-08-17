@@ -1,7 +1,9 @@
+from typing import Union
 from math import inf
 
 
-def LineCost(WORDS, LINE_WIDTH, i, j):
+def LineCost(WORDS: list[str], LINE_WIDTH: int, i: int,
+             j: int) -> Union[float, int]:
     '''
     i, j are valid indices, inclusive
     '''
@@ -42,13 +44,14 @@ if __name__ == '__main__':
     text2 = 'aaa bb cc ddddd'
     text3 = 'cat is an animal'
     text4 = 'This is an example of text justification'
-    words = text3.split(' ')
 
+    words = text3.split(' ')
     line_width = 6
 
     cost, breaks = PrettyPrint(words, line_width, len(words) - 1)
 
-    print(f'Cost: {cost}, printing justified words:')
+    print(f'Cost = {cost}, printing justified words:\n----')
+
     for i in breaks:
         if i != 0:
             words[i] = '\n' + words[i]

@@ -64,10 +64,10 @@ if __name__ == '__main__':
         sample_1 = [
             3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8, 4, 6, 2, 6
         ]
-        sample_1_ans = 6
+        # answer is 6
 
         sample_2 = [19, 7, 13, 5, 10, 20, 12, 13, 1, 20, 6, 19, 9, 9, 5]
-        sample_2_ans = 5
+        # answer is 5
 
         find_next_res = LIS_FindNext(sample_1, -1, 0)
         take_or_skip_res = LIS_TakeOrSkip(sample_1, -1, 0)

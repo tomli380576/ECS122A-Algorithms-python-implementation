@@ -1,7 +1,7 @@
 import heapq
 import random
 from example_weighted_graphs import W_DIRECTED_1, W_DIRECTED_2, W_DIRECTED_3
-from SSSP_graph_helpers import InitializeSSSP, GetVertices, ConstructPath, Vertex, WeightedGraph, Number
+from graph_helpers import InitializeSSSP, GetVertices, ConstructPath, Vertex, WeightedGraph, Number
 
 # Avoid name clash with the library Priority Queue
 PrioQueue = list[tuple[Number, Vertex]]

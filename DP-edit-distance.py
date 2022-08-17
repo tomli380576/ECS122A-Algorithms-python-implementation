@@ -6,6 +6,10 @@ from random import randint
 
 @cache
 def EditDistance_withCache(A: str, B: str, i: int, j: int) -> int:
+    '''
+    You can also achevie something similar with hashmaps
+    might need a wrapper to make the hashmap global
+    '''
     if i == -1:
         return j + 1
     if j == -1:
@@ -41,7 +45,7 @@ def EditDistance_DP(A: str, B: str) -> int:
 
 def EditDistance_DP_LessSpace(A: str, B: str) -> int:
     '''
-    Refer to the graphical table to see the literal arrays
+    Refer to the graphical table to see the literal arrays and the sliding window
     Indexing is a bit different from regular DP
     '''
     dp_array1 = [i for i in range(len(B) + 1)]
@@ -105,7 +109,7 @@ if __name__ == '__main__':
     print(f'Less space DP: {format(end-start, ".3f")} ms')
     '''
     Has to stop here because recursion takes way too long
-    The library one will reach max recursion depth
+    The library one will reach max recursion depth (usually 1000 calls by default)
     '''
     if use_random_inputs: exit()
 

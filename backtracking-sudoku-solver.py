@@ -3,7 +3,7 @@ import numpy as np
 EMPTY = 0
 
 
-def isSolved(sudoku: np.ndarray) -> bool:
+def IsSolved(sudoku: np.ndarray) -> bool:
     for row in sudoku:
         if (np.unique(row).shape[0] != 9):
             '''
@@ -21,7 +21,7 @@ def isSolved(sudoku: np.ndarray) -> bool:
     return True
 
 
-def getSudokuChoices(sudoku: np.ndarray, position: tuple[int,
+def GetSudokuChoices(sudoku: np.ndarray, position: tuple[int,
                                                          int]) -> set[int]:
     y, x = position
     row = sudoku[y]
@@ -37,18 +37,22 @@ def getSudokuChoices(sudoku: np.ndarray, position: tuple[int,
     return choices
 
 
-def sudokuSolver(sudoku: np.ndarray) -> bool:
-    if (isSolved(sudoku)):
+def SudokuSolver(sudoku: np.ndarray) -> bool:
+    if IsSolved(sudoku):
         return True
 
     for y, x in np.ndindex(sudoku.shape):
         if (sudoku[y, x] == EMPTY):
-            for choice in getSudokuChoices(sudoku, (y, x)):
+            for choice in GetSudokuChoices(sudoku, (y, x)):
+                # try to make a choice
                 sudoku[y, x] = choice
-                if (sudokuSolver(sudoku)):
+                # if the recursion tells us that it worked, return true
+                if SudokuSolver(sudoku):
                     return True
+                # otherwise undo the chocie
                 else:
                     sudoku[y, x] = EMPTY
+    # we tried all the valid choices, nothing worked
     return False
 
 
@@ -64,5 +68,5 @@ if __name__ == '__main__':
                              [0, 0, 0, 8, 4, 2, 9, 0, 3],
                              [5, 9, 2, 3, 7, 1, 4, 8, 6]])
 
-    sudokuSolver(sample_board)
+    SudokuSolver(sample_board)
     print(f'First Solution:\n {sample_board}')

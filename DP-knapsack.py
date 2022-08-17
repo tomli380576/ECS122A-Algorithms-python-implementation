@@ -1,7 +1,8 @@
 import numpy as np
 
 
-def Knapsack_DP(VALUES, WEIGHTS, max_capacity) -> int:
+def Knapsack_DP(VALUES: list[int], WEIGHTS: list[int],
+                max_capacity: int) -> int:
     assert (len(VALUES) == len(WEIGHTS))
     '''   
     Waste a little space here to avoid messing with index offset
@@ -11,7 +12,11 @@ def Knapsack_DP(VALUES, WEIGHTS, max_capacity) -> int:
     '''
     num_items = len(VALUES)
     dp_table = np.zeros(shape=(max_capacity + 1, num_items), dtype='int')
-
+    '''
+    Do NOT use -1 as the 'last item' index here
+    indexing by -1 on the np array will grab the element at num_items
+    not num_items - 1
+    '''
     LAST_ITEM = num_items - 1
 
     # fill in base cases
@@ -52,5 +57,5 @@ if __name__ == '__main__':
 
     max_capacity = 50
 
-    answer = Knapsack_DP(sample_values_2, sample_weights_2, max_capacity)
-    print(f'At max_capacity {max_capacity}, The max profit is: {answer}')
+    profit = Knapsack_DP(sample_values_2, sample_weights_2, max_capacity)
+    print(f'At max_capacity {max_capacity}, The max profit is: {profit}')

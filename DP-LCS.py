@@ -1,14 +1,14 @@
 import numpy as np
 from random_inputs import randomString
 from random import randint
-'''
-To get a better understanding,
-comapre the backtracking version with this DP version
-and see how things line up
-'''
 
 
 def LCS_DP_Length(X: str, Y: str) -> int:
+    '''
+    To get a better understanding,
+    comapre the backtracking version with this DP version
+    and see how things line up
+    '''
     dp_table = np.zeros(shape=(len(X) + 1, len(Y) + 1), dtype='int')
 
     for i in range(len(Y)):
@@ -56,7 +56,9 @@ def LCS_DP_Sequence(X: str, Y: str) -> str:
     '''
     dp_table: np.ndarray = np.zeros(shape=(len(X) + 1, len(Y) + 1),
                                     dtype=np.object_)
-    '''Fill in the base cases'''
+    '''
+    Fill in the base cases
+    '''
     for i in range(len(Y)):
         dp_table[len(X), i] = ''  # if x_idx == len(X)
     for i in range(len(X)):
@@ -73,10 +75,10 @@ def LCS_DP_Sequence(X: str, Y: str) -> str:
                 skip_x = len(dp_table[i + 1, j])
                 skip_y = len(dp_table[i, j + 1])
                 if skip_x > skip_y:
-                    ''' LCS_seq(... x_idx + 1, y_idx) '''
+                    ''' LCS_seq(x_idx + 1, y_idx) '''
                     dp_table[i, j] = dp_table[i + 1, j]
                 else:
-                    ''' LCS_seq(... x_idx + 1, y_idx + 1) '''
+                    ''' LCS_seq(x_idx + 1, y_idx + 1) '''
                     dp_table[i, j] = dp_table[i, j + 1]
     # simulate initial call
     return dp_table[0, 0]

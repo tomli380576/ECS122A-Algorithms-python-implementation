@@ -1,12 +1,15 @@
 from queue import Queue
 from example_unweighted_graphs import UNDIRECTED_3
+from graph_helpers import UnweightedGraph
 
 NEW = 1
 VISITED = 2
 Vertex = str
 
 
-def BreadthFirstSearch(G: dict, start: Vertex):
+# I know it says unweighted here
+# but any graph should work
+def BreadthFirstSearch(G: UnweightedGraph, start: Vertex):
     STATUS: dict[Vertex, int] = {}
 
     for vertex in G:
@@ -25,7 +28,7 @@ def BreadthFirstSearch(G: dict, start: Vertex):
                 queue.put(adjacent_vertex)
 
 
-def BFS_122A_Version(G: dict, start: Vertex):
+def BFS_122A_Version(G: UnweightedGraph, start: Vertex):
     STATUS: dict[Vertex, int] = {}
 
     for vertex in G:
@@ -44,7 +47,7 @@ def BFS_122A_Version(G: dict, start: Vertex):
                 queue.put(adjacent_vertex)
 
 
-def BFS_WithToken(G: dict, start: Vertex):
+def BFS_WithToken(G: UnweightedGraph, start: Vertex):
     TOKEN = '\033[93m*Special Token*\033[0m'
     STATUS: dict[str, int] = {}
 
@@ -60,7 +63,7 @@ def BFS_WithToken(G: dict, start: Vertex):
         if first_vertex == TOKEN:
             print(TOKEN)
             ''' 
-            If no more vertices, token was the only thing
+            If no more vertices, token is the only thing
             '''
             if queue.empty():
                 break

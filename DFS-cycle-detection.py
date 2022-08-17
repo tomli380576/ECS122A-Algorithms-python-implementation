@@ -1,4 +1,5 @@
 from example_unweighted_graphs import DIRECTED_CYCLIC_1, DIRECTED_CYCLIC_2
+from graph_helpers import UnweightedGraph, Vertex
 
 STATUS = {}
 DISCOVER_TIME = {}
@@ -7,9 +8,6 @@ FINISH_TIME = {}
 NEW = 1
 ACTIVE = 2
 FINISHED = 3
-
-Vertex = str
-Graph = dict[str, list[str]]
 
 
 def ClassifyEdge(prev: Vertex, curr: Vertex):
@@ -24,7 +22,7 @@ def ClassifyEdge(prev: Vertex, curr: Vertex):
             print(f'Forward or cross: {prev} -> {curr}')
 
 
-def DFS_CycleDetection(G: Graph):
+def DFS_CycleDetection(G: UnweightedGraph):
     # force pass by reference
     time = [0]
     for vertex in G.keys():
@@ -35,7 +33,7 @@ def DFS_CycleDetection(G: Graph):
             DFS_visit(G, vertex, time)
 
 
-def DFS_visit(G: Graph, curr: Vertex, time: list[int]):
+def DFS_visit(G: UnweightedGraph, curr: Vertex, time: list[int]):
     '''
     Preprocessing
     '''
@@ -59,7 +57,7 @@ def DFS_visit(G: Graph, curr: Vertex, time: list[int]):
 
 
 if __name__ == '__main__':
-    print('===> Traversing: DIRECTED_CYCLIC_1')
+    print('Traversing: \033[93mDIRECTED_CYCLIC_1\033[0m')
     DFS_CycleDetection(DIRECTED_CYCLIC_1)
-    print('===> Traversing: DIRECTED_CYCLIC_2')
+    print('\nTraversing: \033[93mDIRECTED_CYCLIC_2\033[0m')
     DFS_CycleDetection(DIRECTED_CYCLIC_2)

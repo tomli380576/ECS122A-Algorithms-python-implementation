@@ -2,10 +2,8 @@ from typing import Union
 from math import inf
 
 
-def AdditionChain(n: int,
-                  curr_chain: list,
-                  result_arr: list,
-                  rec_level=0) -> Union[int, float]:
+def AdditionChain(n: int, curr_chain: list,
+                  result_arr: list) -> Union[int, float]:
     '''
     If the last choice reached the end
     '''
@@ -36,8 +34,8 @@ def AdditionChain(n: int,
                 Then make choice:
                 - state after choice is the new chain
                 '''
-                take = AdditionChain(n, curr_chain + [pair_sum], result_arr,
-                                     rec_level + 1) + 1
+                take = AdditionChain(n, curr_chain + [pair_sum],
+                                     result_arr) + 1
                 if take < best_len:
                     best_len = take
     return best_len

@@ -5,7 +5,7 @@ def PrettyPrint_DP(words: list[str], line_width: int):
     total_cost = [0 for _ in range(len(words) + 1)]
     total_cost[-1] = 0
     '''
-    Memoize all the extra(i, j) values
+    Memoize all the Extras(i, j) values
     '''
     extras = [[0 for _ in range(len(words) + 1)]
               for _ in range(len(words) + 1)]
@@ -17,7 +17,7 @@ def PrettyPrint_DP(words: list[str], line_width: int):
                 continue
             extras[i][j] = extras[i][j - 1] - 1 - len(words[j])
     '''
-    This for loop simulates the function call PrettyPrint(..., curr_word_idx)
+    Memoize PrettyPrint(..., curr_word_idx)
     Apply order of evaulation here.
     curr_word_idx needs min from 1 to curr_word_idx - 1
     '''

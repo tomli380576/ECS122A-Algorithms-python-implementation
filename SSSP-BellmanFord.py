@@ -1,6 +1,6 @@
 from example_weighted_graphs import W_DIRECTED_1, W_DIRECTED_2
-from SSSP_graph_helpers import (InitializeSSSP, GetVertices, GetWeightedEdges,
-                                ConstructPath, Vertex, WeightedGraph)
+from graph_helpers import (InitializeSSSP, GetVertices, GetWeightedEdges,
+                           ConstructPath, Vertex, WeightedGraph)
 import random
 
 

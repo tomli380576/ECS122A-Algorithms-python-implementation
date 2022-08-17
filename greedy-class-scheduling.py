@@ -38,7 +38,8 @@ def sortDictByValue(x: dict[str, int]) -> dict:
     return {k: v for k, v in sorted(x.items(), key=lambda item: item[1])}
 
 
-def GreedySchedule(start_times, finish_times) -> list[str]:
+def GreedySchedule(start_times: dict[str, int],
+                   finish_times: dict[str, int]) -> list[str]:
     '''
     Sort by finish and change the order in START with it
     In this case we don't have need to permute START_TIMES

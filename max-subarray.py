@@ -1,7 +1,7 @@
 from math import inf
 
 
-def maxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
+def MaxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
     best_left_sum = -inf
     curr_sum = 0
 
@@ -27,7 +27,7 @@ def maxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
         best_right_sum)  # type: ignore
 
 
-def maxSubarray(arr: list[int], low: int, high: int) -> int:
+def MaxSubarray(arr: list[int], low: int, high: int) -> int:
     if len(arr) == 0:
         raise ValueError('arr cannot be empty')
 
@@ -36,14 +36,14 @@ def maxSubarray(arr: list[int], low: int, high: int) -> int:
 
     middle = (high + low) // 2
 
-    result_left = maxSubarray(arr, low, middle)
-    result_right = maxSubarray(arr, middle + 1, high)
-    result_mid = maxMiddleSum(arr, low, middle, high)
+    result_left = MaxSubarray(arr, low, middle)
+    result_right = MaxSubarray(arr, middle + 1, high)
+    result_mid = MaxMiddleSum(arr, low, middle, high)
     return max(result_left, result_mid, result_right)
 
 
 if __name__ == '__main__':
     testarr = [-2, -3, 4, -1, -2, 1, 5, -3]
     print(
-        f'Max subarray sum for {testarr} is {maxSubarray(testarr, 0, len(testarr) - 1)}'
+        f'Max subarray sum for {testarr} is {MaxSubarray(testarr, 0, len(testarr) - 1)}'
     )

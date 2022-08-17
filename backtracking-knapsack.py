@@ -3,7 +3,10 @@ from random_inputs import randomIntArray
 from math import inf
 
 
-def Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity, item=0):
+def Knapsack_TakeOrSkip(VALUES: list[int],
+                        WEIGHTS: list[int],
+                        capacity: int,
+                        item: int = 0):
     if len(VALUES) != len(WEIGHTS):
         raise ValueError(
             'Invalid input, values and weights have different lengths')
@@ -27,7 +30,10 @@ def Knapsack_TakeOrSkip(VALUES, WEIGHTS, capacity, item=0):
     return max(take, skip)
 
 
-def Knapsack_FindNext(VALUES, WEIGHTS, capacity, item=0):
+def Knapsack_FindNext(VALUES: list[int],
+                      WEIGHTS: list[int],
+                      capacity: int,
+                      item: int = 0):
     if len(VALUES) != len(WEIGHTS):
         raise ValueError(
             'Invalid input, values and weights have different lengths')

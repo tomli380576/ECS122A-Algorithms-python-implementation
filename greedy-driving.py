@@ -2,25 +2,26 @@ from random_inputs import randomIntArray
 import random
 
 
-def drive(fuel_range, target, stations: list) -> list:
+def drive(fuel_range: int, target: int, stations: list[int]) -> list:
     currPosition = 0
-    stations_chosen = []
+    chosen_stations = []
 
     # If there's a solution, worst case is to visit all the gas stations
+    # Prevent infinite loop
     for _ in range(len(stations)):
         # while currPosition < target:
         farthest_station_idx = stations.index(
             max(filter(lambda x: x <= currPosition + fuel_range, stations)))
         if (stations[farthest_station_idx] == target):
-            return stations_chosen
+            return chosen_stations
         currPosition = stations[farthest_station_idx]
-        stations_chosen.append(farthest_station_idx)
+        chosen_stations.append(farthest_station_idx)
 
     # index by [-1] means take the last element
-    if len(stations_chosen) == 0 or stations_chosen[-1] != target:
+    if len(chosen_stations) == 0 or chosen_stations[-1] != target:
         raise ValueError('no solution to the given parameters')
 
-    return stations_chosen
+    return chosen_stations
 
 
 if __name__ == '__main__':

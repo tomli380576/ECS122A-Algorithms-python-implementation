@@ -4,7 +4,7 @@ from time import time
 PRICES = [1, 5, 8, 9, 10, 17, 17, 20]  # some price values
 
 
-def cutRod(rod_len) -> int:
+def CutRod(rod_len) -> int:
     if rod_len == 0:
         return 0
     if rod_len == 1:
@@ -13,13 +13,13 @@ def cutRod(rod_len) -> int:
     best = 0
 
     for i in range(1, rod_len + 1):
-        price_if_make_cut = cutRod(rod_len - i) + PRICES[i - 1]
+        price_if_make_cut = CutRod(rod_len - i) + PRICES[i - 1]
         best = max(best, price_if_make_cut)
 
     return best
 
 
-def cutRod_DP(max_rod_len) -> int:
+def CutRod_DP(max_rod_len) -> int:
     dpTable = np.zeros(shape=(max_rod_len + 1), dtype='int')
     ''' 
     if rod_len == 0: return 0
@@ -42,11 +42,11 @@ def cutRod_DP(max_rod_len) -> int:
 
 if __name__ == '__main__':
     start = time()
-    print(f'Backtracking: {cutRod(len(PRICES))}')
+    print(f'Backtracking: {CutRod(len(PRICES))}')
     end = time()
     print(f'Time: {end - start}s')
 
     start = time()
-    print(f'DP: {cutRod_DP(len(PRICES))}')
+    print(f'DP: {CutRod_DP(len(PRICES))}')
     end = time()
     print(f'Time: {end - start}s')

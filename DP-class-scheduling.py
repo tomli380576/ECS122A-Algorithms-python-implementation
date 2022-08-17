@@ -30,7 +30,7 @@ def DP_schedule(start_times: list[int], finish_times: list[int]) -> int:
                 dp_table[curr, prev] = dp_table[curr + 1, prev]
         '''
         Reset the prev_finish_time here
-        We tried everything given curr_ is the first class
+        We tried everything with 'curr' as the first class (line 18)
         so we have to reset to choose the next 'first class'
         '''
         prev_finish_time = -inf

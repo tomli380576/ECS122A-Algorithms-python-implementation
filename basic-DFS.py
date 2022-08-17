@@ -1,4 +1,5 @@
 from example_unweighted_graphs import UNDIRECTED_1
+from graph_helpers import UnweightedGraph, Vertex
 
 STATUS = {}
 DISCOVER_TIME = {}
@@ -8,10 +9,8 @@ NEW = 1
 ACTIVE = 2
 FINISHED = 3
 
-Vertex = str
 
-
-def DepthFirstSearch(G: dict[str, list[str]]):
+def DepthFirstSearch(G: UnweightedGraph):
     # force pass by reference
     time = [0]
     for vertex in G.keys():
@@ -22,7 +21,7 @@ def DepthFirstSearch(G: dict[str, list[str]]):
             DFS_visit(G, vertex, time)
 
 
-def DFS_visit(G: dict[str, list[str]], start: Vertex, time: list[int]):
+def DFS_visit(G: UnweightedGraph, start: Vertex, time: list[int]):
     '''
     Preprocessing
     '''

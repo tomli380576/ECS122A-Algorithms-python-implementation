@@ -1,7 +1,7 @@
 from random_inputs import randomIntArray
 
 
-def trapRainwater_BruteForce(heights: list[int]) -> int:
+def TrapRainwater_BruteForce(heights: list[int]) -> int:
     N = len(heights)
     if N < 3:
         return 0
@@ -14,7 +14,7 @@ def trapRainwater_BruteForce(heights: list[int]) -> int:
     return total_rainwater
 
 
-def trapRainwater_LinearDP(heights: list[int]) -> int:
+def TrapRainwater_LinearDP(heights: list[int]) -> int:
     N = len(heights)
 
     if N < 3:
@@ -48,7 +48,7 @@ if __name__ == '__main__':
     super_large_input = randomIntArray(high=5, length=15000)
 
     print(
-        f'The total rainwater is: {trapRainwater_LinearDP(super_large_input)}')
+        f'The total rainwater is: {TrapRainwater_LinearDP(super_large_input)}')
 
     # Really slow, do not run it with input size > 100
     # print(
