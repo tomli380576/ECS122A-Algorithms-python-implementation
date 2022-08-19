@@ -31,10 +31,13 @@ def SubsetSum_First(nums: list[int], curr_subset: list[int],
     return False
 
 
-def SubsetSum_DP(nums: list, final_target: int) -> bool:
+def SubsetSum_DP(nums: list[int], final_target: int) -> bool:
     dp_table = np.empty(shape=(len(nums) + 1, final_target + 1),
                         dtype=np.bool_)
-    ''' Order of Evalutaion '''
+    ''' 
+    Order of Evalutaion,
+    + 1 in range function is to force include len(nums) and final_target
+    '''
     for i in reversed(range(0, len(nums) + 1)):
         for target in range(final_target + 1):
             if target == 0:
@@ -53,16 +56,18 @@ def SubsetSum_DP(nums: list, final_target: int) -> bool:
                 take = dp_table[i + 1, target - nums[i]]
                 dp_table[i, target] = take or skip
             else:
-                ''' Must skip '''
-                dp_table[i, target] = dp_table[i + 1, target]
-    ''' Initial call '''
+                ''' Must skip if target - nums[i] < 0 '''
+                skip = dp_table[i + 1, target]
+                dp_table[i, target] = skip
+    ''' Simulate initial call '''
     return dp_table[0, final_target]
 
 
 if __name__ == '__main__':
-    run_random_cases = input('Randomize? (y/n) ') == 'y'
+    run_random_cases = input('Randomize? (y/n) ').lower() == 'y'
+    verbose = run_random_cases and input(
+        'Verbose outputs? (y/n) ').lower() == 'y'
     num_tests = 1000
-    verbose = False
 
     if run_random_cases:
         print(f'Using radom inputs.')
