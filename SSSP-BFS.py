@@ -2,8 +2,10 @@ from queue import Queue
 from example_unweighted_graphs import UNDIRECTED_3
 from graph_helpers import InitializeSSSP, GetVertices, ConstructPath, Vertex, UnweightedGraph
 
-
-def BFS_SSSP_Unweighted(G: UnweightedGraph, start: Vertex):
+'''
+Notice that @param G is unweighted
+'''
+def BFS_SSSP(G: UnweightedGraph, start: Vertex):
     dist, prev = InitializeSSSP(G, start)
     queue: Queue[Vertex] = Queue()
     queue.put(start)
@@ -28,7 +30,7 @@ def BFS_SSSP_Unweighted(G: UnweightedGraph, start: Vertex):
 
 if __name__ == '__main__':
     start: Vertex = 'S'
-    dist, prev = BFS_SSSP_Unweighted(UNDIRECTED_3, start)
+    dist, prev = BFS_SSSP(UNDIRECTED_3, start)
     print(f'dist:{dist}\nprev:{prev}\n======')
 
     for vertex in GetVertices(UNDIRECTED_3):
