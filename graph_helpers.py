@@ -6,7 +6,7 @@ WeightedEdge = tuple[int, Vertex, Vertex]
 WeightedGraph = dict[str, list[tuple[int, str]]]
 UnweightedGraph = dict[str, list[str]]
 Graph = Union[WeightedGraph, UnweightedGraph]
-Number = Union[int, float]
+Number = Union[int, float] # this is for handling inf's; Typechecker complains about comparing inf with int
 
 
 def GetVertices(G: Graph) -> list[Vertex]:

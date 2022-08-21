@@ -125,7 +125,7 @@ if __name__ == '__main__':
     time_dict = {
         'recursive': t1,
         'iterative': t2,
-        'matraw': t3,
+        'mat_raw': t3,
         'mat_repeated_squares': t4,
         'mat_addition_chain': t5
     }

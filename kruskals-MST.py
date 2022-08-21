@@ -1,15 +1,13 @@
 import numpy as np
 
-SAMPLE_WEIGHTED_UNDIRECTED_GRAPH = np.array([[0, 9, 75, 0, 0],
-                                             [9, 0, 95, 19, 42],
-                                             [75, 95, 0, 51, 66],
-                                             [0, 19, 51, 0, 31],
-                                             [0, 42, 66, 31, 0]])
+# Temporary type definition, 
+# will be changed to the same one used in SSSP algos once we change to adjacency lists
+MST_Edge = tuple[int, int]
 
 
 def getEdges(G: np.ndarray) -> list[tuple]:
     num_vertices = len(G)
-    edges = []
+    edges: list[MST_Edge] = []
 
     for y in range(num_vertices):
         for x in range(num_vertices):
@@ -39,7 +37,7 @@ def find(u, v, all_sets: list[set]):
 def KruskalsMST(G: np.ndarray):
     # Edges are stored as (y, x), sort by the weight G[y, x]
     sorted_edges = sorted(getEdges(G), key=lambda edge: G[edge])
-    curr_tree: list[tuple] = []
+    curr_tree: list[MST_Edge] = []
     vertex_sets: list[set[int]] = []
 
     # make_set(v)
@@ -65,6 +63,11 @@ def KruskalsMST(G: np.ndarray):
 
 
 if __name__ == '__main__':
+    SAMPLE_WEIGHTED_UNDIRECTED_GRAPH = np.array([[0, 9, 75, 0, 0],
+                                                 [9, 0, 95, 19, 42],
+                                                 [75, 95, 0, 51, 66],
+                                                 [0, 19, 51, 0, 31],
+                                                 [0, 42, 66, 31, 0]])
     print(
         f'Edges selected by Kruskal\'s MST: {KruskalsMST(SAMPLE_WEIGHTED_UNDIRECTED_GRAPH)}'
     )

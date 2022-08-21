@@ -58,7 +58,7 @@ def GreedySchedule(start_times: dict[str, int],
 
 
 if __name__ == '__main__':
-    use_random_inputs = True
+    use_random_inputs = input('Randomize? (y/n) ').lower() == 'y'
     if use_random_inputs:
         rand_start, rand_finish = randomStartAndFinish()
         print('Generated random schedule:')
