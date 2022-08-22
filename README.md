@@ -7,12 +7,15 @@ They are referenced in this [**Notion Document**](https://zhongning-tommy-li.not
 Note that some of the graph algorithms references graphs in the **`example_unweighted_graphs.py`** file. Make sure the algorithm file and the graph file are in the same directory
 
 Some algorithms now have helper functions to generate random test inputs. Make sure the **`random_inputs.py`** is  in ths same directory as the algorithm file.
+``` diff
+- Problems that show up in 122A homeworks will be hidden at the beginning of the quarter to prevent cheating
+```
 
 ## Running the code
 
 ```bash
 cd ./Implementations
-python3 <the file you want to run>
+python3 # <the file you want to run>
 ```
 
 ## System Requirements
