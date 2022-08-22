@@ -31,6 +31,7 @@ if __name__ == '__main__':
     dist = APSPBellmanFord(W_DIRECTED_1)
 
     # Pretty Printing 2D Dict Driver Code
+    print('\n')
     for key in dist.keys():
         print(f'\t{key}', end='')
     print('\n')
@@ -39,3 +40,12 @@ if __name__ == '__main__':
         for v in dist.keys():
             print(f'\t{dist[u][v]}', end='')
         print('\n')
+    '''
+    How to read the matrix:
+    Suppose we have this:
+                S       A       B       C       D
+        S       0       8       9       5       7
+        ...other rows
+    Then on row 'S' at column 'A' is the length of the shorest path from S to A
+    Here it's 8
+    '''
