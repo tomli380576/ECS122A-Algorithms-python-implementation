@@ -22,3 +22,7 @@ python3 # <the file you want to run>
 ## System Requirements
 
 Python 3.8+, Numpy
+
+## Feedbacks
+
+If you find any bug in the code, please submit an issue under [Issues](https://github.com/tomli380576/ECS122A-Algorithms-python-implementation/issues)
