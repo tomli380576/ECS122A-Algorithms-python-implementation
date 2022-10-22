@@ -1,3 +1,4 @@
+from typing import Final
 from random_inputs import randomIntArray, randomLetterArray
 import random
 
@@ -15,22 +16,22 @@ def randomStartAndFinish(num_classes: int = 6):
                             length=num_classes,
                             allow_duplicates=False)
 
-    class_names = randomLetterArray(length=num_classes, ordered=True)
+    classNames = randomLetterArray(length=num_classes, ordered=True)
 
-    start_times = {k: v for k, v in zip(class_names, start)}
-    finish_times = {k: v for k, v in zip(class_names, finish)}
+    startTimes = {k: v for k, v in zip(classNames, start)}
+    finishTimes = {k: v for k, v in zip(classNames, finish)}
 
-    for _class in finish_times.keys():
-        if finish_times[_class] <= start_times[_class]:
-            base_offset = start_times[_class] - finish_times[_class]
-            random_increase = random.randint(
+    for className in finishTimes.keys():
+        if finishTimes[className] <= startTimes[className]:
+            base_offset = startTimes[className] - finishTimes[className]
+            randomIncrease = random.randint(
                 1, 4)  # change the 2nd argument to adjust offset
-            finish_times[_class] += base_offset + random_increase
+            finishTimes[className] += base_offset + randomIncrease
 
-    return start_times, finish_times
+    return startTimes, finishTimes
 
 
-def sortDictByValue(x: dict[str, int]) -> dict:
+def sortDictByValue(x: dict[str, int]) -> dict[str, int]:
     '''
     Sorts a dictionary by value\n
     Don't worry about the list comprehension here
@@ -38,36 +39,38 @@ def sortDictByValue(x: dict[str, int]) -> dict:
     return {k: v for k, v in sorted(x.items(), key=lambda item: item[1])}
 
 
-def GreedySchedule(start_times: dict[str, int],
-                   finish_times: dict[str, int]) -> list[str]:
+def greedySchedule(startTimes: dict[str, int],
+                   finishTimes: dict[str, int]) -> list[str]:
     '''
-    Sort by finish and change the order in START with it
-    In this case we don't have need to permute START_TIMES
-    becasue it's a dictionary and we can directly access by key in O(1)
+    Sort by finishTimes and change the order in startTimes with it
+    In this case we don't have need to permute startTimes
+    becasue it's a dictionary / hashmap and we can directly access by key in O(1)
     '''
-    sorted_finish = sortDictByValue(finish_times)
-    CLASSES = list(sorted_finish.keys())
+    sortedFinish = sortDictByValue(finishTimes)
+    CLASSES: Final = list(sortedFinish.keys())
 
-    schedule = [CLASSES[0]]  # Take the earliest class
+    # Take the earliest class, shorthand sytax to also make an array
+    schedule = [CLASSES[0]]
 
-    for curr_class in CLASSES[1:]:
-        prev_class = schedule[len(schedule) - 1]
-        if start_times[curr_class] > finish_times[prev_class]:
-            schedule.append(curr_class)
+    # CLASSES[1:] is the subarray starting at index 1
+    for currClass in CLASSES[1:]:
+        prevClass = schedule[-1]  # -1 index means the last element
+        if startTimes[currClass] > finishTimes[prevClass]:  # if compatible
+            schedule.append(currClass)  # take greedy choice
     return schedule
 
 
 if __name__ == '__main__':
-    use_random_inputs = input('Randomize? (y/n) ').lower() == 'y'
-    if use_random_inputs:
-        rand_start, rand_finish = randomStartAndFinish()
+    useRandomInputs = input('Randomize? (y/n) ').lower() == 'y'
+    if useRandomInputs:
+        randStart, randFinish = randomStartAndFinish()
         print('Generated random schedule:')
-        print(f'Start: {rand_start}')
-        print(f'Finish: {rand_finish}')
-        print(f'=> Best Schedule is {GreedySchedule(rand_start, rand_finish)}')
+        print(f'Start: {randStart}')
+        print(f'Finish: {randFinish}')
+        print(f'=> Best Schedule is {greedySchedule(randStart, randFinish)}')
     else:
         START_TIMES = {'A': 1, 'B': 2, 'C': 6, 'D': 3}
         FINISH_TIMES = {'A': 5, 'B': 4, 'C': 8, 'D': 9}
         print('Using sample inputs:')
         print(
-            f'=> Best Schedule is {GreedySchedule(START_TIMES, FINISH_TIMES)}')
+            f'=> Best Schedule is {greedySchedule(START_TIMES, FINISH_TIMES)}')
