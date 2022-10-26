@@ -8,10 +8,6 @@ Note that some of the graph algorithms references graphs in the **`example_unwei
 
 Some algorithms now have helper functions to generate random test inputs. Make sure the **`random_inputs.py`** is  in ths same directory as the algorithm file.
 
-``` diff
-- Problems that show up in 122A homeworks will be hidden at the beginning of the quarter to prevent cheating
-```
-
 ## Running the code
 
 ```bash
