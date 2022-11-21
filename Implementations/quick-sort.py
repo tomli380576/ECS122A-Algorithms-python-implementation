@@ -31,9 +31,9 @@ def QuickSort(nums: list[int]) -> list[int]:
         return nums
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sample_arr = [3, 1, 4, 1, 5, 9, 2]
     random_huge_list = randomIntArray(low=1, high=1000000, length=500)
 
-    print(f'Sorted: {QuickSort(sample_arr)}')
-    assert (QuickSort(random_huge_list) == sorted(random_huge_list))
+    print(f"Sorted: {QuickSort(sample_arr)}")
+    assert QuickSort(random_huge_list) == sorted(random_huge_list)

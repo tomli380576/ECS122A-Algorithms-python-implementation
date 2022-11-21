@@ -1,11 +1,15 @@
 from queue import PriorityQueue
 import numpy as np
 
-SAMPLE_WEIGHTED_UNDIRECTED_GRAPH = np.array([[0, 9, 75, 0, 0],
-                                             [9, 0, 95, 19, 42],
-                                             [75, 95, 0, 51, 66],
-                                             [0, 19, 51, 0, 31],
-                                             [0, 42, 66, 31, 0]])
+SAMPLE_WEIGHTED_UNDIRECTED_GRAPH = np.array(
+    [
+        [0, 9, 75, 0, 0],
+        [9, 0, 95, 19, 42],
+        [75, 95, 0, 51, 66],
+        [0, 19, 51, 0, 31],
+        [0, 42, 66, 31, 0],
+    ]
+)
 
 
 def getEdges(G: np.ndarray):
@@ -21,21 +25,21 @@ def getEdges(G: np.ndarray):
 def isSafeEdge(curr_tree: list[tuple], edge: tuple):
     if len(curr_tree) == 0:
         return True
-    '''
+    """
     Wnwrap tree to 2 list of vertices
     - ex. (x[0], y[0]) is one edge
-    '''
+    """
     x, y = zip(*curr_tree)
     u, v = edge[1]  # edge here is (weight, (u, v)), from line 48
 
     is_isolated: bool = u not in x + y and v not in x + y
     creates_cycle: bool = u in x + y and v in x + y
-    '''
+    """
     Let uv be the edge
     - if neither u or v is in the tree, then it's not connected
     - if both are in, then it's a cycle
     so the condition is 'not disconnected nor creates a cycle'
-    '''
+    """
     return not (creates_cycle or is_isolated)
 
 
@@ -58,7 +62,5 @@ def PrimsMST(G: np.ndarray):
     return curr_tree
 
 
-if __name__ == '__main__':
-    print(
-        f'Edges selected by Prim\'s MST: {PrimsMST(SAMPLE_WEIGHTED_UNDIRECTED_GRAPH)}'
-    )
+if __name__ == "__main__":
+    print(f"Edges selected by Prim's MST: {PrimsMST(SAMPLE_WEIGHTED_UNDIRECTED_GRAPH)}")

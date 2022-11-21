@@ -22,30 +22,39 @@ def DepthFirstSearch(G: UnweightedGraph):
 
 
 def DFS_visit(G: UnweightedGraph, start: Vertex, time: list[int]):
-    '''
+    """
     Preprocessing
-    '''
+    """
     STATUS[start] = ACTIVE
     time[0] += 1
     DISCOVER_TIME[start] = time[0]
-    print(f'Discovered vertex {start} at time = {time[0]}')
-    '''
+    print(f"Discovered vertex {start} at time = {time[0]}")
+    """
     The definition of 'adjacent' could be differnt depending on the graph
     some graphs don't explicitly state what adjacent vertices are
-    '''
+    """
     for adjacent_vertex in G[start]:
         if STATUS[adjacent_vertex] == NEW:
             DFS_visit(G, adjacent_vertex, time)
-    '''
+    """
     Postprocessing
-    '''
+    """
     STATUS[start] = FINISHED
     time[0] += 1
     FINISH_TIME[start] = time[0]
-    print(f'=> Finished vertex {start} at time = {time[0]}')
+    print(f"=> Finished vertex {start} at time = {time[0]}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+
+    exampleGraph: UnweightedGraph = {
+        "A": ["B", "E"],
+        "B": ["A", "C", "E"],
+        "C": ["B", "D", "E"],
+        "D": ["C", "E"],
+        "E": ["A", "B", "C", "D"],
+    }
+
     DepthFirstSearch(UNDIRECTED_1)
     print(DISCOVER_TIME)
     print(FINISH_TIME)

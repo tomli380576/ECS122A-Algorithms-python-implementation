@@ -31,17 +31,17 @@ def WFS_Visit(G: dict, start: Vertex, bag: Bag):
         # Get whatever the 'first' vertex is, depending on the data structure
         vertex = bag.get()
         if STATUS[vertex] == NEW:
-            print(f'{vertex}')
+            print(f"{vertex}")
             STATUS[vertex] = ACTIVE
             for adjacent_vertex in G[vertex]:
                 bag.put(adjacent_vertex)
 
 
 def WhateverFirstSearch_Connected(G, start: Vertex, bag: Bag):
-    '''
+    """
     This function by itself assumes all vertices in G can be reached from start_vertex
     Needs a wrapper like WhateverFirstSearch_All() for disconnected graphs
-    '''
+    """
 
     for vertex in G:
         # Initialize visit status
@@ -53,22 +53,22 @@ def WhateverFirstSearch_Connected(G, start: Vertex, bag: Bag):
         # depends on the data structure
         vertex = bag.get()
         if STATUS[vertex] == NEW:
-            print(f'Newly Discovered {vertex}')
+            print(f"Newly Discovered {vertex}")
             STATUS[vertex] = ACTIVE
             for adjacent_vertex in G[vertex]:
                 bag.put(adjacent_vertex)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stack = LifoQueue()
     queue = Queue()
     priority_queue = PriorityQueue()
 
-    print('=> With Stack, Depth First:')
+    print("=> With Stack, Depth First:")
     WhateverFirstSearch_All(UNDIRECTED_3, stack)
 
-    print('=> With Queue, Breadth First:')
+    print("=> With Queue, Breadth First:")
     WhateverFirstSearch_All(UNDIRECTED_3, queue)
-    '''Needs to be weighted'''
+    """Needs to be weighted"""
     # print('=> With Priority Queue, Best First:')
     # WhateverFirstSearch_All(UNDIRECTED_3, priority_queue)

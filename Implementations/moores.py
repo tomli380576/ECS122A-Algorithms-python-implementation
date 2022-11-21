@@ -10,7 +10,7 @@ def GetVertices(G: Graph) -> list[str]:
 
 def InitializeSSSP(G: Graph, start_vertex: str) -> tuple[dict, dict]:
     vertices = GetVertices(G)
-    assert (start_vertex in vertices)
+    assert start_vertex in vertices
 
     dist = {vertex: inf for vertex in vertices}
     prev = {vertex: None for vertex in vertices}

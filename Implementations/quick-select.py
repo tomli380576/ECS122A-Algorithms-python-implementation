@@ -23,5 +23,5 @@ def partition(nums: list[int], left: int, right: int) -> int:
 def BaseQuickSelect(arr: list, k) -> int:
     # TODO
     if len(arr) < k:
-        raise ValueError(f'{k} is larger than length of arr ({len(arr)})')
+        raise ValueError(f"{k} is larger than length of arr ({len(arr)})")
     ...

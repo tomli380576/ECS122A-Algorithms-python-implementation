@@ -24,12 +24,13 @@ def MaxMiddleSum(arr: list[int], low: int, mid: int, high: int) -> int:
     return max(
         best_left_sum + best_right_sum,  # type: ignore
         best_left_sum,  # type: ignore
-        best_right_sum)  # type: ignore
+        best_right_sum,
+    )  # type: ignore
 
 
 def MaxSubarray(arr: list[int], low: int, high: int) -> int:
     if len(arr) == 0:
-        raise ValueError('arr cannot be empty')
+        raise ValueError("arr cannot be empty")
 
     if low == high:
         return arr[0]
@@ -42,8 +43,8 @@ def MaxSubarray(arr: list[int], low: int, high: int) -> int:
     return max(result_left, result_mid, result_right)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     testarr = [-2, -3, 4, -1, -2, 1, 5, -3]
     print(
-        f'Max subarray sum for {testarr} is {MaxSubarray(testarr, 0, len(testarr) - 1)}'
+        f"Max subarray sum for {testarr} is {MaxSubarray(testarr, 0, len(testarr) - 1)}"
     )

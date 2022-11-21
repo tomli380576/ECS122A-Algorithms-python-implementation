@@ -12,6 +12,6 @@ def CutRod(PRICES: list[int], rod_len: int) -> int:
     return best
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sample_prices = [1, 5, 8, 9, 10, 17, 17, 20]
-    print(f'Max profit: {CutRod(sample_prices, len(sample_prices))}')
+    print(f"Max profit: {CutRod(sample_prices, len(sample_prices))}")

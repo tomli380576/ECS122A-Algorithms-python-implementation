@@ -3,7 +3,7 @@ from example_weighted_graphs import W_DIRECTED_1, W_DIRECTED_2
 from graph_helpers import WeightedGraph, GetWeightedEdges, Vertex
 
 
-def APSPBellmanFord(G: WeightedGraph) -> dict[Vertex, dict[Vertex, int]]:
+def apspBellmanFord(G: WeightedGraph) -> dict[Vertex, dict[Vertex, int]]:
     dist = {v: {u: 0 for u in G.keys()} for v in G.keys()}
 
     # Fill in base cases
@@ -29,9 +29,9 @@ def APSPBellmanFord(G: WeightedGraph) -> dict[Vertex, dict[Vertex, int]]:
     return dist
 
 
-if __name__ == '__main__':
-    dist = APSPBellmanFord(W_DIRECTED_2)
-    '''
+if __name__ == "__main__":
+    dist = apspBellmanFord(W_DIRECTED_2)
+    """
     Pretty Printing 2D Dict Driver Code
 
     How to read the matrix:
@@ -41,13 +41,13 @@ if __name__ == '__main__':
         ...other rows
     Then on row 'S' at column 'A' is the length of the shorest path from S to A
     Here it's 8
-    '''
-    print('\n')
+    """
+    print("\n")
     for key in dist.keys():
-        print(f'\t{key}', end='')
-    print('\n')
+        print(f"\t{key}", end="")
+    print("\n")
     for idx, u in enumerate(dist.keys()):
-        print(f'{u}', end='')
+        print(f"{u}", end="")
         for v in dist.keys():
-            print(f'\t{dist[u][v]}', end='')
-        print('\n')
+            print(f"\t{dist[u][v]}", end="")
+        print("\n")

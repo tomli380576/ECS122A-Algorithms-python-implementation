@@ -15,11 +15,11 @@ def ClassifyEdge(prev: Vertex, curr: Vertex):
         stat_prev = STATUS[prev]
         stat_curr = STATUS[curr]
         if stat_prev == ACTIVE and stat_curr == NEW:
-            print(f'\033[92mTree\033[0m: {prev} -> {curr}')
+            print(f"\033[92mTree\033[0m: {prev} -> {curr}")
         elif stat_prev == ACTIVE and stat_curr == ACTIVE:
-            print(f'\033[91mBack\033[0m: {prev} -> {curr}')
+            print(f"\033[91mBack\033[0m: {prev} -> {curr}")
         elif stat_prev == FINISHED and stat_curr == ACTIVE:
-            print(f'Forward or cross: {prev} -> {curr}')
+            print(f"Forward or cross: {prev} -> {curr}")
 
 
 def DFS_CycleDetection(G: UnweightedGraph):
@@ -34,30 +34,30 @@ def DFS_CycleDetection(G: UnweightedGraph):
 
 
 def DFS_visit(G: UnweightedGraph, curr: Vertex, time: list[int]):
-    '''
+    """
     Preprocessing
-    '''
+    """
     STATUS[curr] = ACTIVE
     time[0] += 1
     DISCOVER_TIME[curr] = time[0]
-    '''
+    """
     The definition of 'adjacent' could be differnt depending on the graph
     some graphs don't explicitly state what adjacent vertices are
-    '''
+    """
     for adjacent_vertex in G[curr]:
         ClassifyEdge(curr, adjacent_vertex)
         if STATUS[adjacent_vertex] == NEW:
             DFS_visit(G, adjacent_vertex, time)
-    '''
+    """
     Postprocessing
-    '''
+    """
     STATUS[curr] = FINISHED
     time[0] += 1
     FINISH_TIME[curr] = time[0]
 
 
-if __name__ == '__main__':
-    print('Traversing: \033[93mDIRECTED_CYCLIC_1\033[0m')
+if __name__ == "__main__":
+    print("Traversing: \033[93mDIRECTED_CYCLIC_1\033[0m")
     DFS_CycleDetection(DIRECTED_CYCLIC_1)
-    print('\nTraversing: \033[93mDIRECTED_CYCLIC_2\033[0m')
+    print("\nTraversing: \033[93mDIRECTED_CYCLIC_2\033[0m")
     DFS_CycleDetection(DIRECTED_CYCLIC_2)

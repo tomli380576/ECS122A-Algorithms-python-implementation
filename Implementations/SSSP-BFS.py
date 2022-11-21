@@ -1,10 +1,18 @@
 from queue import Queue
 from example_unweighted_graphs import UNDIRECTED_3
-from graph_helpers import InitializeSSSP, GetVertices, ConstructPath, Vertex, UnweightedGraph
+from graph_helpers import (
+    InitializeSSSP,
+    GetVertices,
+    ConstructPath,
+    Vertex,
+    UnweightedGraph,
+)
 
-'''
+"""
 Notice that @param G is unweighted
-'''
+"""
+
+
 def BFS_SSSP(G: UnweightedGraph, start: Vertex):
     dist, prev = InitializeSSSP(G, start)
     queue: Queue[Vertex] = Queue()
@@ -13,14 +21,14 @@ def BFS_SSSP(G: UnweightedGraph, start: Vertex):
     while not queue.empty():
         u = queue.get()
         for adjacent_vertex in G[u]:
-            '''
+            """
             if the edge is tense
             - weight is 1 for unweighted graphs
-            '''
+            """
             if dist[u] + 1 < dist[adjacent_vertex]:
-                '''
+                """
                 RelaxEdge()
-                '''
+                """
                 dist[adjacent_vertex] = dist[u] + 1
                 prev[adjacent_vertex] = u
                 queue.put(adjacent_vertex)
@@ -28,13 +36,13 @@ def BFS_SSSP(G: UnweightedGraph, start: Vertex):
     return dist, prev
 
 
-if __name__ == '__main__':
-    start: Vertex = 'S'
+if __name__ == "__main__":
+    start: Vertex = "S"
     dist, prev = BFS_SSSP(UNDIRECTED_3, start)
-    print(f'dist:{dist}\nprev:{prev}\n======')
+    print(f"dist:{dist}\nprev:{prev}\n======")
 
     for vertex in GetVertices(UNDIRECTED_3):
         if vertex != start:
             print(
-                f'Shortest Path from {start} to {vertex} is {ConstructPath(prev, vertex)}'
+                f"Shortest Path from {start} to {vertex} is {ConstructPath(prev, vertex)}"
             )

@@ -7,6 +7,15 @@ VISITED = 2
 Vertex = str
 
 
+exampleGraph: UnweightedGraph = {
+    "A": ["B", "E"],
+    "B": ["A", "C", "E"],
+    "C": ["B", "D", "E"],
+    "D": ["C", "E"],
+    "E": ["A", "B", "C", "D"],
+}
+
+
 # I know it says unweighted here
 # but any graph should work
 def BreadthFirstSearch(G: UnweightedGraph, start: Vertex):
@@ -22,7 +31,7 @@ def BreadthFirstSearch(G: UnweightedGraph, start: Vertex):
         first_vertex = queue.get()
 
         if STATUS[first_vertex] == NEW:
-            print(f'{first_vertex}')
+            print(f"{first_vertex}")
             STATUS[first_vertex] = VISITED
             for adjacent_vertex in G[first_vertex]:
                 queue.put(adjacent_vertex)
@@ -48,7 +57,7 @@ def BFS_122A_Version(G: UnweightedGraph, start: Vertex):
 
 
 def BFS_WithToken(G: UnweightedGraph, start: Vertex):
-    TOKEN = '\033[93m*Special Token*\033[0m'
+    TOKEN = "\033[93m*Special Token*\033[0m"
     STATUS: dict[str, int] = {}
 
     for vertex in G:
@@ -62,28 +71,30 @@ def BFS_WithToken(G: UnweightedGraph, start: Vertex):
         first_vertex = queue.get()
         if first_vertex == TOKEN:
             print(TOKEN)
-            ''' 
+            """ 
             If no more vertices, token is the only thing
-            '''
+            """
             if queue.empty():
                 break
             else:
                 queue.put(TOKEN)
         else:
             if STATUS[first_vertex] == NEW:
-                print(f'{first_vertex}')
+                print(f"{first_vertex}")
                 STATUS[first_vertex] = VISITED
 
                 for adjacent_vertex in G[first_vertex]:
                     queue.put(adjacent_vertex)
 
 
-if __name__ == '__main__':
-    print('==> Whatever-First based version:')
+if __name__ == "__main__":
+    g = exampleGraph
+    start = "A"
+    print("==> Whatever-First based version:")
     show_token = True
     if show_token:
-        BFS_WithToken(UNDIRECTED_3, 'S')
+        BFS_WithToken(g, start)
     else:
-        BreadthFirstSearch(UNDIRECTED_3, 'S')
-    print('\n==> 122A version')
-    BFS_122A_Version(UNDIRECTED_3, 'S')
+        BreadthFirstSearch(g, start)
+    print("\n==> 122A version")
+    BFS_122A_Version(g, start)

@@ -3,23 +3,23 @@ from graph_helpers import WeightedGraph, Vertex
 from math import inf
 
 
-def FloydWarshall(G: WeightedGraph) -> dict[Vertex, dict[Vertex, int]]:
+def floydWarshall(G: WeightedGraph) -> dict[Vertex, dict[Vertex, int]]:
     dist = {v: {u: 0 for u in G.keys()} for v in G.keys()}
 
+    # This is just filling in the base distances
     for u in G.keys():
         for v in G.keys():
             if u == v:
                 dist[u][v] = 0
                 continue
-            '''
+            """
             I know the filter thing looks kinda weird
             all it does is search through the adjacency list of u, finds v, take the weight
-            first [0] is guaranteed (weight, v) because there are no duplicates,
-            second [0] returns weight from the tuple
-            '''
-            uv_connected = len(list(filter(lambda item: item[1] == v,
-                                           G[u]))) != 0
-            if uv_connected:
+            - first [0] is guaranteed to be (weight, v) because there are no duplicates,
+            - second [0] returns weight from the tuple
+            """
+            uvIsConnected = len(list(filter(lambda item: item[1] == v, G[u]))) != 0
+            if uvIsConnected:
                 weight = list(filter(lambda item: item[1] == v, G[u]))[0][0]
                 dist[u][v] = weight
             else:
@@ -36,9 +36,9 @@ def FloydWarshall(G: WeightedGraph) -> dict[Vertex, dict[Vertex, int]]:
     return dist
 
 
-if __name__ == '__main__':
-    dist = FloydWarshall(W_DIRECTED_2)
-    '''
+if __name__ == "__main__":
+    dist = floydWarshall(W_DIRECTED_2)
+    """
     Pretty Printing 2D Dict Driver Code
 
     How to read the matrix:
@@ -48,13 +48,13 @@ if __name__ == '__main__':
         ...other rows
     Then on row 'S' at column 'A' is the length of the shorest path from S to A
     Here it's 8
-    '''
-    print('\n')
+    """
+    print("\n")
     for key in dist.keys():
-        print(f'\t{key}', end='')
-    print('\n')
+        print(f"\t{key}", end="")
+    print("\n")
     for idx, u in enumerate(dist.keys()):
-        print(f'{u}', end='')
+        print(f"{u}", end="")
         for v in dist.keys():
-            print(f'\t{dist[u][v]}', end='')
-        print('\n')
+            print(f"\t{dist[u][v]}", end="")
+        print("\n")

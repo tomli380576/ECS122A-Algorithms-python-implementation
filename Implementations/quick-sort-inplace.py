@@ -13,13 +13,12 @@ def partition_inplace(nums: list, left: int, right: int) -> int:
     return num_lt_pivot
 
 
-def quicksort_inplace(nums: list,
-                      left: int,
-                      right: int,
-                      showIntermediateSteps=False) -> list:
+def quicksort_inplace(
+    nums: list, left: int, right: int, showIntermediateSteps=False
+) -> list:
 
-    CYAN = '\033[96m'
-    END_COLOR = '\033[0m'  # for command line colors
+    CYAN = "\033[96m"
+    END_COLOR = "\033[0m"  # for command line colors
 
     if len(nums) == 1:
         return nums
@@ -27,7 +26,7 @@ def quicksort_inplace(nums: list,
         pivot = partition_inplace(nums, left, right)
         if showIntermediateSteps:
             print(
-                f'{nums[left:pivot - 1]}\b, {CYAN}{nums[pivot]}{END_COLOR}, {str(nums[pivot + 1: right])[1:]}'
+                f"{nums[left:pivot - 1]}\b, {CYAN}{nums[pivot]}{END_COLOR}, {str(nums[pivot + 1: right])[1:]}"
             )
 
         quicksort_inplace(nums, left, pivot - 1)
