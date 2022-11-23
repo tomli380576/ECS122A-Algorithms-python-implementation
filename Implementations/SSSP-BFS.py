@@ -8,12 +8,9 @@ from graph_helpers import (
     UnweightedGraph,
 )
 
-"""
-Notice that @param G is unweighted
-"""
 
-
-def BFS_SSSP(G: UnweightedGraph, start: Vertex):
+def bfsSSSP(G: UnweightedGraph, start: Vertex):
+    # Notice that @param G is unweighted
     dist, prev = InitializeSSSP(G, start)
     queue: Queue[Vertex] = Queue()
     queue.put(start)
@@ -21,14 +18,10 @@ def BFS_SSSP(G: UnweightedGraph, start: Vertex):
     while not queue.empty():
         u = queue.get()
         for adjacent_vertex in G[u]:
-            """
-            if the edge is tense
-            - weight is 1 for unweighted graphs
-            """
+            # if the edge is tense
+            # - weight is 1 for unweighted graphs
             if dist[u] + 1 < dist[adjacent_vertex]:
-                """
-                RelaxEdge()
-                """
+                # RelaxEdge()
                 dist[adjacent_vertex] = dist[u] + 1
                 prev[adjacent_vertex] = u
                 queue.put(adjacent_vertex)
@@ -38,7 +31,7 @@ def BFS_SSSP(G: UnweightedGraph, start: Vertex):
 
 if __name__ == "__main__":
     start: Vertex = "S"
-    dist, prev = BFS_SSSP(UNDIRECTED_3, start)
+    dist, prev = bfsSSSP(UNDIRECTED_3, start)
     print(f"dist:{dist}\nprev:{prev}\n======")
 
     for vertex in GetVertices(UNDIRECTED_3):

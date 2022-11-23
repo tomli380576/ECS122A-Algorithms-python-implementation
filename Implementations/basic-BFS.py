@@ -71,9 +71,7 @@ def BFS_WithToken(G: UnweightedGraph, start: Vertex):
         first_vertex = queue.get()
         if first_vertex == TOKEN:
             print(TOKEN)
-            """ 
-            If no more vertices, token is the only thing
-            """
+            # If no more vertices, token is the only thing
             if queue.empty():
                 break
             else:

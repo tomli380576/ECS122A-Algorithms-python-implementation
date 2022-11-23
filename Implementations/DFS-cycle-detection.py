@@ -34,23 +34,20 @@ def DFS_CycleDetection(G: UnweightedGraph):
 
 
 def DFS_visit(G: UnweightedGraph, curr: Vertex, time: list[int]):
-    """
-    Preprocessing
-    """
+    # Preprocessing
     STATUS[curr] = ACTIVE
     time[0] += 1
     DISCOVER_TIME[curr] = time[0]
     """
-    The definition of 'adjacent' could be differnt depending on the graph
+    The definition of 'adjacent' could be differnt depending on the graph,
+    here we are accessing G by the key curr to get the adjacency list
     some graphs don't explicitly state what adjacent vertices are
     """
     for adjacent_vertex in G[curr]:
         ClassifyEdge(curr, adjacent_vertex)
         if STATUS[adjacent_vertex] == NEW:
             DFS_visit(G, adjacent_vertex, time)
-    """
-    Postprocessing
-    """
+    # Postprocessing
     STATUS[curr] = FINISHED
     time[0] += 1
     FINISH_TIME[curr] = time[0]

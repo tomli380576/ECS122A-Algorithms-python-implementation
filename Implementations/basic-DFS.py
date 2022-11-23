@@ -55,6 +55,8 @@ if __name__ == "__main__":
         "E": ["A", "B", "C", "D"],
     }
 
-    DepthFirstSearch(UNDIRECTED_1)
-    print(DISCOVER_TIME)
-    print(FINISH_TIME)
+    DepthFirstSearch(exampleGraph)
+    print("Discover Time:")
+    print(dict(sorted(DISCOVER_TIME.items())))
+    print("Finish Time:")
+    print(dict(sorted(FINISH_TIME.items())))

@@ -52,8 +52,8 @@ def SubsetSum_All(
         """
         Always try including the choice,
             if it doesn't work,
-            we automatically falls back to the 'skip' case
-            by moving on to the next
+            we automatically fall back to the 'skip' case
+            by moving on to the next num
         The base case will do the check of whether it works or not
         """
         SubsetSum_All(

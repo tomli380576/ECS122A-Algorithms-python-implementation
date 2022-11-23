@@ -21,7 +21,7 @@ def LineCost(WORDS: list[str], LINE_WIDTH: int, i: int, j: int) -> Union[float, 
 
 def PrettyPrint(
     WORDS: list[str], LINE_WIDTH: int, last_word_idx: int
-) -> tuple[int, list]:
+) -> tuple[int, list[int]]:
     if last_word_idx == -1:
         return 0, []
 
@@ -36,20 +36,21 @@ def PrettyPrint(
             best_cost = break_cost
             best_breaks = breaks + [break_idx]
 
-    return best_cost, best_breaks  # type: ignore
+    return best_cost, best_breaks
 
 
 if __name__ == "__main__":
     text1 = "Geeks for Geeks presents word wrap problem"
     text2 = "aaa bb cc ddddd"
-    text3 = "cat is an animal"
+    # text3 = "cat is an animal"
+    text3 = "The cat ran very slowly to the school"
     text4 = "This is an example of text justification"
 
     words = text3.split(" ")
-    line_width = 6
+    line_width = 15
 
     cost, breaks = PrettyPrint(words, line_width, len(words) - 1)
-
+    print(breaks)
     print(f"Cost = {cost}, printing justified words:\n----")
 
     for i in breaks:

@@ -1,5 +1,4 @@
 from math import inf
-from typing import Union
 
 START_TIMES = {"A": 1, "B": 2, "C": 6, "D": 3}
 FINISH_TIMES = {"A": 5, "B": 4, "C": 8, "D": 9}
@@ -18,17 +17,15 @@ def sortDictByValue(x: dict[str, int]):
 def Scheduling_returnCount(
     start_times: dict[str, int],
     finish_times: dict[str, int],
-    prev_finish_time: Union[int, float],
+    prev_finish_time: int | float,
     remaining_classes: set[str],
 ) -> int:
     if len(remaining_classes) == 0:
         return 0
-
     best_len = 0  # represents the number of classes scheduled
     for curr_class in remaining_classes:
         # change >= to > depending on the problem
         if start_times[curr_class] >= prev_finish_time:
-
             # make choice
             take = (
                 Scheduling_returnCount(
@@ -45,16 +42,14 @@ def Scheduling_returnCount(
                 prev_finish_time,
                 remaining_classes - set(curr_class),
             )
-
             best_len = max(take, skip, best_len)
-
     return best_len
 
 
 def Scheduling_returnList(
     start_times: dict[str, int],
     finish_times: dict[str, int],
-    prev_finish_time: Union[int, float],
+    prev_finish_time: int | float,
     remaining_classes: set[str],
 ) -> list:
     if len(remaining_classes) == 0:

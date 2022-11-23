@@ -18,9 +18,7 @@ def randomLowerCaseStrings(
     ]
 
 
-def randomUpperCaseStrings(
-    num_strs: int = 15, min_str_len: int = 2, max_str_len: int = 20
-) -> list[str]:
+def randomUpperCaseStrings(num_strs=15, min_str_len=2, max_str_len=20) -> list[str]:
     return [
         "".join(
             random.choice(string.ascii_uppercase)
@@ -33,7 +31,6 @@ def randomUpperCaseStrings(
 def randomUpperAndLowerStrings(
     num_strs: int = 15, min_str_len: int = 2, max_str_len: int = 20
 ) -> list[str]:
-
     return [
         "".join(
             random.choice(string.ascii_letters)
