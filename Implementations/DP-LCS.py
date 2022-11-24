@@ -98,9 +98,9 @@ def recoverMatches(
     while curr in parentPointer:
         i, j = curr
         # curr will be all possible index combinations,
-        # so we need to check if curr is a match 
+        # so we need to check if curr is a match
         # or if curr is just an intermedidate step
-        if X[i] == Y[j]: 
+        if X[i] == Y[j]:
             matchIdxX.append(i)
             matchIdxY.append(j)
         curr = parentPointer[curr]
@@ -120,4 +120,4 @@ if __name__ == "__main__":
     length, parentPointers = LCS_DP_Length(X, Y)
     print("Recovering matches with parentPointer:")
     matchIdxX, matchIdxY = recoverMatches(X, Y, parentPointers, False)
-    print(f'Indices {matchIdxX} in X matches with indices {matchIdxY}')
+    print(f"Indices {matchIdxX} in X matches with indices {matchIdxY}")
