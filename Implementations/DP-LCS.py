@@ -3,7 +3,7 @@ from random_inputs import randomString
 from random import randint
 
 
-def LCS_DP_Length(X: str, Y: str) -> int:
+def LCS_DP_Length(X: str, Y: str) -> tuple[int, dict]:
     """
     To get a better understanding,
     comapre the backtracking version with this DP version
@@ -16,14 +16,20 @@ def LCS_DP_Length(X: str, Y: str) -> int:
     for i in range(len(X)):
         dp_table[i, len(Y)] = 0  # if y_idx == len(Y)
 
+    parent = {}  # stores the parent pointers to recover the actual matches
     for i in reversed(range(len(X))):
         for j in reversed(range(len(Y))):
             if X[i] == Y[j]:
                 dp_table[i, j] = dp_table[i + 1, j + 1] + 1
+                parent[i, j] = (i + 1, j + 1)  # record choice
+            elif dp_table[i + 1, j] > dp_table[i, j + 1]:
+                dp_table[i, j] = dp_table[i + 1, j]
+                parent[i, j] = (i + 1, j)
             else:
-                dp_table[i, j] = max(dp_table[i + 1, j], dp_table[i, j + 1])
+                dp_table[i, j] = dp_table[i, j + 1]
+                parent[i, j] = (i, j + 1)
 
-    return dp_table[0, 0]
+    return dp_table[0, 0], parent
 
 
 def LCS_DP_Flipped(X: str, Y: str) -> int:
@@ -83,9 +89,35 @@ def LCS_DP_Sequence(X: str, Y: str) -> str:
     return dp_table[0, 0]
 
 
+def recoverMatches(
+    X: str, Y: str, parentPointer: dict[tuple[int, int], list[int]], backwards: bool
+):
+    curr = (len(X), len(Y)) if backwards else (0, 0)
+    matchIdxX = []
+    matchIdxY = []
+    while curr in parentPointer:
+        i, j = curr
+        # curr will be all possible index combinations,
+        # so we need to check if curr is a match 
+        # or if curr is just an intermedidate step
+        if X[i] == Y[j]: 
+            matchIdxX.append(i)
+            matchIdxY.append(j)
+        curr = parentPointer[curr]
+    return matchIdxX, matchIdxY
+
+
 if __name__ == "__main__":
     X = randomString(length=randint(5, 50))
     Y = randomString(length=randint(5, 50))
+    # X = "DUCT"
+    # Y = "DUTC"
+
     print(
         f"X = {X} \nY = {Y}\nLCS is: '{LCS_DP_Sequence(X, Y)}' with length = {LCS_DP_Flipped(X, Y)}"
     )
+
+    length, parentPointers = LCS_DP_Length(X, Y)
+    print("Recovering matches with parentPointer:")
+    matchIdxX, matchIdxY = recoverMatches(X, Y, parentPointers, False)
+    print(f'Indices {matchIdxX} in X matches with indices {matchIdxY}')
