@@ -90,8 +90,11 @@ def LCS_DP_Sequence(X: str, Y: str) -> str:
 
 
 def recoverMatches(
-    X: str, Y: str, parentPointer: dict[tuple[int, int], list[int]], backwards: bool
-):
+    X: str,
+    Y: str,
+    parentPointer: dict[tuple[int, int], tuple[int, int]],
+    backwards: bool,
+) -> tuple[list[int], list[int]]:
     curr = (len(X), len(Y)) if backwards else (0, 0)
     matchIdxX = []
     matchIdxY = []
@@ -118,6 +121,18 @@ if __name__ == "__main__":
     )
 
     length, parentPointers = LCS_DP_Length(X, Y)
-    print("Recovering matches with parentPointer:")
     matchIdxX, matchIdxY = recoverMatches(X, Y, parentPointers, False)
-    print(f"Indices {matchIdxX} in X matches with indices {matchIdxY}")
+
+    print("==> Recovering matches with parentPointer")
+    print(f"Indices {matchIdxX} in X matches with indices {matchIdxY} in Y")
+    print(
+        f"Match index arrays should also have the same length: {len(matchIdxX)} = {len(matchIdxY)}"
+    )
+    print("==> Reconstructing LCS with the match indices")
+    matchCharsX: list[str] = []
+    matchCharsY: list[str] = []
+    for i, j in zip(matchIdxX, matchIdxY):
+        matchCharsX.append(X[i])
+        matchCharsY.append(Y[j])
+    print(f"The LCS string should also macth the output above")
+    print(f"{''.join(matchCharsX)} == {''.join(matchCharsY)}")

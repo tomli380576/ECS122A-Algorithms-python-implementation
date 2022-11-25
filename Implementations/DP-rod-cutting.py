@@ -59,7 +59,7 @@ def recoverCuts(parentPointers: dict[int, int]):
             break
         curr = remainingLength - cut
         remainingLength -= cut
-    print(f'Profit should match DP result: {sum(map(lambda i: PRICES[i-1], cuts))}')
+    print(f"Profit should match DP result: {sum(map(lambda i: PRICES[i-1], cuts))}")
     return cuts
 
 
